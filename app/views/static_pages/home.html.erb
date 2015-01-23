@@ -1,4 +1,39 @@
 <section class="large-11 columns">
-	<h1>Example Data</h1>
-	<p><%= @response_body || "No Data" %></p>
+	<h1>Dashboard</h1>
+	<div class="row large-11 columns">
+	<section class="people large-4 columns">
+		
+		<div class="pricing-table">
+		    <ul class="inline-list">
+		        <li class="bullet-item large-2 colums"><b>Nombre</b></li>
+		    </ul>
+
+			<ul>
+				<% @response_body.each do |group| %>
+				<li class="bullet-item large-12 colums">
+				<div class="left"><i class="fi-plus"></i><%= group['name'] %></div>	
+					<ul>
+						<% group['assets'].each do |family| %>
+						<li class="bullet-item "> <%= family["family"]['name'] %> </li>
+						<% end %>
+					</ul>
+				</li>
+				<% end %>
+			</ul>
+		</div>
+	</section>
+	<section class="graph large-8 columns">
+		Graph
+	</section>
+	</div>
+
+	<div class="row  large-11 columns">
+		<section class="map large-8 columns">
+			Map
+		</section>
+
+		<section class="alerts large-4 columns">
+			Alerts
+		</section>
+	</div>
 </section>

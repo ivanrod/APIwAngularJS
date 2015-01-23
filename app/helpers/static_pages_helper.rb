@@ -1,7 +1,9 @@
 module StaticPagesHelper
-	@base_url = "http://54.213.202.156:8080/middleware/rs/API/company/5/"
-	@username = "admin.ecare@altran.com"
-	@password = "Orange1"
+	domain_data = JSON.parse(IO.read(Rails.root.to_s+"/play_credentials.json"))
+	@base_url = domain_data['url']
+	@username = domain_data['Username']
+	@password = domain_data['Password']
+
 
 	#Parse JSON if it is longer than 2 octals
 	def self.parse_data(data)
@@ -21,10 +23,13 @@ module StaticPagesHelper
     request["Password"] = @password
     response = http.request request
 
-  	response_body = parse_data(response.body)			
+		puts @base_url+url	
+
+  	response_body = parse_data(response.body)	
+
 	end
 
-	def self.group_call
+	def self.groups_call
 		call("groups")
 	end
 
@@ -35,4 +40,10 @@ module StaticPagesHelper
 	def self.total_payloads_call
 		call("totalPayloads")
 	end
+
+	def self.payloads_call(asset_id, start_date, end_date)
+		call("asset/" + asset_id + '/payloads/' + start_date + "/" + end_date)
+	end
+	
+
 end
