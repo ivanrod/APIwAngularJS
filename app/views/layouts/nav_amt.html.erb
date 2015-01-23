@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "PlayByAltran" %></title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= stylesheet_link_tag    params[:controller] %>
+    <% if defined?(@specific_css) != nil %>
+      <% @specific_css.each do |specific| %>
+      <%= stylesheet_link_tag (specific || '') %>
+      <% end %>
+    <% end %>
+
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= javascript_include_tag "application", :defer => "defer" %>
+    <%= javascript_include_tag (params[:controller]), :defer => "defer" %>
+    <% if defined?(@specific_js) != nil %>
+      <% @specific_js.each do |specific| %>
+      <%= javascript_include_tag (specific || ''), :defer => "defer" %>
+      <% end %>
+    <% end %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <div class="off-canvas-wrap" data-offcanvas>
+
+  <!-- If the contents of the .inner-wrap isn't the main content of the page, use another approripate sectioning element instead -->
+      <div class="inner-wrap">
+        <a class="exit-off-canvas"></a>
+      
+        <nav class="tab-bar">
+        <div class="middle tab-bar-section"><%= link_to("Play", root_path) %></div>
+        <section class="right-small">
+          <a href="#" class="right-off-canvas-toggle">
+           <i class="fi-torso account-icon"></i>
+          </a>
+        </section>
+      </nav>
+      
+        <nav class="right-off-canvas-menu">
+          <ul class="off-canvas-list">
+            <li><label for="">Usuario</label></li>
+            <li><%#= image_tag(current_user.avatar.url || 'paco_fiestas.png', size: "200", class: "large-12") %></li>
+            <li><%#= link_to("Perfil", myProfile_path) %></li>
+            <li><%#= link_to("Mis cursos", my_courses_path) %></li>
+            <li><%#= link_to("Salir", destroy_user_session_path, :class => "button radius", method: 'delete') %></li>
+            <li><label for="">Estadísticas</label></li>
+            <li><a href="#">Mis estadísticas</a></li>
+          </ul>
+        </nav>
+        
+        <nav class="icon-bar large-vertical five-up large-1 columns" role="navigation">
+<!--           <%#= link_to dashboard_path, :class => "item" do %>
+          <i class="fi-home"></i>
+            <label>Dashboard</label>
+          <%# end %>  -->      
+
+          <a class="item">
+            <i class="fi-info"></i>
+            <label>Info</label>
+          </a>
+
+        </nav>
+
+        <%= yield %>
+
+        </div>
+      </div>
+    
+  </body>
+</html>
