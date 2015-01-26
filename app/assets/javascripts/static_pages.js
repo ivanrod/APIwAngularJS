@@ -5,8 +5,9 @@
 // Declare app level module which depends on views, and components
 var myApp = angular.module('play', ['chart.js']);
 
-myApp.controller('dashboardCtrl', ['$scope', function($scope) {
+myApp.controller('dashboardCtrl', ['$scope', 'filterFilter', function($scope, filterFilter) {
   $scope.response = gon.response;
+  $scope.people = "";
 
   $scope.labels = ["25 Enero", "26 Enero", "26 Enero", "26 Enero", "26 Enero", "26 Enero", "26 Enero"];
   $scope.series = ['Elder_001', "e"];
@@ -17,6 +18,24 @@ myApp.controller('dashboardCtrl', ['$scope', function($scope) {
   $scope.onClick = function (points, evt) {
     console.log(points, evt);
   };
+
+  
+  $scope.chart = {
+    data: function(){
+
+      },
+    labels: function(){
+
+      },
+    series: function(){
+        $scope.filteredArray = filterFilter($scope.response, $scope.people);
+        var namesArray = [];
+        for (var i in $scope.filteredArray){
+          namesArray.push($scope.filteredArray[i].name);
+        }
+        return namesArray;
+      }
+  }
 
 
 }]);

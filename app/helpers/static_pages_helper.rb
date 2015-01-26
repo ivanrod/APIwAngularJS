@@ -27,6 +27,26 @@ module StaticPagesHelper
 
 	end
 
+	def self.families_call
+		call("families")
+	end
+
+	def self.family_call(family_name)
+		call("family/" + family_name)
+	end
+
+	def self.family_assets_call(family_name)
+		call("family/" + family_name + "/assets")
+	end
+
+	def self.family_payloads_call(family_name)
+		call("family/" + family_name + "/payloads")
+	end
+
+	def self.family_rules_call(family_name)
+		call("family/" + family_name + "/rules")
+	end
+
 	def self.groups_call
 		call("groups")
 	end
@@ -35,13 +55,12 @@ module StaticPagesHelper
 		call("assets")
 	end
 
+	def self.asset_payloads_call(asset_id, start_date, end_date)
+		call("asset/" + asset_id + '/payloads/' + start_date + "/" + end_date)
+	end
+
 	def self.total_payloads_call
 		call("totalPayloads")
 	end
-
-	def self.payloads_call(asset_id, start_date, end_date)
-		call("asset/" + asset_id + '/payloads/' + start_date + "/" + end_date)
-	end
 	
-
 end

@@ -20,6 +20,7 @@
 	</section>
 	<section class="chart large-8 columns">
 		{{people}}
+		<p ng-bind="chart.series()[0]"></p>
 		<canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" click="onClick" height="100">
 </canvas>  
 	</section>
