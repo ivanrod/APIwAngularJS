@@ -7,7 +7,13 @@ gem 'rails', '4.1.8'
 #gem 'sprockets_better_errors'
 
 # Jquery-ui
-gem 'jquery-ui-rails'
+#gem 'jquery-ui-rails'
+
+# Gon --> include ruby variables in js
+gem 'gon'
+
+# Angular JS rails
+gem 'angularjs-rails'
 
 # Paperclip
 gem "paperclip", "~> 4.2"

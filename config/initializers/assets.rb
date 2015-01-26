@@ -10,3 +10,4 @@ Rails.application.config.assets.precompile += %w( static_pages.css )
 
 Rails.application.config.assets.precompile += %w( vendor/modernizr.js )
 Rails.application.config.assets.precompile += %w( static_pages.js )
+Rails.application.config.assets.precompile += %w( Chart.min.js )

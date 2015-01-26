@@ -23,8 +23,6 @@ module StaticPagesHelper
     request["Password"] = @password
     response = http.request request
 
-		puts @base_url+url	
-
   	response_body = parse_data(response.body)	
 
 	end

@@ -1,29 +1,27 @@
-<section class="large-11 columns">
+<section class="large-11 columns" ng-controller="dashboardCtrl">
 	<h1>Dashboard</h1>
 	<div class="row large-11 columns">
 	<section class="people large-4 columns">
 		
 		<div class="pricing-table">
-		    <ul class="inline-list">
-		        <li class="bullet-item large-2 colums"><b>Nombre</b></li>
-		    </ul>
+			<input type="search" ng-model="people" placeholder="Filtrar por nombre..." />
 
 			<ul>
-				<% @response_body.each do |group| %>
-				<li class="bullet-item large-12 colums">
-				<div class="left"><i class="fi-plus"></i><%= group['name'] %></div>	
-					<ul>
-						<% group['assets'].each do |family| %>
-						<li class="bullet-item "> <%= family["family"]['name'] %> </li>
-						<% end %>
+				
+				<li class="bullet-item large-12 colums item animate-repeat"  ng-repeat="group in response | filter:{name: people}">
+				<div ng-click="showDetails = ! showDetails" class="left"><i class="fi-minus" ng-show="showDetails"></i><i class="fi-plus" ng-hide="showDetails"></i>{{group.name}}</div>	
+					<ul ng-show="showDetails">
+						<li class="bullet-item item" ng-repeat="family in group.assets">{{family.family.name}}  </li>	
 					</ul>
 				</li>
-				<% end %>
+				
 			</ul>
 		</div>
 	</section>
-	<section class="graph large-8 columns">
-		Graph
+	<section class="chart large-8 columns">
+		{{people}}
+		<canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" click="onClick" height="100">
+</canvas>  
 	</section>
 	</div>
 

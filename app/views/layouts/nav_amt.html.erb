@@ -14,18 +14,20 @@
       <% end %>
     <% end %>
 
+    <%= include_gon %>
     <%= javascript_include_tag "vendor/modernizr" %>
-    <%= javascript_include_tag "application", :defer => "defer" %>
-    <%= javascript_include_tag (params[:controller]), :defer => "defer" %>
     <% if defined?(@specific_js) != nil %>
       <% @specific_js.each do |specific| %>
       <%= javascript_include_tag (specific || ''), :defer => "defer" %>
       <% end %>
     <% end %>
+    <%= javascript_include_tag "application", :defer => "defer" %>
+    <%= javascript_include_tag (params[:controller]), :defer => "defer" %>
+    
     <%= csrf_meta_tags %>
   </head>
 
-  <body>
+  <body ng-app="play">
     <div class="off-canvas-wrap" data-offcanvas>
 
       <div class="inner-wrap">
