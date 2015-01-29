@@ -9,7 +9,8 @@
 			<ul>
 				
 				<li class="bullet-item large-12 colums item animate-repeat"  ng-repeat="group in response | filter:{name: people}">
-				<div ng-click="showDetails = ! showDetails" class="left"><i class="fi-minus" ng-show="showDetails"></i><i class="fi-plus" ng-hide="showDetails"></i>{{group.name}}</div>	
+				<div ng-click="showDetails = ! showDetails" class="left"><i class="fi-minus" ng-show="showDetails"></i><i class="fi-plus" ng-hide="showDetails" ></i>{{group.name}}</div>
+					
 					<ul ng-show="showDetails">
 						<li class="bullet-item item" ng-repeat="family in group.assets">{{family.family.name}}  </li>	
 					</ul>
@@ -19,10 +20,7 @@
 		</div>
 	</section>
 	<section class="chart large-8 columns">
-		{{people}}
-		<p ng-bind="chart.series()[0]"></p>
-		<canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" click="onClick" height="100">
-</canvas>  
+		<canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" click="onClick" height="75"></canvas>  
 	</section>
 	</div>
 

@@ -8,7 +8,9 @@ class StaticPagesController < ApplicationController
   	end_date = Time.parse("2015-01-31 00:00").to_i*1000
 
   	#@response_body = StaticPagesHelper::asset_payloads_call("Pulsera_001", start_date.to_s, end_date.to_s)
-  	gon.response = StaticPagesHelper::groups_call
+  	gon.groups = StaticPagesHelper::groups_call
+  	gon.alerts_last_7days=StaticPagesHelper::get_groups_alerts_last_7days(gon.groups)
+
   end
 
 end
