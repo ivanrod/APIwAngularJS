@@ -8,42 +8,38 @@ var myApp = angular.module('play', ['chart.js']);
 myApp.controller('dashboardCtrl', ['$scope', 'filterFilter', function($scope, filterFilter) {
   $scope.response = gon.groups;
   $scope.people = "";
-  $scope.chartData = allUsersAlerts(gon.groups, gon.alerts_last_7days)
+  $scope.chartData = allUsersAlerts(gon.groups, gon.alerts_last_7days);
 
   $scope.labels = last7daysArray();
   $scope.series = $scope.chartData.names;
   $scope.data = $scope.chartData.alerts;
 
   $scope.$watch('people', function(newValue, oldValue) {
-  $scope.series = [$scope.people]
-});
+    var filteredData = filterFilter($scope.response, $scope.people)
+    var newChartData = allUsersAlerts(filteredData, gon.alerts_last_7days);
+    
+    if (newChartData != $scope.chartData){
+      $scope.chartData = newChartData;
+      $scope.data = $scope.chartData.alerts;
+      $scope.series = $scope.chartData.names;
+      if ($scope.data[0] == undefined){
+        $scope.data=[[0,0,0,0,0,0,0]]; 
+        $scope.series = ["No hay usuarios que coincidan con la búsqueda"];
+      }
+    }
+  });
+ /* $scope.$watch('data', function(newNames, oldNames) {
+    $scope.data = $scope.chartData.alerts;
+    $scope.series = $scope.chartData.names;
+ [[0,0,0,0,0,0,0]]
+    console.log($scope.data)
 
-$scope.m = function(){$scope.series=[$scope.people];};
-  
+  });*/
+
   
   $scope.onClick = function (points, evt) {
     console.log(points, evt);
   };
-
-  
-  $scope.otra = $scope.line
-  
-  $scope.chart = {
-    data: function(){
-
-      },
-    labels: function(){
-
-      },
-    series: function(){
-        $scope.filteredArray = filterFilter($scope.response, $scope.people);
-        var namesArray = [];
-        for (var i in $scope.filteredArray){
-          namesArray.push($scope.filteredArray[i].name);
-        }
-        return namesArray;
-      }
-  }
 
 }]);
 
@@ -88,5 +84,6 @@ var allUsersAlerts = function(groups, alerts){
     chartData.names.push(groups[i].name)
     chartData.alerts.push(lastAlertsFindUser(groups[i].name, alerts))
   }
+
   return chartData;
 };
