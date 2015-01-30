@@ -26,6 +26,25 @@ module StaticPagesHelper
 		return {"id"=> asset_id, "data"=>{"location"=> parse_location(lat,lon), "distanceToHome"=>distance}}
 	end
 
+	#Random functions
+	#The greater the distance_number, the greater distance
+	def self.random_location(start_location_lat, start_location_lon, distance_number)
+		new_location = {}
+		new_location["lat"] = start_location_lat + rand(distance_number)/30000.0
+		new_location["lon"] = start_location_lon + rand(distance_number)/30000.0
+		new_location["distance"] = random_distance(start_location_lat, new_location["lat"], start_location_lon, new_location["lon"])
+	
+		return new_location
+	end
+
+	def self.random_distance(old_location_lat, new_location_lat, old_location_lon, new_location_lon)
+		old_location = GeoUtm::LatLon.new old_location_lat, old_location_lon
+		new_location = GeoUtm::LatLon.new new_location_lat, new_location_lon
+		old_location = old_location.to_utm
+		new_location = new_location.to_utm 
+		distance = Math::sqrt((new_location.e-old_location.e)**2 + (new_location.n-old_location.n)**2)
+	end
+
 	#Post to Play server
 	#x=StaticPagesHelper::parse_payload_location("Pulsera_001",41.358168,2.102503)
 	def self.post(data)
@@ -37,6 +56,21 @@ module StaticPagesHelper
 		req["Password"] = @password
 		req.body = data.to_json
 		res = https.request(req)
+	end
+
+	def self.send_location_payloads_interval(asset_id, interval)
+		timers = Timers::Group.new
+		every_interval_seconds = timers.every(interval) { 
+			random_loc = random_location(41.358168, 2.102503, 10)
+			new_post = post(parse_payload_location(asset_id, 
+				random_loc["lat"], 
+				random_loc["lon"], 
+				random_loc["distance"])) 
+			puts "Enviando payload..." 
+			puts new_post
+		}
+		loop { timers.wait }
+
 	end
 
 	#Calls to Play server
@@ -111,8 +145,9 @@ module StaticPagesHelper
 		n = 0
 		groups.each do |group|
 			users.push({"userId" => group["name"]})
+			users[n]["alerts"] = []
 			group["assets"].each do |asset|
-				users[n]["alerts"]=asset_alerts_last_7days(asset["assetId"])
+				users[n]["alerts"].concat asset_alerts_last_7days(asset["assetId"])
 			end
 			n =+ 1
 		end

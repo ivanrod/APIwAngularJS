@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="">
+    <meta name="author" content="Ivan Rodriguez">
 
     <title><%= content_for?(:title) ? yield(:title) : "PlayByAltran" %></title>
 
@@ -28,49 +30,31 @@
   </head>
 
   <body ng-app="play">
-    <div class="off-canvas-wrap" data-offcanvas>
-
-      <div class="inner-wrap">
-        <a class="exit-off-canvas"></a>
       
-        <nav class="tab-bar">
-        <div class="middle tab-bar-section"><%= link_to("Smart Care", root_path) %></div>
-        <section class="right-small">
-          <a href="#" class="right-off-canvas-toggle">
-           <i class="fi-torso account-icon"></i>
-          </a>
-        </section>
-      </nav>
-      
-        <nav class="right-off-canvas-menu">
-          <ul class="off-canvas-list">
-            <li><label for="">Usuario</label></li>
-            <li><%#= image_tag(current_user.avatar.url || 'paco_fiestas.png', size: "200", class: "large-12") %></li>
-            <li><%#= link_to("Perfil", myProfile_path) %></li>
-            <li><%#= link_to("Mis cursos", my_courses_path) %></li>
-            <li><%#= link_to("Salir", destroy_user_session_path, :class => "button radius", method: 'delete') %></li>
-            <li><label for="">Estadísticas</label></li>
-            <li><a href="#">Mis estadísticas</a></li>
-          </ul>
-        </nav>
-        
-        <nav class="icon-bar large-vertical five-up large-1 columns" role="navigation">
+    <nav class="tab-bar">
+      <div class="middle tab-bar-section"><%= link_to("Smart Care", root_path) %></div>
+      <section class="right-small">
+        <a href="#" class="right-off-canvas-toggle">
+         <i class="fi-torso account-icon"></i>
+        </a>
+      </section>
+    </nav>
+   
+    <nav class="icon-bar large-vertical six-up left" role="navigation">
 <!--           <%#= link_to dashboard_path, :class => "item" do %>
-          <i class="fi-home"></i>
-            <label>Dashboard</label>
-          <%# end %>  -->      
+      <i class="fi-home"></i>
+        <label>Dashboard</label>
+      <%# end %>      -->      
 
-          <a class="item">
-            <i class="fi-info"></i>
-            <label>Info</label>
-          </a>
+      <a class="item">
+        <i class="fi-info"></i>
+        <label>Dashboard</label>
+      </a>
 
-        </nav>
+    </nav>
 
-        <%= yield %>
+    <%= yield %>
 
-        </div>
-      </div>
     
   </body>
 </html>

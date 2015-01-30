@@ -28,13 +28,6 @@ myApp.controller('dashboardCtrl', ['$scope', 'filterFilter', function($scope, fi
       }
     }
   });
- /* $scope.$watch('data', function(newNames, oldNames) {
-    $scope.data = $scope.chartData.alerts;
-    $scope.series = $scope.chartData.names;
- [[0,0,0,0,0,0,0]]
-    console.log($scope.data)
-
-  });*/
 
   
   $scope.onClick = function (points, evt) {
@@ -43,6 +36,8 @@ myApp.controller('dashboardCtrl', ['$scope', 'filterFilter', function($scope, fi
 
 }]);
 
+
+/* Helper Functions */
 var last7daysArray = function(){
   var last7daysArray = [];
   var day = new Date(Date.now())
