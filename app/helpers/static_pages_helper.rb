@@ -118,6 +118,10 @@ module StaticPagesHelper
 		call("asset/" + asset_id + '/payloads/' + start_date + "/" + end_date)
 	end
 
+	def self.asset_latest_payloads_call(asset_id, payloads_num)
+		call("asset/" + asset_id + "/latestPayloads/" + payloads_num.to_s)
+	end
+
 	def self.total_payloads_call
 		call("totalPayloads")
 	end
@@ -153,6 +157,21 @@ module StaticPagesHelper
 		end
 
 		return users
+	end
+
+	def self.get_groups_latest_payloads(groups, payloads_num)
+		users = []
+		n = 0
+		groups.each do |group|
+			users.push({"userId" => group["name"]})
+			users[n]["payloads"] = []
+			group["assets"].each do |asset|
+				users[n]["payloads"].concat asset_latest_payloads_call(asset["assetId"], payloads_num)
+			end
+			n =+ 1
+		end
+
+		return users		
 	end
 
 

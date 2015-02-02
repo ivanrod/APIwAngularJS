@@ -9,8 +9,8 @@ class StaticPagesController < ApplicationController
 
   	#@response_body = StaticPagesHelper::asset_payloads_call("Pulsera_001", start_date.to_s, end_date.to_s)
   	gon.groups = StaticPagesHelper::groups_call
-  	gon.alerts_last_7days=StaticPagesHelper::get_groups_alerts_last_7days(gon.groups)
-
+  	gon.alerts_last_7days = StaticPagesHelper::get_groups_alerts_last_7days(gon.groups)
+    gon.assets_latest_payload = StaticPagesHelper::get_groups_latest_payloads(gon.groups, 1)
   end
 
 end

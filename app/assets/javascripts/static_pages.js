@@ -15,10 +15,11 @@ myApp.config(function(uiGmapGoogleMapApiProvider) {
 })
 
 //
-myApp.service('sharedData', function ($rootScope) {
+myApp.service('sharedData', function ($rootScope, filterFilter) {
   var response = gon.groups;
   var people = "";
   var chartData = allUsersAlerts(gon.groups, gon.alerts_last_7days);
+          var filteredData = filterFilter(response, people)
         return {
             getResponse:function () {
               return response;
@@ -31,13 +32,17 @@ myApp.service('sharedData', function ($rootScope) {
             },
             setPeople: function(value){
               people = value;
+              filteredData = filterFilter(response, people)
               $rootScope.$broadcast("people");
+            },
+            getFilteredData: function(){
+              return filteredData;
             }
         }
       });
 
 
-myApp.controller('dashboardCtrl', ['$scope', 'filterFilter', 'sharedData', function($scope, filterFilter, sharedData) {
+myApp.controller('dashboardCtrl', ['$scope', 'sharedData', function($scope, sharedData) {
   $scope.response = sharedData.getResponse();
   $scope.people = sharedData.getPeople();
   $scope.chartData = allUsersAlerts(gon.groups, gon.alerts_last_7days);
@@ -48,7 +53,11 @@ myApp.controller('dashboardCtrl', ['$scope', 'filterFilter', 'sharedData', funct
 
   $scope.$watch('people', function(newValue, oldValue) {
     sharedData.setPeople($scope.people)
-    var filteredData = filterFilter($scope.response, $scope.people)
+  })
+
+  $scope.$on('people', function(newValue, oldValue) {
+    
+    var filteredData = sharedData.getFilteredData();
     var newChartData = allUsersAlerts(filteredData, gon.alerts_last_7days);
     
     if (newChartData != $scope.chartData){
@@ -70,26 +79,23 @@ myApp.controller('dashboardCtrl', ['$scope', 'filterFilter', 'sharedData', funct
 }]);
 
 myApp.controller("mapsCtrl", function($scope, sharedData, uiGmapGoogleMapApi) {
-    // Do stuff with your $scope.
-    // Note: Some of the directives require at least something to be defined originally!
-    // e.g. $scope.markers = []
-    
-    // uiGmapGoogleMapApi is a promise.
-    // The "then" callback function provides the google.maps object.
-    uiGmapGoogleMapApi.then(function(maps) {
+   uiGmapGoogleMapApi.then(function(maps) {
+      $scope.mapData = gon.assets_latest_payload;
       $scope.map = { 
         center: { latitude: 41.35890136704563, longitude:  2.0997726917266846 }, 
         zoom: 13 ,
       };
-      
+      $scope.circles = getAllCirclesMapData(sharedData.getResponse())
+      console.log($scope.circles)
       $scope.$on( 'people', function() {
         $scope.people = sharedData.getPeople();
+        $scope.circles = getAllCirclesMapData(sharedData.getFilteredData())
       });
     });
 });
 
 
-/* Helper Functions */
+/* Dashboard Helper Functions */
 var last7daysArray = function(){
   var last7daysArray = [];
   var day = new Date(Date.now())
@@ -136,3 +142,54 @@ var allUsersAlerts = function(groups, alerts){
 
   return chartData;
 };
+
+/* Google Maps Helper functions */
+var formatPayloadMapData = function(alert){
+  
+} 
+
+var parsePosition = function(assetPosition){
+  var position = assetPosition.split(', ');
+  var positionObject = {
+    latitude: parseFloat(position[0]),
+    longitude: parseFloat(position[1])
+  }
+  return positionObject;
+}
+
+var parseCircleMapData = function(group, circleId){
+  var circle = {
+    id: circleId,
+    center: {},
+    radius: 180,
+    stroke: {
+      color: '#08B21F',
+      weight: 2,
+      opacity: 1      
+    },
+    fill:{
+        color: '#08B21F',
+        opacity: 0.5
+    },
+    visible: true
+  };
+
+  for (var i = 0; i < group.assets.length; i++){
+    if (group.assets[i].location != ""){
+      
+      var parsedPosition = parsePosition(group.assets[i].location);
+      circle.center.latitude = parsedPosition.latitude;
+      circle.center.longitude = parsedPosition.longitude;
+    }
+  }
+  return circle;
+}
+
+var getAllCirclesMapData = function(groups){
+  var circles = [];
+  for (var i=0; i < groups.length; i++){
+    circles.push(parseCircleMapData(groups[i], i+1))
+  }
+  return circles;
+}
+
