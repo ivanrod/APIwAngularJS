@@ -13,6 +13,8 @@
 
 //= require angular
 //= require moment.min
+//= require lodash.min
+//= require angular-google-maps.min
 //= require angular-animate
 //= require angular-chart
 //= require jquery

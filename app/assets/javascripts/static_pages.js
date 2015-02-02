@@ -3,11 +3,43 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var myApp = angular.module('play', ['chart.js']);
+var myApp = angular.module('play', ['chart.js', 'uiGmapgoogle-maps']);
 
-myApp.controller('dashboardCtrl', ['$scope', 'filterFilter', function($scope, filterFilter) {
-  $scope.response = gon.groups;
-  $scope.people = "";
+//Config to load Google maps SDK
+myApp.config(function(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+        //    key: 'your api key',
+        v: '3.17',
+        libraries: 'weather,geometry,visualization'
+    });
+})
+
+//
+myApp.service('sharedData', function ($rootScope) {
+  var response = gon.groups;
+  var people = "";
+  var chartData = allUsersAlerts(gon.groups, gon.alerts_last_7days);
+        return {
+            getResponse:function () {
+              return response;
+            },
+            setResponse:function (obj) {
+              response = obj;
+            },
+            getPeople:function () {
+              return people;
+            },
+            setPeople: function(value){
+              people = value;
+              $rootScope.$broadcast("people");
+            }
+        }
+      });
+
+
+myApp.controller('dashboardCtrl', ['$scope', 'filterFilter', 'sharedData', function($scope, filterFilter, sharedData) {
+  $scope.response = sharedData.getResponse();
+  $scope.people = sharedData.getPeople();
   $scope.chartData = allUsersAlerts(gon.groups, gon.alerts_last_7days);
 
   $scope.labels = last7daysArray();
@@ -15,6 +47,7 @@ myApp.controller('dashboardCtrl', ['$scope', 'filterFilter', function($scope, fi
   $scope.data = $scope.chartData.alerts;
 
   $scope.$watch('people', function(newValue, oldValue) {
+    sharedData.setPeople($scope.people)
     var filteredData = filterFilter($scope.response, $scope.people)
     var newChartData = allUsersAlerts(filteredData, gon.alerts_last_7days);
     
@@ -35,6 +68,25 @@ myApp.controller('dashboardCtrl', ['$scope', 'filterFilter', function($scope, fi
   };
 
 }]);
+
+myApp.controller("mapsCtrl", function($scope, sharedData, uiGmapGoogleMapApi) {
+    // Do stuff with your $scope.
+    // Note: Some of the directives require at least something to be defined originally!
+    // e.g. $scope.markers = []
+    
+    // uiGmapGoogleMapApi is a promise.
+    // The "then" callback function provides the google.maps object.
+    uiGmapGoogleMapApi.then(function(maps) {
+      $scope.map = { 
+        center: { latitude: 41.35890136704563, longitude:  2.0997726917266846 }, 
+        zoom: 13 ,
+      };
+      
+      $scope.$on( 'people', function() {
+        $scope.people = sharedData.getPeople();
+      });
+    });
+});
 
 
 /* Helper Functions */
