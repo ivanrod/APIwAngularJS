@@ -53,11 +53,13 @@ var last7daysArray = function(){
 var lastAlertsUser = function(user){
   //7 zeros array
   var lastAlerts = Array.apply(null, new Array(7)).map(Number.prototype.valueOf,0);
-  var today = new Date(Date.now())
+  var today = new moment().set({'seconds': 59, 'minutes': 59, 'hour': 23})
   for (var i = 0; i < user['alerts'].length; i++){
-    var day = new Date(user['alerts'][i]['fecha'])
-    lastAlerts[today.getUTCDate()-day.getUTCDate()] += 1;
+    var day = new moment(user['alerts'][i]['fecha'])
+    lastAlerts[moment.duration(today - day).days()] += 1;
+    //console.log(moment.duration(today - day).days())
   };
+
   return lastAlerts.reverse();
 };
 

@@ -12,6 +12,7 @@
 //
 
 //= require angular
+//= require moment.min
 //= require angular-animate
 //= require angular-chart
 //= require jquery
