@@ -43,6 +43,7 @@ myApp.service('sharedData', function ($rootScope, filterFilter) {
 
 
 myApp.controller('dashboardCtrl', ['$scope', 'sharedData', function($scope, sharedData) {
+  Chart.defaults.global.colours[0].strokeColor = "rbga(95, 174, 87, 0.2)" 
   $scope.response = sharedData.getResponse();
   $scope.people = sharedData.getPeople();
   $scope.chartData = allUsersAlerts(gon.groups, gon.alerts_last_7days);
@@ -64,6 +65,7 @@ myApp.controller('dashboardCtrl', ['$scope', 'sharedData', function($scope, shar
       $scope.chartData = newChartData;
       $scope.data = $scope.chartData.alerts;
       $scope.series = $scope.chartData.names;
+      
       if ($scope.data[0] == undefined){
         $scope.data=[[0,0,0,0,0,0,0]]; 
         $scope.series = ["No hay usuarios que coincidan con la búsqueda"];
@@ -86,7 +88,7 @@ myApp.controller("mapsCtrl", function($scope, sharedData, uiGmapGoogleMapApi) {
         zoom: 13 ,
       };
       $scope.circles = getAllCirclesMapData(sharedData.getResponse())
-      console.log($scope.circles)
+      
       $scope.$on( 'people', function() {
         $scope.people = sharedData.getPeople();
         $scope.circles = getAllCirclesMapData(sharedData.getFilteredData())
@@ -94,6 +96,21 @@ myApp.controller("mapsCtrl", function($scope, sharedData, uiGmapGoogleMapApi) {
     });
 });
 
+/*General Helper functions*/
+//Function to convert hex format to a rgb color
+function rgb2hex(rgb){
+ rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+ return (rgb && rgb.length === 4) ? "#" +
+  ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+  ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+  ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
+}
+//Funtion to change users colors
+var changeUsersColors = function(colors){
+  for (var i = 0; i < colors.length; i++ ){
+    $( ".groupName:nth-child(" + i + ")" ).css( "background", rgb2hex(colors[i].fillColor) );
+  }
+}
 
 /* Dashboard Helper Functions */
 var last7daysArray = function(){
@@ -160,6 +177,8 @@ var parsePosition = function(assetPosition){
 var parseCircleMapData = function(group, circleId){
   var circle = {
     id: circleId,
+    labelContent: "$425K",
+    labelStyle: {opacity: 0.75},
     center: {},
     radius: 180,
     stroke: {
@@ -180,6 +199,7 @@ var parseCircleMapData = function(group, circleId){
       var parsedPosition = parsePosition(group.assets[i].location);
       circle.center.latitude = parsedPosition.latitude;
       circle.center.longitude = parsedPosition.longitude;
+      
     }
   }
   return circle;
@@ -189,7 +209,12 @@ var getAllCirclesMapData = function(groups){
   var circles = [];
   for (var i=0; i < groups.length; i++){
     circles.push(parseCircleMapData(groups[i], i+1))
+    circles[i].fill.color = rgb2hex(Chart.defaults.global.colours[i].fillColor);
+    //circles[i].stroke.color = rgb2hex(Chart.defaults.global.colours[i].fillColor);
+    //document.getElementsByClassName('groupName')[i].style.color = rgb2hex(Chart.defaults.global.colours[i].strokeColor);
+    
   }
+  changeUsersColors(Chart.defaults.global.colours);
   return circles;
 }
 

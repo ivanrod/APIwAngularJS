@@ -1,8 +1,12 @@
 // Place all the styles related to the StaticPages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com
+body{
+	background: image-url("fondo.png");
+}
+
 div.pricing-table{
-	height: 200px;
+	height: 400px;
 	overflow-y: scroll;
 }
 
@@ -11,4 +15,10 @@ div.pricing-table{
 	
 }
 
-.angular-google-map-container { height: 400px; width:100%;}
+.angular-google-map-container { 
+	height: 400px; 
+	width:100%;
+	border: 10px solid #fff;
+}
+
+
