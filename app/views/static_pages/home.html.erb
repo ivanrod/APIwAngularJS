@@ -10,7 +10,7 @@
 			<ul class="groupName">
 				
 				<li class="bullet-item large-12 colums item animate-repeat"  ng-repeat="group in response | filter:{name: people}">
-				<div ng-click="showDetails = ! showDetails" class="left"><i class="fi-minus" ng-show="showDetails"></i><i class="fi-plus" ng-hide="showDetails" ></i>{{group.name}}</div>
+				<div ng-click="showDetails = ! showDetails" class="left"><i class="fi-minus" ng-show="showDetails"></i><i class="fi-plus" ng-hide="showDetails" ></i>{{group.name}}</div><div class="circle right"></div>
 					
 					<ul ng-show="showDetails">
 						<li class="bullet-item item" ng-repeat="family in group.assets">{{family.family.name}}</li>	
