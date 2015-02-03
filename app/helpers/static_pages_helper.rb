@@ -76,6 +76,7 @@ module StaticPagesHelper
 	#Calls to Play server
 	def self.call(url)
     uri2= URI.parse(@base_url + url)
+    puts (@base_url + url)
     request = Net::HTTP::Get.new uri2
     http = Net::HTTP.new(uri2.host, uri2.port)
     request["Username"] = @username
