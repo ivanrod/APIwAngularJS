@@ -13,7 +13,7 @@
 				<div ng-click="showDetails = ! showDetails" class="left"><i class="fi-minus" ng-show="showDetails"></i><i class="fi-plus" ng-hide="showDetails" ></i>{{group.name}}</div><div class="circle right"></div>
 					
 					<ul ng-show="showDetails">
-						<li class="bullet-item item" ng-repeat="family in group.assets">{{family.family.name}}</li>	
+						<li class="bullet-item item" ng-repeat="family in group.assets">{{family.assetId}}</li>	
 					</ul>
 				</li>
 				
@@ -25,6 +25,7 @@
 		<ui-gmap-google-map center='map.center' class="large-12" zoom='map.zoom'>
 			<ui-gmap-circle ng-repeat="c in circles track by c.id" center="c.center" stroke="c.stroke" fill="c.fill" radius="c.radius"
               visible="c.visible" geodesic="c.geodesic" editable="c.editable" draggable="c.draggable" clickable="c.clickable"></ui-gmap-circle>
+              <ui-gmap-markers models="randomMarkers" coords="'self'"></ui-gmap-markers>
 		</ui-gmap-google-map>
 
 	</section>
@@ -34,7 +35,6 @@
 	<div class="large-12 columns">
 		<section class="chart large-8 columns" >
 			<h4>Nº de alertas por usuario</h4>
-			{{chart.data}}
 			<canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" click="onClick"></canvas>  
 		</section>
 

@@ -99,11 +99,14 @@ myApp.controller("mapsCtrl", function($scope, sharedData, uiGmapGoogleMapApi) {
         center: { latitude: 41.35890136704563, longitude:  2.0997726917266846 }, 
         zoom: 13 ,
       };
+      $scope.randomMarkers = getMarkersByUser($scope.mapData, Chart.defaults.global.colours, sharedData.getResponse())
       $scope.circles = getAllCirclesMapData(sharedData.getResponse())
-      
+      //console.log($scope.randomMarkers)
       $scope.$on( 'people', function() {
+        $scope.filteredData = sharedData.getFilteredData();
         $scope.people = sharedData.getPeople();
-        $scope.circles = getAllCirclesMapData(sharedData.getFilteredData())
+        $scope.circles = getAllCirclesMapData($scope.filteredData)
+        $scope.randomMarkers = getMarkersByUser($scope.mapData, Chart.defaults.global.colours, $scope.filteredData);
       });
     });
 });
@@ -184,9 +187,61 @@ var allUsersAlertsNum = function(groups, alerts){
 };
 
 /* Google Maps Helper functions */
-var formatPayloadMapData = function(alert){
-  
+var pinPoints = function(pinColor){
+    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor.slice(1,pinColor.length),
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0,0),
+        new google.maps.Point(10, 34));
+    var pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+        new google.maps.Size(40, 37),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(12, 35));
+
+    return [pinImage, pinShadow]
+}
+
+var formatPayloadMapMarker = function(markerId, payload, color, userId){
+  var markerPosition = parsePosition(payload.data.location)
+  var marker = {
+    id: markerId,
+    latitude: markerPosition.latitude,
+    longitude: markerPosition.longitude,
+    icon: pinPoints(color)[0].url,
+    title: userId,
+    options: {
+            visible: true
+          }
+  }
+  return marker;
 } 
+
+var getAllMarkers = function(payloads, colors){
+  var markers = [];
+  for (var i = 0; i < payloads.length; i++){
+    
+    if (payloads[i].payloads[0] != undefined){
+      markers.push(formatPayloadMapMarker(i+1, payloads[i].payloads[0], rgb2hex(colors[i].fillColor), payloads[i].userId))
+    }
+  }
+  return markers;
+}
+
+var getMarkersByUser = function(payloads,colors,groups){
+  var usersPayloads = [];
+  var users = [];
+  for (var i = 0; i < groups.length; i++){
+    users.push(groups[i].name);
+  }
+  for (var i = 0; i < payloads.length; i++){
+
+    if ($.inArray(payloads[i].userId, users) != -1){
+      console.log($.inArray(payloads[i].userId, users))
+      usersPayloads.push(payloads[i]);
+    }
+  }
+
+  return getAllMarkers(usersPayloads, colors)
+}
 
 var parsePosition = function(assetPosition){
   var position = assetPosition.split(', ');
@@ -200,10 +255,9 @@ var parsePosition = function(assetPosition){
 var parseCircleMapData = function(group, circleId){
   var circle = {
     id: circleId,
-    labelContent: "$425K",
     labelStyle: {opacity: 0.75},
     center: {},
-    radius: 180,
+    radius: 150,
     stroke: {
       color: '#08B21F',
       weight: 2,
@@ -240,6 +294,9 @@ var getAllCirclesMapData = function(groups){
   changeUsersColors(Chart.defaults.global.colours);
   return circles;
 }
+
+
+
 
 /* Ultimas alertas Helper functions */
 
