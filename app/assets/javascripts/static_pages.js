@@ -44,6 +44,10 @@ myApp.service('sharedData', function ($rootScope, filterFilter) {
 
 myApp.controller('dashboardCtrl', ['$scope', 'sharedData', function($scope, sharedData) {
   //Chart.defaults.global.colours[0].strokeColor = "rbga(95, 174, 87, 0.2)" 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 21d6cf8493a08cb42917eed8784015564c57342b
   $scope.response = sharedData.getResponse();
   $scope.people = sharedData.getPeople();
   $scope.chartData = allUsersAlerts(gon.groups, gon.alerts_last_7days);
@@ -54,6 +58,7 @@ myApp.controller('dashboardCtrl', ['$scope', 'sharedData', function($scope, shar
 
   $scope.$watch('people', function(newValue, oldValue) {
     sharedData.setPeople($scope.people)
+    
   })
 
   $scope.$on('people', function(newValue, oldValue) {
@@ -98,18 +103,27 @@ myApp.controller("mapsCtrl", function($scope, sharedData, uiGmapGoogleMapApi) {
 
 /*General Helper functions*/
 //Function to convert hex format to a rgb color
-function rgb2hex(rgb){
- rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
- return (rgb && rgb.length === 4) ? "#" +
-  ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
-  ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
-  ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
-}
+var rgb2hex = function (rgb) {
+    rgb = Array.apply(null, arguments).join().match(/\d+/g);
+    rgb = ((rgb[0] << 16) + (rgb[1] << 8) + (+rgb[2])).toString(16);
+
+    // for (var i = rgb.length; i++ < 6;) rgb = '0' + rgb;
+
+    return "#" + rgb;
+};
 //Funtion to change users colors
 var changeUsersColors = function(colors){
-  for (var i = 0; i < colors.length; i++ ){
-    $( ".groupName:nth-child(" + i + ")" ).css( "background", rgb2hex(colors[i].fillColor) );
-  }
+  var lis = document.getElementsByClassName('groupName')[0].children;
+  for (var i = 0; i < lis.length; i++ ){
+    //$( ".groupName:nth-child(" + i + ")" ).css( "background", rgb2hex(colors[i].fillColor) );
+    //lis[i].style.color = rgb2hex(colors[i].strokeColor);
+    for (var j = 0; j < lis[i].children.length; j++){
+      if (lis[i].children[j].classList.contains("circle")){
+        lis[i].children[j].style.background = rgb2hex(colors[i].strokeColor);
+      }
+    }
+    //Probar a usar promesa!!!
+ }
 }
 
 /* Dashboard Helper Functions */
