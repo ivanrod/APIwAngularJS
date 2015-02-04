@@ -61,7 +61,7 @@ module StaticPagesHelper
 	def self.send_location_payloads_interval(asset_id, interval)
 		timers = Timers::Group.new
 		every_interval_seconds = timers.every(interval) { 
-			random_loc = random_location(41.358168, 2.102503, 10)
+			random_loc = random_location(41.358168, 2.102503, 1000)
 			new_post = post(parse_payload_location(asset_id, 
 				random_loc["lat"], 
 				random_loc["lon"], 
@@ -76,7 +76,6 @@ module StaticPagesHelper
 	#Calls to Play server
 	def self.call(url)
     uri2= URI.parse(@base_url + url)
-    puts (@base_url + url)
     request = Net::HTTP::Get.new uri2
     http = Net::HTTP.new(uri2.host, uri2.port)
     request["Username"] = @username
@@ -147,14 +146,13 @@ module StaticPagesHelper
 
 	def self.get_groups_alerts_last_7days(groups)
 		users = []
-		n = 0
-		groups.each do |group|
+		groups.each_with_index do |group, index|
 			users.push({"userId" => group["name"]})
-			users[n]["alerts"] = []
+			users[index]["alerts"] = []
 			group["assets"].each do |asset|
-				users[n]["alerts"].concat asset_alerts_last_7days(asset["assetId"])
+				users[index]["alerts"].concat asset_alerts_last_7days(asset["assetId"])
 			end
-			n =+ 1
+			
 		end
 
 		return users
@@ -162,14 +160,12 @@ module StaticPagesHelper
 
 	def self.get_groups_latest_payloads(groups, payloads_num)
 		users = []
-		n = 0
-		groups.each do |group|
+		groups.each_with_index do |group, index|
 			users.push({"userId" => group["name"]})
-			users[n]["payloads"] = []
+			users[index]["payloads"] = []
 			group["assets"].each do |asset|
-				users[n]["payloads"].concat asset_latest_payloads_call(asset["assetId"], payloads_num)
+				users[index]["payloads"].concat asset_latest_payloads_call(asset["assetId"], payloads_num)
 			end
-			n =+ 1
 		end
 
 		return users		

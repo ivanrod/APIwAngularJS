@@ -31,15 +31,29 @@
 
 	</div>
 
-	<div class="row  large-12 columns">
+	<div class="large-12 columns">
 		<section class="chart large-8 columns" >
 			<h4>Nº de alertas por usuario</h4>
 			{{chart.data}}
-			<canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" click="onClick" height="75"></canvas>  
+			<canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" click="onClick"></canvas>  
 		</section>
 
 		<section class="alerts large-4 columns">
 			<h4>Últimas alertas</h4>
+
+		<div class="pricing-table">
+
+			<ul class="groupName">
+				
+				<li class="bullet-item large-12 colums item animate-repeat"  ng-repeat="alert in alertTexts">
+				<div class="left">{{alert.text}}</div>
+				</li>
+				
+			</ul>
+		</div>
+
+
+
 		</section>
 	</div>
 </section>

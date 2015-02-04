@@ -18,14 +18,21 @@ myApp.config(function(uiGmapGoogleMapApiProvider) {
 myApp.service('sharedData', function ($rootScope, filterFilter) {
   var response = gon.groups;
   var people = "";
-  var chartData = allUsersAlerts(gon.groups, gon.alerts_last_7days);
-          var filteredData = filterFilter(response, people)
+  var alerts = gon.alerts_last_7days;
+  var chartData = allUsersAlertsNum(gon.groups, gon.alerts_last_7days);
+  var filteredData = filterFilter(response, people)
         return {
             getResponse:function () {
               return response;
             },
             setResponse:function (obj) {
               response = obj;
+            },
+            getAlerts: function() {
+              return alerts;
+            },
+            setAlerts: function(obj){
+              alerts = obj;
             },
             getPeople:function () {
               return people;
@@ -44,13 +51,11 @@ myApp.service('sharedData', function ($rootScope, filterFilter) {
 
 myApp.controller('dashboardCtrl', ['$scope', 'sharedData', function($scope, sharedData) {
   //Chart.defaults.global.colours[0].strokeColor = "rbga(95, 174, 87, 0.2)" 
-<<<<<<< HEAD
-=======
 
->>>>>>> 21d6cf8493a08cb42917eed8784015564c57342b
   $scope.response = sharedData.getResponse();
   $scope.people = sharedData.getPeople();
-  $scope.chartData = allUsersAlerts(gon.groups, gon.alerts_last_7days);
+  $scope.alertTexts = lastUsersAlerts(sharedData.getResponse(), sharedData.getAlerts());
+  $scope.chartData = allUsersAlertsNum(gon.groups, gon.alerts_last_7days);
 
   $scope.labels = last7daysArray();
   $scope.series = $scope.chartData.names;
@@ -64,18 +69,20 @@ myApp.controller('dashboardCtrl', ['$scope', 'sharedData', function($scope, shar
   $scope.$on('people', function(newValue, oldValue) {
     
     var filteredData = sharedData.getFilteredData();
-    var newChartData = allUsersAlerts(filteredData, gon.alerts_last_7days);
+    var newChartData = allUsersAlertsNum(filteredData, gon.alerts_last_7days);
     
     if (newChartData != $scope.chartData){
       $scope.chartData = newChartData;
       $scope.data = $scope.chartData.alerts;
       $scope.series = $scope.chartData.names;
-      
+      $scope.alertTexts = lastUsersAlerts(filteredData, gon.alerts_last_7days)
+     
       if ($scope.data[0] == undefined){
         $scope.data=[[0,0,0,0,0,0,0]]; 
         $scope.series = ["No hay usuarios que coincidan con la búsqueda"];
       }
     }
+    //console.log($scope.data)
   });
 
   
@@ -139,28 +146,30 @@ var last7daysArray = function(){
   return last7daysArray.reverse()
 };
 
-var lastAlertsUser = function(user){
+var lastAlertsUserNum = function(user){
   //7 zeros array
   var lastAlerts = Array.apply(null, new Array(7)).map(Number.prototype.valueOf,0);
   var today = new moment().set({'seconds': 59, 'minutes': 59, 'hour': 23})
-  for (var i = 0; i < user['alerts'].length; i++){
-    var day = new moment(user['alerts'][i]['fecha'])
-    lastAlerts[moment.duration(today - day).days()] += 1;
-    //console.log(moment.duration(today - day).days())
-  };
+    for (var i = 0; i < user['alerts'].length; i++){
+      var day = new moment(user['alerts'][i]['fecha'])
+      lastAlerts[moment.duration(today - day).days()] += 1;
+      //console.log(moment.duration(today - day).days())
+    }
 
-  return lastAlerts.reverse();
+  //console.log(lastAlerts)
+  //console.log(lastAlerts.slice(0, 7))
+  return lastAlerts.slice(0, 7).reverse();
 };
 
-var lastAlertsFindUser = function(userName, users){
+var lastAlertsFindUserNum = function(userName, users){
   for (var i = 0; i < users.length; i++){
     if (users[i].userId === userName){
-      return lastAlertsUser(users[i]);
+      return lastAlertsUserNum(users[i]);
     }
   }
 };
 
-var allUsersAlerts = function(groups, alerts){
+var allUsersAlertsNum = function(groups, alerts){
   var chartData = {
     names: [],
     alerts: []
@@ -168,7 +177,7 @@ var allUsersAlerts = function(groups, alerts){
   for (var i=0; i<groups.length; i++){
     //console.log(groups[i])
     chartData.names.push(groups[i].name)
-    chartData.alerts.push(lastAlertsFindUser(groups[i].name, alerts))
+    chartData.alerts.push(lastAlertsFindUserNum(groups[i].name, alerts))
   }
 
   return chartData;
@@ -232,3 +241,52 @@ var getAllCirclesMapData = function(groups){
   return circles;
 }
 
+/* Ultimas alertas Helper functions */
+
+var sortMomentHelper = function(a, b){
+  if (a.time.isAfter(b)){ return 1}
+    if (b.time.isAfter(a)){return -1}
+      if (a.time.isSame(b)){return 0}
+}
+
+var formatAlerts = function(alerts){
+  var alertsFormated = [];
+  for (var i = 0; i < alerts.alerts.length; i++){
+    var alert = {
+      "text": alerts.userId + alertsNames[alerts.alerts[i].level],
+      "time": moment(alerts.alerts[i].fecha)
+    }
+    alertsFormated.push(alert)
+  }
+  return alertsFormated;
+}
+
+var getAlertsByUser = function(user, alerts){
+  var alertsByUser = [];
+  for (var i = 0; i < alerts.length; i++){
+    if (user === alerts[i].userId){
+      alertsByUser = alerts[i];
+    }
+  }
+  return alertsByUser;
+}
+
+var lastUsersAlerts = function(groups, alerts){
+  var alertsTexts = [];
+  for (var i=0; i<groups.length; i++){
+    //console.log(groups[i])
+    var user = groups[i].name;
+
+    var alertsByUser = getAlertsByUser(user, alerts);
+    alertsTexts = alertsTexts.concat(formatAlerts(alertsByUser));
+  }
+  alertsTexts = alertsTexts.sort(sortMomentHelper);
+  return alertsTexts;
+}
+
+var alertsNames = {
+  1: " ha pulsado el botón de alerta.",
+  2: " lleva mas de 9 horas inactivo.",
+  3: " se ha caído.",
+  4: " ha salido de su zona de seguridad."
+}
