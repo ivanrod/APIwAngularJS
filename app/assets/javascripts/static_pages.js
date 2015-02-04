@@ -43,7 +43,7 @@ myApp.service('sharedData', function ($rootScope, filterFilter) {
 
 
 myApp.controller('dashboardCtrl', ['$scope', 'sharedData', function($scope, sharedData) {
-  Chart.defaults.global.colours[0].strokeColor = "rbga(95, 174, 87, 0.2)" 
+  //Chart.defaults.global.colours[0].strokeColor = "rbga(95, 174, 87, 0.2)" 
   $scope.response = sharedData.getResponse();
   $scope.people = sharedData.getPeople();
   $scope.chartData = allUsersAlerts(gon.groups, gon.alerts_last_7days);
