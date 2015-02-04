@@ -235,7 +235,6 @@ var getMarkersByUser = function(payloads,colors,groups){
   for (var i = 0; i < payloads.length; i++){
 
     if ($.inArray(payloads[i].userId, users) != -1){
-      console.log($.inArray(payloads[i].userId, users))
       usersPayloads.push(payloads[i]);
     }
   }
