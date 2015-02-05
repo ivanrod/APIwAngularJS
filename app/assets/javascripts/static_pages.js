@@ -20,7 +20,7 @@ myApp.service('sharedData', function ($rootScope, filterFilter) {
   var people = "";
   var alerts = gon.alerts_last_7days;
   var chartData = allUsersAlertsNum(gon.groups, gon.alerts_last_7days);
-  var filteredData = filterFilter(response, people);
+  var filteredData = filterFilter(response, {name: people});
   var colours = Chart.defaults.global.colours;
 
         return {
@@ -41,7 +41,7 @@ myApp.service('sharedData', function ($rootScope, filterFilter) {
             },
             setPeople: function(value){
               people = value;
-              filteredData = filterFilter(response, people)
+              filteredData = filterFilter(response, {name: people})
               $rootScope.$broadcast("people");
             },
             getColours: function(){
@@ -63,7 +63,7 @@ myApp.controller('dashboardCtrl', ['$scope', 'sharedData', function($scope, shar
   $scope.chartData = allUsersAlertsNum(gon.groups, gon.alerts_last_7days);
   //$scope.myStyle = {background: rgb2hex(Chart.defaults.global.colours[sharedData.getIndex()].strokeColor)}
   $scope.myStyle = function(indexColor){
-    return {background: rgb2hex(sharedData.getColours()[indexColor].strokeColor)}
+    return {background: sharedData.getColours()[indexColor].strokeColor}
   }
 
 
