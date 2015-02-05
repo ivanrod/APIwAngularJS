@@ -61,7 +61,7 @@ module StaticPagesHelper
 	def self.send_location_payloads_interval(asset_id, interval)
 		timers = Timers::Group.new
 		every_interval_seconds = timers.every(interval) { 
-			random_loc = random_location(41.358168, 2.102503, 1000)
+			random_loc = random_location(41.358168, 2.102503, 10)
 			new_post = post(parse_payload_location(asset_id, 
 				random_loc["lat"], 
 				random_loc["lon"], 

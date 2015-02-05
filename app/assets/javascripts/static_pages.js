@@ -20,7 +20,9 @@ myApp.service('sharedData', function ($rootScope, filterFilter) {
   var people = "";
   var alerts = gon.alerts_last_7days;
   var chartData = allUsersAlertsNum(gon.groups, gon.alerts_last_7days);
-  var filteredData = filterFilter(response, people)
+  var filteredData = filterFilter(response, people);
+  var colours = Chart.defaults.global.colours;
+
         return {
             getResponse:function () {
               return response;
@@ -42,6 +44,9 @@ myApp.service('sharedData', function ($rootScope, filterFilter) {
               filteredData = filterFilter(response, people)
               $rootScope.$broadcast("people");
             },
+            getColours: function(){
+              return colours;
+            },
             getFilteredData: function(){
               return filteredData;
             }
@@ -51,11 +56,18 @@ myApp.service('sharedData', function ($rootScope, filterFilter) {
 
 myApp.controller('dashboardCtrl', ['$scope', 'sharedData', function($scope, sharedData) {
   //Chart.defaults.global.colours[0].strokeColor = "rbga(95, 174, 87, 0.2)" 
-
+//changeUsersColors(Chart.defaults.global.colours);
   $scope.response = sharedData.getResponse();
   $scope.people = sharedData.getPeople();
   $scope.alertTexts = lastUsersAlerts(sharedData.getResponse(), sharedData.getAlerts());
   $scope.chartData = allUsersAlertsNum(gon.groups, gon.alerts_last_7days);
+  //$scope.myStyle = {background: rgb2hex(Chart.defaults.global.colours[sharedData.getIndex()].strokeColor)}
+  $scope.myStyle = function(indexColor){
+    return {background: rgb2hex(sharedData.getColours()[indexColor].strokeColor)}
+  }
+
+
+
 
   $scope.labels = last7daysArray();
   $scope.series = $scope.chartData.names;
@@ -70,7 +82,7 @@ myApp.controller('dashboardCtrl', ['$scope', 'sharedData', function($scope, shar
     
     var filteredData = sharedData.getFilteredData();
     var newChartData = allUsersAlertsNum(filteredData, gon.alerts_last_7days);
-    
+    //changeUsersColors(Chart.defaults.global.colours);
     if (newChartData != $scope.chartData){
       $scope.chartData = newChartData;
       $scope.data = $scope.chartData.alerts;
@@ -81,6 +93,7 @@ myApp.controller('dashboardCtrl', ['$scope', 'sharedData', function($scope, shar
         $scope.data=[[0,0,0,0,0,0,0]]; 
         $scope.series = ["No hay usuarios que coincidan con la búsqueda"];
       }
+
     }
     //console.log($scope.data)
   });
@@ -107,6 +120,7 @@ myApp.controller("mapsCtrl", function($scope, sharedData, uiGmapGoogleMapApi) {
         $scope.people = sharedData.getPeople();
         $scope.circles = getAllCirclesMapData($scope.filteredData)
         $scope.randomMarkers = getMarkersByUser($scope.mapData, Chart.defaults.global.colours, $scope.filteredData);
+        //console.log($scope.randomMarkers)
       });
     });
 });
@@ -121,6 +135,8 @@ var rgb2hex = function (rgb) {
 
     return "#" + rgb;
 };
+
+/*
 //Funtion to change users colors
 var changeUsersColors = function(colors){
   var lis = document.getElementsByClassName('groupName')[0].children;
@@ -128,13 +144,15 @@ var changeUsersColors = function(colors){
     //$( ".groupName:nth-child(" + i + ")" ).css( "background", rgb2hex(colors[i].fillColor) );
     //lis[i].style.color = rgb2hex(colors[i].strokeColor);
     for (var j = 0; j < lis[i].children.length; j++){
-      if (lis[i].children[j].classList.contains("circle")){
+      if ($.inArray("circle", lis[i].children[j].classList) != -1){
         lis[i].children[j].style.background = rgb2hex(colors[i].strokeColor);
+        
       }
     }
     //Probar a usar promesa!!!
  }
 }
+*/
 
 /* Dashboard Helper Functions */
 var last7daysArray = function(){
@@ -290,7 +308,7 @@ var getAllCirclesMapData = function(groups){
     //document.getElementsByClassName('groupName')[i].style.color = rgb2hex(Chart.defaults.global.colours[i].strokeColor);
     
   }
-  changeUsersColors(Chart.defaults.global.colours);
+  //changeUsersColors(Chart.defaults.global.colours);
   return circles;
 }
 
@@ -337,7 +355,7 @@ var lastUsersAlerts = function(groups, alerts){
     alertsTexts = alertsTexts.concat(formatAlerts(alertsByUser));
   }
   alertsTexts = alertsTexts.sort(sortMomentHelper);
-  return alertsTexts;
+  return alertsTexts.reverse();
 }
 
 var alertsNames = {
