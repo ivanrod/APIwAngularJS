@@ -13,4 +13,31 @@ class StaticPagesController < ApplicationController
     gon.assets_latest_payload = StaticPagesHelper::get_groups_latest_payloads(gon.groups, 1)
   end
 
+  def send_groups
+    if request.xhr?
+      render json: StaticPagesHelper::groups_call
+    else
+      render json: "Bad request"
+    end
+  end
+
+  def send_group_alerts_last_7days
+    if request.xhr?
+      groups = JSON.parse(request.body.read)
+      render json: StaticPagesHelper::get_groups_alerts_last_7days(groups)
+    else
+      render json: "Bad request"
+    end
+  end
+
+  def send_group_latest_payload
+    if request.xhr?
+      groups = JSON.parse(request.body.read)
+      render json: StaticPagesHelper::get_groups_latest_payloads(groups, 1)
+    else
+      render json: "Bad request"
+    end
+  end
+
+  #HACER LOS DOS ULTIMOS METODOS JUNTOS
 end
