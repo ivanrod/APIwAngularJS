@@ -3,10 +3,10 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var myApp = angular.module('play', ['chart.js', 'uiGmapgoogle-maps']);
+var playApp = angular.module('play', ['chart.js', 'uiGmapgoogle-maps']);
 
 //Config to load Google maps SDK
-myApp.config(function(uiGmapGoogleMapApiProvider) {
+playApp.config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
         //    key: 'your api key',
         v: '3.17',
@@ -14,8 +14,14 @@ myApp.config(function(uiGmapGoogleMapApiProvider) {
     });
 })
 
+playApp.config([
+  "$httpProvider", function($httpProvider) {
+    $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
+  }
+]);
+
 //
-myApp.service('sharedData', function ($rootScope, filterFilter) {
+playApp.service('sharedData', function ($rootScope, filterFilter) {
   var response = gon.groups;
   var people = "";
   var alerts = gon.alerts_last_7days;
@@ -53,8 +59,49 @@ myApp.service('sharedData', function ($rootScope, filterFilter) {
         }
       });
 
+/*
+playApp.factory('ajaxFactory', function($http){
+  return {
+    getGroups: function(){
+      return $http.post(
+// url:
+'/groups', JSON.stringify("x")
 
-myApp.controller('dashboardCtrl', ['$scope', 'sharedData', function($scope, sharedData) {
+,
+
+// config:
+{
+    cache: false,
+    transformResponse: function (data, headersGetter) {
+        try {
+            var jsonObject = JSON.parse(data); // verify that json is valid
+            console.log(jsonObject)
+            return jsonObject;
+        }
+        catch (e) {
+            console.log("did not receive a valid Json: " + e + data)
+        }
+        return {};
+    }
+}
+)
+    }
+  }
+})
+*/
+playApp.factory('ajaxFactory', function($http){
+  return {
+    getGroups: function(){
+      return $http.get("/groups")
+                    .then(function(result){
+                      return result.data;
+                    })
+    }
+  }
+})
+
+
+playApp.controller('dashboardCtrl', ['$scope', 'sharedData', 'ajaxFactory', function($scope, sharedData, ajaxFactory) {
   //Chart.defaults.global.colours[0].strokeColor = "rbga(95, 174, 87, 0.2)" 
 //changeUsersColors(Chart.defaults.global.colours);
   $scope.response = sharedData.getResponse();
@@ -66,7 +113,7 @@ myApp.controller('dashboardCtrl', ['$scope', 'sharedData', function($scope, shar
     return {background: sharedData.getColours()[indexColor].strokeColor}
   }
 
-
+  $scope.prueba = ajaxFactory.getGroups
 
 
   $scope.labels = last7daysArray();
@@ -105,7 +152,7 @@ myApp.controller('dashboardCtrl', ['$scope', 'sharedData', function($scope, shar
 
 }]);
 
-myApp.controller("mapsCtrl", function($scope, sharedData, uiGmapGoogleMapApi) {
+playApp.controller("mapsCtrl", function($scope, sharedData, uiGmapGoogleMapApi) {
    uiGmapGoogleMapApi.then(function(maps) {
       $scope.mapData = gon.assets_latest_payload;
       $scope.map = { 

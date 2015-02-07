@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'static_pages#home'
 
 #AJAX Static Pages calls
-  post 'groups' => 'static_pages#send_groups'
+  get 'groups' => 'static_pages#send_groups'
   post 'group_alerts' => 'static_pages#send_groups_last_7days'
   post 'group_payloads' => 'static_pages#send_groups_latest_payload'
 
