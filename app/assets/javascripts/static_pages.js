@@ -16,16 +16,18 @@ playApp.config(function(uiGmapGoogleMapApiProvider) {
 
 playApp.config([
   '$httpProvider', function($httpProvider) {
-    return $httpProvider.defaults.headers.common['X-Requested-With'] = 'AngularXMLHttpRequest';
+    $httpProvider.defaults.headers.common['X-Requested-With'] = 'AngularXMLHttpRequest';
+    $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
   }
 ]);
 
 //
 playApp.service('sharedData', function ($rootScope, filterFilter) {
-  var response = gon.groups;
+  var response = {};
   var people = "";
-  var alerts = gon.alerts_last_7days;
-  var chartData = allUsersAlertsNum(gon.groups, gon.alerts_last_7days);
+  var alerts = [];
+  var chartData = allUsersAlertsNum(response, alerts);
+  var payloads = {};
   var filteredData = filterFilter(response, {name: people});
   var colours = Chart.defaults.global.colours;
 
@@ -41,6 +43,12 @@ playApp.service('sharedData', function ($rootScope, filterFilter) {
             },
             setAlerts: function(obj){
               alerts = obj;
+            },
+            getPayloads: function(){
+              return payloads;
+            },
+            setPayloads: function(obj){
+              payloads = obj;
             },
             getPeople:function () {
               return people;
@@ -59,44 +67,21 @@ playApp.service('sharedData', function ($rootScope, filterFilter) {
         }
       });
 
-/*
-playApp.factory('ajaxFactory', function($http){
-  return {
-    getGroups: function(){
-      return $http.post(
-// url:
-'/groups', JSON.stringify("x")
 
-,
-
-// config:
-{
-    cache: false,
-    transformResponse: function (data, headersGetter) {
-        try {
-            var jsonObject = JSON.parse(data); // verify that json is valid
-            console.log(jsonObject)
-            return jsonObject;
-        }
-        catch (e) {
-            console.log("did not receive a valid Json: " + e + data)
-        }
-        return {};
-    }
-}
-)
-    }
-  }
-})
-*/
 playApp.factory('ajaxFactory', function($http){
   return {
     getGroups: function(){
       return $http.get("/groups")
-                    .then(function(result){
+                    /*.then(function(result){
                       console.log(result)
                       return result.data;
-                    })
+                    })*/
+    },
+    getAlertsLast7days: function(groups){
+      return $http.post("/group_alerts", JSON.stringify(groups))
+    },
+    getLatestsPayloads: function(groups){
+      return $http.post("/group_payloads", JSON.stringify(groups))
     }
   }
 })
@@ -105,37 +90,50 @@ playApp.factory('ajaxFactory', function($http){
 playApp.controller('dashboardCtrl', ['$scope', 'sharedData', 'ajaxFactory', function($scope, sharedData, ajaxFactory) {
   //Chart.defaults.global.colours[0].strokeColor = "rbga(95, 174, 87, 0.2)" 
 //changeUsersColors(Chart.defaults.global.colours);
-  $scope.response = sharedData.getResponse();
-  $scope.people = sharedData.getPeople();
-  $scope.alertTexts = lastUsersAlerts(sharedData.getResponse(), sharedData.getAlerts());
-  $scope.chartData = allUsersAlertsNum(gon.groups, gon.alerts_last_7days);
+  ajaxFactory.getGroups().then(function(groups){
+    sharedData.setResponse(groups.data)
+
+    ajaxFactory.getAlertsLast7days(groups.data).then(function(alerts){
+      $scope.response = sharedData.getResponse();
+      sharedData.setAlerts(alerts.data)
+      $scope.alertTexts = lastUsersAlerts(sharedData.getResponse(), sharedData.getAlerts());
+      $scope.chartData = allUsersAlertsNum(sharedData.getResponse(), sharedData.getAlerts());
+      $scope.people = sharedData.getPeople();
+      
+      $scope.labels = last7daysArray();
+      $scope.series = $scope.chartData.names;
+      $scope.data = $scope.chartData.alerts;
+
+
+      ajaxFactory.getLatestsPayloads(groups.data).then(function(payloads){
+        sharedData.setPayloads(payloads.data)
+        $scope.people = sharedData.getPeople();
+
+        $scope.$watch('people', function(newValue, oldValue) {
+        sharedData.setPeople($scope.people)
+        
+        })
+      })
+    })
+    
+
+    
+  })
+  //$scope.people = sharedData.getPeople();
   //$scope.myStyle = {background: rgb2hex(Chart.defaults.global.colours[sharedData.getIndex()].strokeColor)}
   $scope.myStyle = function(indexColor){
     return {background: sharedData.getColours()[indexColor].strokeColor}
   }
 
-  $scope.prueba = ajaxFactory.getGroups
-
-
-  $scope.labels = last7daysArray();
-  $scope.series = $scope.chartData.names;
-  $scope.data = $scope.chartData.alerts;
-
-  $scope.$watch('people', function(newValue, oldValue) {
-    sharedData.setPeople($scope.people)
-    
-  })
-
   $scope.$on('people', function(newValue, oldValue) {
-    
     var filteredData = sharedData.getFilteredData();
-    var newChartData = allUsersAlertsNum(filteredData, gon.alerts_last_7days);
+    var newChartData = allUsersAlertsNum(filteredData, sharedData.getAlerts());
     //changeUsersColors(Chart.defaults.global.colours);
     if (newChartData != $scope.chartData){
       $scope.chartData = newChartData;
       $scope.data = $scope.chartData.alerts;
       $scope.series = $scope.chartData.names;
-      $scope.alertTexts = lastUsersAlerts(filteredData, gon.alerts_last_7days)
+      $scope.alertTexts = lastUsersAlerts(filteredData, sharedData.getAlerts())
      
       if ($scope.data[0] == undefined){
         $scope.data=[[0,0,0,0,0,0,0]]; 
@@ -155,7 +153,7 @@ playApp.controller('dashboardCtrl', ['$scope', 'sharedData', 'ajaxFactory', func
 
 playApp.controller("mapsCtrl", function($scope, sharedData, uiGmapGoogleMapApi) {
    uiGmapGoogleMapApi.then(function(maps) {
-      $scope.mapData = gon.assets_latest_payload;
+      $scope.mapData = sharedData.getPayloads();
       $scope.map = { 
         center: { latitude: 41.35890136704563, longitude:  2.0997726917266846 }, 
         zoom: 13 ,
@@ -164,6 +162,7 @@ playApp.controller("mapsCtrl", function($scope, sharedData, uiGmapGoogleMapApi) 
       $scope.circles = getAllCirclesMapData(sharedData.getResponse())
       //console.log($scope.randomMarkers)
       $scope.$on( 'people', function() {
+        $scope.mapData = sharedData.getPayloads();
         $scope.filteredData = sharedData.getFilteredData();
         $scope.people = sharedData.getPeople();
         $scope.circles = getAllCirclesMapData($scope.filteredData)
