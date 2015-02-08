@@ -38,4 +38,15 @@ div.pricing-table{
 	height: 400px;
 }
 
+.columns.content-area{}
+.columns.sidebar{border:1px solid #111;padding:0}
+/* Meter media queries para el height del left-nav*/
+.columns.left-nav{padding:0; height:100%;}
+.icon-bar.vertical.five-up{width:100%; }
+.logo{height:45px;}
 
+@media (max-width: 1000px) { 
+
+	.columns.left-nav{height:auto;}
+
+}

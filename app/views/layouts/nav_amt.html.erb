@@ -31,27 +31,50 @@
 
   <body ng-app="play">
       
-    <nav class="tab-bar">
-      <div class="middle tab-bar-section"><%= link_to("Smart Care", root_path) %></div>
-      <section class="right-small">
-        <a href="#" class="right-off-canvas-toggle">
-         <i class="fi-torso account-icon"></i>
-        </a>
-      </section>
-    </nav>
-   
-    <nav class="icon-bar large-vertical six-up left" role="navigation">
-<!--           <%#= link_to dashboard_path, :class => "item" do %>
-      <i class="fi-home"></i>
-        <label>Dashboard</label>
-      <%# end %>      -->      
 
-      <a class="item">
+
+  <nav class="top-bar" data-topbar role="navigation">
+    <ul class="middle tab-bar-section">
+      <li class="name">
+        <h1><%= image_tag "VueForgePlay.png", class: "logo" %></h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="active"><a href="#"><i class="fa fa-diamond"></i> Go PRO</a></li>
+        <li class="has-dropdown">
+          <a href="#"><i class="fa fa-user"></i> Mi cuenta</a>
+          <ul class="dropdown">
+            <li><a href="#">Mis datos</a></li>
+            <li><a href="#">Salir</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section 
+      <ul class="left">
+        <li><a href="#"><i class="fa fa-database"></i> ONE</a></li>
+        <li><a href="#"><i class="fa fa-list-ol"></i> TWO</a></li>
+        <li><a href="#"><i class="fa fa-users"></i> THREE</a></li>
+      </ul>
+      -->
+    </section>
+</nav>
+
+  <!-- Left Nav Sidebar -->
+
+<nav class="large-1 columns left-nav">
+  <div class="icon-bar vertical five-up">
+    <a class="item">
         <i class="fi-info"></i>
         <label>Dashboard</label>
       </a>
-
-    </nav>
+  </div>
+</nav>
 
     <%= yield %>
 
