@@ -20,7 +20,9 @@ playApp.config([
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
   }
 ]);
-
+playApp.value('cgBusyDefaults',{
+  message:'Cargando...',
+});
 //
 playApp.service('sharedData', function ($rootScope, filterFilter) {
   var response = {};
@@ -402,7 +404,7 @@ var lastUsersAlerts = function(groups, alerts){
     alertsTexts = alertsTexts.concat(formatAlerts(alertsByUser));
   }
   alertsTexts = alertsTexts.sort(sortMomentHelper);
-  return alertsTexts.reverse();
+  return alertsTexts;
 }
 
 var alertsNames = {
