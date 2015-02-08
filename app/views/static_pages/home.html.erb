@@ -3,9 +3,9 @@
 	<h1>Dashboard</h1>
 	<div class="large-12 columns"  >
 
-	<article class="people large-4 columns" >
+	<article  class="people large-4 columns" >
 		<h4>Usuarios</h4>
-		<div class="pricing-table">
+		<div cg-busy="usersPromise" class="pricing-table">
 			<input type="search" ng-model="people" placeholder="Filtrar por nombre..." />
 
 			<ul class="groupName">
@@ -25,7 +25,7 @@
 			</ul>
 		</div>
 	</article>
-	<article class="map large-8 columns" ng-controller="mapsCtrl">
+	<article class="map large-8 columns" ng-controller="mapsCtrl" cg-busy="mapPromise" >
 		<h4>Mapa</h4>
 		<ui-gmap-google-map center='map.center' class="large-12" zoom='map.zoom'>
 			<ui-gmap-circle ng-repeat="c in circles track by c.id" center="c.center" stroke="c.stroke" fill="c.fill" radius="c.radius"
@@ -37,7 +37,7 @@
 
 	</div>
 
-	<div class="large-12 columns">
+	<div class="large-12 columns" cg-busy="usersPromise">
 		<article class="chart large-8 columns" >
 			<h4>Nº de alertas por usuario</h4>
 			<canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" click="onClick"></canvas>  
@@ -46,7 +46,7 @@
 		<article class="alerts large-4 columns">
 			<h4>Últimas alertas</h4>
 
-		<div class="pricing-table">
+		<div class="pricing-table" cg-busy="usersPromise">
 
 			<ul class="groupName">
 				

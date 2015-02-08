@@ -17,6 +17,7 @@
 //= require angular-google-maps.min
 //= require angular-animate
 //= require angular-chart
+//= require angular-busy.min
 //= require jquery
 //= require jquery_ujs
 //= require foundation

@@ -3,7 +3,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var playApp = angular.module('play', ['chart.js', 'uiGmapgoogle-maps']);
+var playApp = angular.module('play', ['chart.js', 'uiGmapgoogle-maps', 'cgBusy']);
 
 //Config to load Google maps SDK
 playApp.config(function(uiGmapGoogleMapApiProvider) {
@@ -93,7 +93,7 @@ playApp.controller('dashboardCtrl', ['$scope', 'sharedData', 'ajaxFactory', func
   ajaxFactory.getGroups().then(function(groups){
     sharedData.setResponse(groups.data)
 
-    ajaxFactory.getAlertsLast7days(groups.data).then(function(alerts){
+    $scope.usersPromise = ajaxFactory.getAlertsLast7days(groups.data).then(function(alerts){
       $scope.response = sharedData.getResponse();
       sharedData.setAlerts(alerts.data)
       $scope.alertTexts = lastUsersAlerts(sharedData.getResponse(), sharedData.getAlerts());
@@ -105,7 +105,7 @@ playApp.controller('dashboardCtrl', ['$scope', 'sharedData', 'ajaxFactory', func
       $scope.data = $scope.chartData.alerts;
 
 
-      ajaxFactory.getLatestsPayloads(groups.data).then(function(payloads){
+      $scope.mapPromise = ajaxFactory.getLatestsPayloads(groups.data).then(function(payloads){
         sharedData.setPayloads(payloads.data)
         $scope.people = sharedData.getPeople();
 
