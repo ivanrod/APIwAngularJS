@@ -15,8 +15,8 @@ playApp.config(function(uiGmapGoogleMapApiProvider) {
 })
 
 playApp.config([
-  "$httpProvider", function($httpProvider) {
-    $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
+  '$httpProvider', function($httpProvider) {
+    return $httpProvider.defaults.headers.common['X-Requested-With'] = 'AngularXMLHttpRequest';
   }
 ]);
 
@@ -94,6 +94,7 @@ playApp.factory('ajaxFactory', function($http){
     getGroups: function(){
       return $http.get("/groups")
                     .then(function(result){
+                      console.log(result)
                       return result.data;
                     })
     }

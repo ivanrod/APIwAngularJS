@@ -14,7 +14,11 @@ class StaticPagesController < ApplicationController
   end
 
   def send_groups
-    render json: (StaticPagesHelper::groups_call).to_json
+    if request.xhr?
+      render json: (StaticPagesHelper::groups_call).to_json
+    else
+      render json: "bad request"
+    end
   end
 
   def send_groups_alerts_last_7days
