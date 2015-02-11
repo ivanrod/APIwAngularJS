@@ -4,15 +4,15 @@ function alertsFactory(){
   return{
     sortMomentHelper: function(a, b){
       if (a.time.isAfter(b)){ return 1}
-        if (b.time.isAfter(a)){return -1}
-          if (a.time.isSame(b)){return 0}
+        else if (b.time.isAfter(a)){return -1}
+          else if (a.time.isSame(b)){return 0}
     },
     formatAlerts: function(alerts){
       var alertsFormated = [];
       for (var i = 0; i < alerts.alerts.length; i++){
         var alert = {
           "text": alerts.userId + this.alertsNames[alerts.alerts[i].level],
-          "time": moment(alerts.alerts[i].fecha)
+          "time": moment(alerts.alerts[i].fecha).locale("es")
         }
         alertsFormated.push(alert)
       }

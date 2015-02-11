@@ -1,7 +1,7 @@
 <section class="large-11 columns" ng-controller="dashboardCtrl as dashboard">
 	
 	<h1>Dashboard</h1>
-	<div class="large-12 columns"  >
+	<div class="large-12 columns"  ng-cloak>
 
 	<article  class="people large-4 columns" >
 		<h4>Usuarios</h4>
@@ -10,15 +10,15 @@
 
 			<ul class="groupName">
 				
-				<li class="bullet-item large-12 colums item animate-repeat"  ng-repeat="group in dashboard.response | filter:{name: dashboard.people}">
+				<li class="bullet-item large-12 colums item animate-repeat repeat-item"  ng-repeat="group in dashboard.response | filter:{name: dashboard.people}" ng-animate="'animate'">
 				<div class="left">
 						<div ng-click="showDetails = ! showDetails" class="left" ><i class="fi-minus" ng-show="showDetails"></i><i class="fi-plus" ng-hide="showDetails" >
 					</i></div>{{group.name}}
 				</div>
 					<div class="circle right" ng-style="dashboard.myStyle($index)"></div>
 					
-					<ul ng-show="showDetails">
-						<li class="bullet-item item" ng-repeat="family in group.assets">{{family.assetId}}</li>	
+					<ul ng-show="showDetails" ng-animate="'animate'">
+						<li class="bullet-item item" ng-repeat="family in group.assets" ng-animate="'animate'">{{family.assetId}}</li>	
 					</ul>
 				</li>
 				
@@ -37,7 +37,7 @@
 
 	</div>
 
-	<div class="large-12 columns" cg-busy="dashboard.usersPromise">
+	<div class="large-12 columns" cg-busy="dashboard.usersPromise" ng-cloak>
 		<article class="chart large-8 columns" >
 			<h4>Nº de alertas por usuario</h4>
 			<canvas id="line" class="chart chart-line" data="dashboard.data" labels="dashboard.labels" legend="true" series="dashboard.series" click="onClick"></canvas>  
@@ -51,7 +51,7 @@
 			<ul class="groupName">
 				
 				<li class="bullet-item large-12 colums item animate-repeat"  ng-repeat="alert in dashboard.alertTexts">
-				<div class="left">{{alert.text}}</div>
+				<div class="left">{{alert.text}}</div><div class="right">{{alert.time.fromNow()}}</div>
 				</li>
 				
 			</ul>

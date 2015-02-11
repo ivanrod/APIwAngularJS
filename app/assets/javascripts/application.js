@@ -13,6 +13,7 @@
 
 //= require angular
 //= require moment.min
+//= require momentLocales
 //= require lodash.min
 //= require angular-google-maps.min
 //= require angular-animate
