@@ -3,28 +3,38 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var playApp = angular.module('play', ['chart.js', 'uiGmapgoogle-maps', 'cgBusy']);
+angular
+    .module('play', ['chart.js', 'uiGmapgoogle-maps', 'cgBusy'])
 
-//Config to load Google maps SDK
-playApp.config(function(uiGmapGoogleMapApiProvider) {
+angular
+    .module('play')
+    .config(playConfig)
+    .service('sharedData', sharedData)
+    .factory('ajaxFactory', ajaxFactory)
+    .controller('dashboardCtrl', dashboardCtrl)
+    .controller('mapsCtrl', mapsCtrl)
+    .value('cgBusyDefaults',{
+      message:'Cargando...',
+    })
+
+
+
+function playConfig(uiGmapGoogleMapApiProvider, $httpProvider) {
+    //Config to load Google maps SDK
     uiGmapGoogleMapApiProvider.configure({
         //    key: 'your api key',
         v: '3.17',
         libraries: 'weather,geometry,visualization'
     });
-})
 
-playApp.config([
-  '$httpProvider', function($httpProvider) {
+    //AJAX headers to allow rails to identify it as request.xhr
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'AngularXMLHttpRequest';
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
-  }
-]);
-playApp.value('cgBusyDefaults',{
-  message:'Cargando...',
-});
-//
-playApp.service('sharedData', function ($rootScope, filterFilter) {
+
+}
+
+
+function sharedData($rootScope, filterFilter) {
   var response = {};
   var people = "";
   var alerts = [];
@@ -67,17 +77,13 @@ playApp.service('sharedData', function ($rootScope, filterFilter) {
               return filteredData;
             }
         }
-      });
+      };
 
 
-playApp.factory('ajaxFactory', function($http){
+function ajaxFactory($http){
   return {
     getGroups: function(){
       return $http.get("/groups")
-                    /*.then(function(result){
-                      console.log(result)
-                      return result.data;
-                    })*/
     },
     getAlertsLast7days: function(groups){
       return $http.post("/group_alerts", JSON.stringify(groups))
@@ -86,34 +92,34 @@ playApp.factory('ajaxFactory', function($http){
       return $http.post("/group_payloads", JSON.stringify(groups))
     }
   }
-})
+}
 
 
-playApp.controller('dashboardCtrl', ['$scope', 'sharedData', 'ajaxFactory', function($scope, sharedData, ajaxFactory) {
+function dashboardCtrl($scope, sharedData, ajaxFactory) {
   //Chart.defaults.global.colours[0].strokeColor = "rbga(95, 174, 87, 0.2)" 
 //changeUsersColors(Chart.defaults.global.colours);
+  var vm = this;
   ajaxFactory.getGroups().then(function(groups){
     sharedData.setResponse(groups.data)
 
-    $scope.usersPromise = ajaxFactory.getAlertsLast7days(groups.data).then(function(alerts){
-      $scope.response = sharedData.getResponse();
+      vm.usersPromise = ajaxFactory.getAlertsLast7days(groups.data).then(function(alerts){
+      vm.response = sharedData.getResponse();
       sharedData.setAlerts(alerts.data)
-      $scope.alertTexts = lastUsersAlerts(sharedData.getResponse(), sharedData.getAlerts());
-      $scope.chartData = allUsersAlertsNum(sharedData.getResponse(), sharedData.getAlerts());
-      $scope.people = sharedData.getPeople();
+      vm.alertTexts = lastUsersAlerts(sharedData.getResponse(), sharedData.getAlerts());
+      vm.chartData = allUsersAlertsNum(sharedData.getResponse(), sharedData.getAlerts());
+      vm.people = sharedData.getPeople();
       
-      $scope.labels = last7daysArray();
-      $scope.series = $scope.chartData.names;
-      $scope.data = $scope.chartData.alerts;
+      vm.labels = last7daysArray();
+      vm.series = vm.chartData.names;
+      vm.data = vm.chartData.alerts;
 
 
-      $scope.mapPromise = ajaxFactory.getLatestsPayloads(groups.data).then(function(payloads){
+      vm.mapPromise = ajaxFactory.getLatestsPayloads(groups.data).then(function(payloads){
         sharedData.setPayloads(payloads.data)
-        $scope.people = sharedData.getPeople();
+        vm.people = sharedData.getPeople();
 
-        $scope.$watch('people', function(newValue, oldValue) {
-        sharedData.setPeople($scope.people)
-        
+        $scope.$watch('dashboard.people', function(newValue, oldValue) {
+        sharedData.setPeople(vm.people)        
         })
       })
     })
@@ -121,58 +127,50 @@ playApp.controller('dashboardCtrl', ['$scope', 'sharedData', 'ajaxFactory', func
 
     
   })
-  //$scope.people = sharedData.getPeople();
-  //$scope.myStyle = {background: rgb2hex(Chart.defaults.global.colours[sharedData.getIndex()].strokeColor)}
-  $scope.myStyle = function(indexColor){
+
+  vm.myStyle = function(indexColor){
     return {background: sharedData.getColours()[indexColor].strokeColor}
   }
 
   $scope.$on('people', function(newValue, oldValue) {
     var filteredData = sharedData.getFilteredData();
     var newChartData = allUsersAlertsNum(filteredData, sharedData.getAlerts());
-    //changeUsersColors(Chart.defaults.global.colours);
-    if (newChartData != $scope.chartData){
-      $scope.chartData = newChartData;
-      $scope.data = $scope.chartData.alerts;
-      $scope.series = $scope.chartData.names;
-      $scope.alertTexts = lastUsersAlerts(filteredData, sharedData.getAlerts())
+
+    if (newChartData != vm.chartData){
+      vm.chartData = newChartData;
+      vm.data = vm.chartData.alerts;
+      vm.series = vm.chartData.names;
+      vm.alertTexts = lastUsersAlerts(filteredData, sharedData.getAlerts())
      
-      if ($scope.data[0] == undefined){
-        $scope.data=[[0,0,0,0,0,0,0]]; 
-        $scope.series = ["No hay usuarios que coincidan con la búsqueda"];
+      if (vm.data[0] == undefined){
+        vm.data=[[0,0,0,0,0,0,0]]; 
+        vm.series = ["No hay usuarios que coincidan con la búsqueda"];
       }
-
     }
-    //console.log($scope.data)
   });
+};
 
-  
-  $scope.onClick = function (points, evt) {
-    console.log(points, evt);
-  };
-
-}]);
-
-playApp.controller("mapsCtrl", function($scope, sharedData, uiGmapGoogleMapApi) {
+function mapsCtrl($scope, sharedData, uiGmapGoogleMapApi) {
+  var vm = this;
    uiGmapGoogleMapApi.then(function(maps) {
-      $scope.mapData = sharedData.getPayloads();
-      $scope.map = { 
+      vm.mapData = sharedData.getPayloads();
+      vm.map = { 
         center: { latitude: 41.35890136704563, longitude:  2.0997726917266846 }, 
         zoom: 13 ,
       };
-      $scope.randomMarkers = getMarkersByUser($scope.mapData, Chart.defaults.global.colours, sharedData.getResponse())
-      $scope.circles = getAllCirclesMapData(sharedData.getResponse())
-      //console.log($scope.randomMarkers)
+      vm.randomMarkers = getMarkersByUser(vm.mapData, Chart.defaults.global.colours, sharedData.getResponse())
+      vm.circles = getAllCirclesMapData(sharedData.getResponse())
+
       $scope.$on( 'people', function() {
-        $scope.mapData = sharedData.getPayloads();
-        $scope.filteredData = sharedData.getFilteredData();
-        $scope.people = sharedData.getPeople();
-        $scope.circles = getAllCirclesMapData($scope.filteredData)
-        $scope.randomMarkers = getMarkersByUser($scope.mapData, Chart.defaults.global.colours, $scope.filteredData);
-        //console.log($scope.randomMarkers)
+        vm.mapData = sharedData.getPayloads();
+        vm.filteredData = sharedData.getFilteredData();
+        vm.people = sharedData.getPeople();
+        vm.circles = getAllCirclesMapData(vm.filteredData)
+        vm.randomMarkers = getMarkersByUser(vm.mapData, Chart.defaults.global.colours, vm.filteredData);
+
       });
     });
-});
+};
 
 /*General Helper functions*/
 //Function to convert hex format to a rgb color
@@ -180,28 +178,8 @@ var rgb2hex = function (rgb) {
     rgb = Array.apply(null, arguments).join().match(/\d+/g);
     rgb = ((rgb[0] << 16) + (rgb[1] << 8) + (+rgb[2])).toString(16);
 
-    // for (var i = rgb.length; i++ < 6;) rgb = '0' + rgb;
-
     return "#" + rgb;
 };
-
-/*
-//Funtion to change users colors
-var changeUsersColors = function(colors){
-  var lis = document.getElementsByClassName('groupName')[0].children;
-  for (var i = 0; i < lis.length; i++ ){
-    //$( ".groupName:nth-child(" + i + ")" ).css( "background", rgb2hex(colors[i].fillColor) );
-    //lis[i].style.color = rgb2hex(colors[i].strokeColor);
-    for (var j = 0; j < lis[i].children.length; j++){
-      if ($.inArray("circle", lis[i].children[j].classList) != -1){
-        lis[i].children[j].style.background = rgb2hex(colors[i].strokeColor);
-        
-      }
-    }
-    //Probar a usar promesa!!!
- }
-}
-*/
 
 /* Dashboard Helper Functions */
 var last7daysArray = function(){
@@ -223,11 +201,7 @@ var lastAlertsUserNum = function(user){
     for (var i = 0; i < user['alerts'].length; i++){
       var day = new moment(user['alerts'][i]['fecha'])
       lastAlerts[moment.duration(today - day).days()] += 1;
-      //console.log(moment.duration(today - day).days())
     }
-
-  //console.log(lastAlerts)
-  //console.log(lastAlerts.slice(0, 7))
   return lastAlerts.slice(0, 7).reverse();
 };
 
@@ -245,7 +219,6 @@ var allUsersAlertsNum = function(groups, alerts){
     alerts: []
   };
   for (var i=0; i<groups.length; i++){
-    //console.log(groups[i])
     chartData.names.push(groups[i].name)
     chartData.alerts.push(lastAlertsFindUserNum(groups[i].name, alerts))
   }
@@ -353,11 +326,7 @@ var getAllCirclesMapData = function(groups){
   for (var i=0; i < groups.length; i++){
     circles.push(parseCircleMapData(groups[i], i+1))
     circles[i].fill.color = rgb2hex(Chart.defaults.global.colours[i].fillColor);
-    //circles[i].stroke.color = rgb2hex(Chart.defaults.global.colours[i].fillColor);
-    //document.getElementsByClassName('groupName')[i].style.color = rgb2hex(Chart.defaults.global.colours[i].strokeColor);
-    
   }
-  //changeUsersColors(Chart.defaults.global.colours);
   return circles;
 }
 
