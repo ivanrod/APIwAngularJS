@@ -6,6 +6,9 @@ gem 'rails', '4.1.8'
 ##Sprockets better errors
 #gem 'sprockets_better_errors'
 
+#PRotractor
+gem 'protractor-rails'
+
 # Jquery-ui
 #gem 'jquery-ui-rails'
 
@@ -82,6 +85,7 @@ group :test do
   gem 'minitest-reporters', '1.0.5'
   gem 'mini_backtrace',     '0.1.3'
   gem 'guard-minitest',     '2.3.1'
+  
 end
 
 group :production do

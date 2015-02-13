@@ -3,9 +3,9 @@ function alertsFactory(){
   'use strict';
   return{
     sortMomentHelper: function(a, b){
-      if (a.time.isAfter(b)){ return 1}
-        else if (b.time.isAfter(a)){return -1}
-          else if (a.time.isSame(b)){return 0}
+      if (a.time.isAfter(b.time)){ return 1}
+        else if (b.time.isAfter(a.time)){return -1}
+          else if (a.time.isSame(b.time)){return 0}
     },
     formatAlerts: function(alerts){
       var alertsFormated = [];
@@ -37,7 +37,7 @@ function alertsFactory(){
         alertsTexts = alertsTexts.concat(this.formatAlerts(alertsByUser));
       }
       alertsTexts = alertsTexts.sort(this.sortMomentHelper);
-      return alertsTexts;
+      return alertsTexts.reverse();
     },
     alertsNames: {
       1: " ha pulsado el botón de alerta.",
