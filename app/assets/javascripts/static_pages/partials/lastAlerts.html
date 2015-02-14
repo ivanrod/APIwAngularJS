@@ -1,0 +1,22 @@
+		<article class="chart large-8 columns" cg-busy="dashboard.usersPromise">
+			<h4>Nº de alertas por usuario</h4>
+			<canvas id="line" class="chart chart-line" data="dashboard.data" labels="dashboard.labels" legend="true" series="dashboard.series" click="onClick"></canvas>  
+		</article>
+
+		<article class="alerts large-4 columns" cg-busy="dashboard.usersPromise">
+			<h4>Últimas alertas</h4>
+
+		<div class="pricing-table" >
+
+			<ul class="groupName">
+				
+				<li class="bullet-item large-12 colums item animate-repeat"  ng-repeat="alert in dashboard.alertTexts">
+				<div class="left">{{alert.text}}</div><div class="right">{{alert.time.fromNow()}}</div>
+				</li>
+				
+			</ul>
+		</div>
+
+
+
+		</article>

@@ -28,9 +28,12 @@ function mapsFactory(){
         latitude: markerPosition.latitude,
         longitude: markerPosition.longitude,
         icon: this.pinPoints(color)[0].url,
-        title: userId,
         options: {
-                visible: true
+                visible: true,
+                labelContent: "$425K",
+               labelAnchor: new google.maps.Point(22, 2),
+               labelClass: "labels", // the CSS class for the label
+               labelStyle: {opacity: 0.75}
               }
       }
       return marker;
