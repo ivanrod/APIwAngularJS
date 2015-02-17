@@ -9,6 +9,15 @@ function mapsCtrl($scope, sharedData, uiGmapGoogleMapApi, mapsFactory) {
       };
       vm.randomMarkers = mapsFactory.getMarkersByUser(vm.mapData, Chart.defaults.global.colours, sharedData.getResponse())
       vm.circles = mapsFactory.getAllCirclesMapData(sharedData.getResponse())
+      
+      vm.windowOptions = {
+            visible: false
+        };
+      vm.markerClick = function (e) { 
+        console.log("esto esta funcionando...")
+        console.log(e)
+        e.model.show = !e.model.show; 
+      };
 
       $scope.$on( 'people', function() {
         vm.mapData = sharedData.getPayloads();

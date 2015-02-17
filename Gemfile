@@ -6,6 +6,8 @@ gem 'rails', '4.1.8'
 ##Sprockets better errors
 #gem 'sprockets_better_errors'
 
+#gem 'angular-rails-templates'
+
 #PRotractor
 gem 'protractor-rails'
 

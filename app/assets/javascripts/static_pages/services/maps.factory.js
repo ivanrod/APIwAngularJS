@@ -28,6 +28,7 @@ function mapsFactory(){
         latitude: markerPosition.latitude,
         longitude: markerPosition.longitude,
         icon: this.pinPoints(color)[0].url,
+        show: false,
         options: {
                 visible: true,
                 labelContent: "$425K",
