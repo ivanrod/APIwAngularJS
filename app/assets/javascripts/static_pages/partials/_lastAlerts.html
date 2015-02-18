@@ -8,13 +8,11 @@
 
 		<div class="pricing-table" >
 
-			<ul class="groupName">
+			<div data-alert class="alert-box alert radius" ng-repeat="alert in dashboard.alertTexts">
+				<div class="left"><span class="strong-words">{{alert.userId}}</span> {{alert.text}}</div>
+				<div class="right">{{alert.time.fromNow()}}</div>
+			</div>
 				
-				<li class="bullet-item large-12 colums item animate-repeat"  ng-repeat="alert in dashboard.alertTexts">
-				<div class="left">{{alert.text}}</div><div class="right">{{alert.time.fromNow()}}</div>
-				</li>
-				
-			</ul>
 		</div>
 
 

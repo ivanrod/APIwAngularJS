@@ -2,6 +2,7 @@ function sharedData($rootScope, filterFilter, dashboardFactory) {
   'use strict';
   var response = {};
   var people = "";
+  var peopleOrder = {};
   var alerts = [];
   var chartData = dashboardFactory.allUsersAlertsNum(response, alerts);
   var payloads = {};
@@ -34,6 +35,15 @@ function sharedData($rootScope, filterFilter, dashboardFactory) {
               people = value;
               filteredData = filterFilter(response, {name: people})
               $rootScope.$broadcast("people");
+            },
+            getPeopleOrder: function(){
+              return peopleOrder;
+            },
+            getPersonIndex: function(personName){
+              return peopleOrder[personName];
+            },
+            setPeopleOrder: function(indexKey, personName){
+              peopleOrder[personName] = indexKey;
             },
             getColours: function(){
               return colours;

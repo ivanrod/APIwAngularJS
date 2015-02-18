@@ -11,7 +11,8 @@ function alertsFactory(){
       var alertsFormated = [];
       for (var i = 0; i < alerts.alerts.length; i++){
         var alert = {
-          "text": alerts.userId + this.alertsNames[alerts.alerts[i].level],
+          "userId": alerts.userId,
+          "text": " " + this.alertsNames[alerts.alerts[i].level],
           "time": moment(alerts.alerts[i].fecha).locale("es")
         }
         alertsFormated.push(alert)

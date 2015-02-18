@@ -10,7 +10,7 @@
 						<div ng-click="showDetails = ! showDetails" class="left" ><i class="fi-minus" ng-show="showDetails"></i><i class="fi-plus" ng-hide="showDetails" >
 					</i></div>{{group.name}}
 				</div>
-					<div class="circle right" ng-style="dashboard.myStyle($index)"></div>
+					<div class="circle right" ng-style="dashboard.usersStyle($index, '{{group.name}}')"></div>
 					
 					<ul ng-show="showDetails" ng-animate="'animate'">
 						<li class="bullet-item item" ng-repeat="family in group.assets" ng-animate="'animate'">{{family.assetId}}</li>	

@@ -13,6 +13,14 @@ div.pricing-table{
 	height: 400px;
 	overflow-y: scroll;
 }
+div.pricing-table>div.alert-box{
+	opacity: 0.8;
+	margin-bottom: 1px;
+	padding-bottom: 30px;
+}
+div.pricing-table>div.alert-box>div.right{
+	font-weight: bold;
+}
 
 #line {
 	height: 100px;
@@ -99,4 +107,7 @@ div.pricing-table{
  }
  .gm-style-iw+div>img {
  	max-width: none;
+ }
+ .strong-words{
+ 	font-weight: bold;
  }

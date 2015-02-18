@@ -39,7 +39,6 @@ function dashboardCtrl($scope, sharedData, ajaxFactory, dashboardFactory, alerts
   $scope.$on('people', function(newValue, oldValue) {
     var filteredData = sharedData.getFilteredData();
     var newChartData = dashboardFactory.allUsersAlertsNum(filteredData, sharedData.getAlerts());
-
     if (newChartData != vm.chartData){
       vm.chartData = newChartData;
       vm.data = vm.chartData.alerts;
@@ -53,7 +52,19 @@ function dashboardCtrl($scope, sharedData, ajaxFactory, dashboardFactory, alerts
     }
   });
 
-  vm.myStyle = function(indexColor){
+  vm.usersStyle = function(indexColor, name){
+    sharedData.setPeopleOrder(indexColor, name);
     return {background: sharedData.getColours()[indexColor].strokeColor}
   }  
+
+  /*
+  To have last alert colors equal to index colors uncomment the following lines
+  and add to the alert div in the HTML tag:
+  --> ng-style="dashboard.alertsStyle('{{alert.userId}}')"  
+  */
+  /*
+  vm.alertsStyle = function(userId){    
+    return {background: sharedData.getColours()[sharedData.getPersonIndex(userId)].strokeColor}
+  }
+  */
 };
