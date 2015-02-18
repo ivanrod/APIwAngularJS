@@ -59,7 +59,7 @@ function dashboardCtrl($scope, sharedData, ajaxFactory, dashboardFactory, alerts
 
   /*
   To have last alert colors equal to index colors uncomment the following lines
-  and add to the alert div in the HTML tag:
+  and add it to the alert div in the HTML tag:
   --> ng-style="dashboard.alertsStyle('{{alert.userId}}')"  
   */
   /*

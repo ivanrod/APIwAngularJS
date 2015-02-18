@@ -1,4 +1,4 @@
-		<article class="chart large-8 columns" cg-busy="dashboard.usersPromise">
+	<article class="chart large-8 columns" cg-busy="dashboard.usersPromise">
 			<h4>Nº de alertas por usuario</h4>
 			<canvas id="line" class="chart chart-line" data="dashboard.data" labels="dashboard.labels" legend="true" series="dashboard.series" click="onClick"></canvas>  
 		</article>
@@ -8,13 +8,11 @@
 
 		<div class="pricing-table" >
 
-			<div data-alert class="alert-box alert radius" ng-repeat="alert in dashboard.alertTexts">
+			<div data-alert class="alert-box info radius" ng-repeat="alert in dashboard.alertTexts">
 				<div class="left"><span class="strong-words">{{alert.userId}}</span> {{alert.text}}</div>
 				<div class="right">{{alert.time.fromNow()}}</div>
 			</div>
 				
 		</div>
 
-
-
-		</article>
+	</article>

@@ -8,7 +8,7 @@
 				<li class="bullet-item large-12 colums item animate-repeat repeat-item"  ng-repeat="group in dashboard.response | filter:{name: dashboard.people}" ng-animate="'animate'">
 				<div class="left">
 						<div ng-click="showDetails = ! showDetails" class="left" ><i class="fi-minus" ng-show="showDetails"></i><i class="fi-plus" ng-hide="showDetails" >
-					</i></div>{{group.name}}
+					</i></div> <a href="#">{{group.name}}</a>
 				</div>
 					<div class="circle right" ng-style="dashboard.usersStyle($index, '{{group.name}}')"></div>
 					
@@ -19,7 +19,7 @@
 				
 			</ul>
 		</div>
-	</article>
+</article>
 
 <article class="map large-8 columns" ng-controller="mapsCtrl as maps" cg-busy="dashboard.mapPromise" >
 		<h4>Mapa</h4>
