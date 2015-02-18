@@ -5316,7 +5316,6 @@ Original idea from: http://stackoverflow.com/questions/22758950/google-map-drawi
           this.watchOurScope(scope);
           this.doRebuildAll = this.scope.doRebuildAll != null ? this.scope.doRebuildAll : false;
           scope.$watch('doRebuildAll', (function(_this) {
-            
             return function(newValue, oldValue) {
               if (newValue !== oldValue) {
                 return _this.doRebuildAll = newValue;
@@ -5330,7 +5329,6 @@ Original idea from: http://stackoverflow.com/questions/22758950/google-map-drawi
           var itemToWatch;
           itemToWatch = this.markersScope != null ? 'pluralsUpdate' : 'models';
           return scope.$watch(itemToWatch, (function(_this) {
-
             return function(newValue, oldValue) {
               var doScratch;
               if (!_.isEqual(newValue, oldValue) || _this.firstWatchModels) {
@@ -5584,7 +5582,6 @@ Original idea from: http://stackoverflow.com/questions/22758950/google-map-drawi
 
         WindowsParentModel.prototype.setChildScope = function(childScope, model) {
           _.each(IWindow.scopeKeys, (function(_this) {
-
             return function(name) {
               var nameKey, newValue;
               nameKey = name + 'Key';

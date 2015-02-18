@@ -62,9 +62,9 @@ function dashboardCtrl($scope, sharedData, ajaxFactory, dashboardFactory, alerts
   and add it to the alert div in the HTML tag:
   --> ng-style="dashboard.alertsStyle('{{alert.userId}}')"  
   */
-  /*
+  
   vm.alertsStyle = function(userId){    
     return {background: sharedData.getColours()[sharedData.getPersonIndex(userId)].strokeColor}
   }
-  */
+  
 };

@@ -1,12 +1,14 @@
 <section class="large-11 columns" ng-controller="dashboardCtrl as dashboard">
-	
+	<!--
 	<h1>Dashboard</h1>
-	<div class="large-12 columns" ng-include="'assets/static_pages/partials/_users.html'" ng-cloak>
-
+	-->
+	<div class="model-input">
+		<input type="search" ng-model="dashboard.people" placeholder="Filtrar por nombre de usuario..." />	
+	</div>
 	
+	<div class="large-12 columns" ng-include="'assets/static_pages/partials/_users.html'" ng-cloak>
 	</div>
 
 	<div class="large-12 columns"  ng-include="'assets/static_pages/partials/_lastAlerts.html'" ng-cloak>
-
 	</div>
 </section>

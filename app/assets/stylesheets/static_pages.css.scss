@@ -45,6 +45,9 @@ div.pricing-table>div.alert-box>div.right{
 .chart .alerts{
 	height: 400px;
 }
+div.pricing-table.last-alerts{
+	height: 450px;
+}
 
 .columns.content-area{}
 .columns.sidebar{border:1px solid #111;padding:0}
@@ -112,6 +115,9 @@ div.pricing-table>div.alert-box>div.right{
  	font-weight: bold;
  }
 
+.model-input{
+	margin-top: 10px;
+}
 
 
 
@@ -119,8 +125,7 @@ div.pricing-table>div.alert-box>div.right{
 
 
 
-
- .footer-basic-centered{
+.footer-basic-centered{
  	height: 200px;
  	display:inline-block;
 	width: 100%;
@@ -161,8 +166,6 @@ div.pricing-table>div.alert-box>div.right{
 	text-decoration: none;
 	color: inherit;
 }
-
-/* If you don't want the footer to be responsive, remove these media queries */
 
 @media (max-width: 600px) {
 
