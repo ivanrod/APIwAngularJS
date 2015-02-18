@@ -25,6 +25,7 @@ function mapsFactory(){
       var markerPosition = this.parsePosition(payload.data.location)
       var marker = {
         id: markerId,
+        userId: userId,
         latitude: markerPosition.latitude,
         longitude: markerPosition.longitude,
         icon: this.pinPoints(color)[0].url,

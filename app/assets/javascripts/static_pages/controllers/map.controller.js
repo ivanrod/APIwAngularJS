@@ -13,9 +13,14 @@ function mapsCtrl($scope, sharedData, uiGmapGoogleMapApi, mapsFactory) {
       vm.windowOptions = {
             visible: false
         };
-      vm.markerClick = function (e) { 
-        console.log("esto esta funcionando...")
-        console.log(e)
+
+      vm.markerClick = function (e) {
+        vm.markerUserId = e.model.userId;
+        vm.markerPosition = {
+          latitude: e.model.latitude,
+          longitude: e.model.longitude
+        }
+
         e.model.show = !e.model.show; 
       };
 

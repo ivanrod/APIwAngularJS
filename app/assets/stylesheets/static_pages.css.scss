@@ -89,3 +89,14 @@ div.pricing-table{
    border: 2px solid black;
    white-space: nowrap;
  }
+
+ .gm-style-iw > * > * > p:first-child{
+ 	font-weight: 600;
+ }
+ .gm-style-iw > * > * > p {
+ 	font-size: 0.9rem;
+ 	margin-bottom: 5px;
+ }
+ .gm-style-iw+div>img {
+ 	max-width: none;
+ }

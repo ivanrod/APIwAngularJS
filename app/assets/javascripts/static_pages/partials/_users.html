@@ -28,7 +28,11 @@
               visible="c.visible" geodesic="c.geodesic" editable="c.editable" draggable="c.draggable" clickable="c.clickable"></ui-gmap-circle>
               <ui-gmap-markers models="maps.randomMarkers" coords="'self'" icon="'icon'" click="maps.markerClick">
 				<ui-gmap-windows show="show">
-                	<div ng-non-bindable>Believe</div>
+                	<div style="height:150px; overflow-y:scroll"> 
+                		<p>{{maps.markerUserId}}</p>
+                		<p>Latitud: {{maps.markerPosition.latitude}}</p>
+						<p>Longitud: {{maps.markerPosition.longitude}}</p>
+                	</div>
             	</ui-gmap-windows>
           	  </ui-gmap-markers>
 		</ui-gmap-google-map>

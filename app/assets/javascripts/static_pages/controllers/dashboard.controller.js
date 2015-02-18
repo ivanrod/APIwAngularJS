@@ -29,7 +29,7 @@ function dashboardCtrl($scope, sharedData, ajaxFactory, dashboardFactory, alerts
           $scope.$watch(angular.bind(vm, function () {
                               return vm.people;}), 
                             function(newValue, oldValue) {
-            sharedData.setPeople(vm.people)        
+                                sharedData.setPeople(vm.people)        
           })
         })
       })

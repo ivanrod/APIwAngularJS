@@ -15,7 +15,7 @@
 //= require moment.min
 //= require momentLocales
 //= require lodash.min
-//= require angular-google-maps.min
+//= require angular-google-maps
 //= require angular-animate
 //= require angular-chart
 //= require angular-busy.min

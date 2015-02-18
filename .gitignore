@@ -17,3 +17,4 @@
 
 # Ignore the credentials file
 /play_credentials.json
+/node_modules
