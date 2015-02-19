@@ -75,38 +75,27 @@ function dashboardCtrl($scope, matchmedia, sharedData, ajaxFactory, dashboardFac
   /*
   Media queries with matchmedia
   */
+  vm.fillBox = 'assets/static_pages/partials/_users.html';
+
   vm.enableUsersBox = function(){
     console.log("Tio, has clickado")
-      vm.usersBox = true;
-      vm.mapBox = false;
-      vm.statisticsBox = false;
-      vm.lastAlertsBox = false;    
+    vm.fillBox = 'assets/static_pages/partials/_users.html';   
   }
 
   vm.enableMapBox = function(){
     console.log("Tio, has clickado")
-      vm.usersBox = false;
-      vm.mapBox = true;
-      vm.statisticsBox = false;
-      vm.lastAlertsBox = false;  
-      $(document).foundation('reflow');  
+    vm.fillBox = 'assets/static_pages/partials/_map.html'; 
   }
 
   vm.enableStatisticsBox = function(){
     console.log("Tio, has clickado")
-    //Hacer que se recargue como si fuese un cambio de tamaño
-      vm.usersBox = false;
-      vm.mapBox = false;
-      vm.statisticsBox = true;
-      vm.lastAlertsBox = false; $(document).foundation('reflow');   
+    //Hacer que se recargue como si fuese un cambio de tamaño HECHO ng-if
+    vm.fillBox = 'assets/static_pages/partials/_statistics.html';   
   }
 
   vm.enableLastAlertsBox = function(){
     console.log("Tio, has clickado")
-      vm.usersBox = false;
-      vm.mapBox = false;
-      vm.statisticsBox = false;
-      vm.lastAlertsBox = true;    
+     vm.fillBox = 'assets/static_pages/partials/_lastAlerts.html';    
   }
   
   matchmedia.onPhone( function(mediaQueryList){
