@@ -1,12 +1,12 @@
-function dashboardCtrl($scope, sharedData, ajaxFactory, dashboardFactory, alertsFactory) {
+function dashboardCtrl($scope, matchmedia, sharedData, ajaxFactory, dashboardFactory, alertsFactory) {
 'use strict';
-  //Chart.defaults.global.colours[0].strokeColor = "rbga(95, 174, 87, 0.2)" 
-//changeUsersColors(Chart.defaults.global.colours);
+  //Si falla para algún explorador el matchmedia se puede mirar de incluir los polyfills;
   var vm = this;
   activate();
 
   function activate(){
     ajaxFactory.getGroups().then(function(groups){
+      
       sharedData.setResponse(groups.data)
 
         vm.usersPromise = ajaxFactory.getAlertsLast7days(groups.data).then(function(alerts){
@@ -67,4 +67,66 @@ function dashboardCtrl($scope, sharedData, ajaxFactory, dashboardFactory, alerts
     return {background: sharedData.getColours()[sharedData.getPersonIndex(userId)].strokeColor}
   }
   
+
+
+
+
+ 
+  /*
+  Media queries with matchmedia
+  */
+  vm.enableUsersBox = function(){
+    console.log("Tio, has clickado")
+      vm.usersBox = true;
+      vm.mapBox = false;
+      vm.statisticsBox = false;
+      vm.lastAlertsBox = false;    
+  }
+
+  vm.enableMapBox = function(){
+    console.log("Tio, has clickado")
+      vm.usersBox = false;
+      vm.mapBox = true;
+      vm.statisticsBox = false;
+      vm.lastAlertsBox = false;  
+      $(document).foundation('reflow');  
+  }
+
+  vm.enableStatisticsBox = function(){
+    console.log("Tio, has clickado")
+    //Hacer que se recargue como si fuese un cambio de tamaño
+      vm.usersBox = false;
+      vm.mapBox = false;
+      vm.statisticsBox = true;
+      vm.lastAlertsBox = false; $(document).foundation('reflow');   
+  }
+
+  vm.enableLastAlertsBox = function(){
+    console.log("Tio, has clickado")
+      vm.usersBox = false;
+      vm.mapBox = false;
+      vm.statisticsBox = false;
+      vm.lastAlertsBox = true;    
+  }
+  
+  matchmedia.onPhone( function(mediaQueryList){
+    vm.phone = mediaQueryList.matches;
+    if (mediaQueryList.matches){
+      vm.usersBox = true;
+      vm.mapBox = false;
+      vm.statisticsBox = false;
+      vm.lastAlertsBox = false;
+
+      console.log("Esto es un teléfono, tio");
+    }
+    else{
+      vm.usersBox = true;
+      vm.mapBox = true;
+      vm.statisticsBox = true;
+      vm.lastAlertsBox = true;
+      console.log("Esto NO es un teléfono, colega")
+    }
+  });
+
+
 };

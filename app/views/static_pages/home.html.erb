@@ -1,4 +1,14 @@
-<section class="large-11 columns" ng-controller="dashboardCtrl as dashboard">
+
+
+<ul class="dark menu-bar"  ng-show="dashboard.phone">
+	<li ng-click="dashboard.enableUsersBox()" class="is-active"><a href="#">Usuarios</a></li>
+	<li ng-click="dashboard.enableMapBox()"><a href="#">Mapa</a></li>
+	<li ng-click="dashboard.enableStatisticsBox()"><a href="#">Estadísticas</a></li>
+	<li ng-click="dashboard.enableLastAlertsBox()"><a href="#">Últimas alertas</a></li>
+</ul>
+
+
+<section class="large-11 small-12 columns">
 	<!--
 	<h1>Dashboard</h1>
 	-->

@@ -1,14 +1,14 @@
-	<article class="chart large-8 columns" cg-busy="dashboard.usersPromise">
+	<article ng-show="dashboard.statisticsBox" id="statistics-box" class="chart large-8 columns" cg-busy="dashboard.usersPromise">
 			<h4>Nº de alertas por usuario</h4>
-			<canvas id="line" class="chart chart-line" data="dashboard.data" labels="dashboard.labels" legend="true" series="dashboard.series" click="onClick"></canvas>  
+			<canvas ng-cloak id="line" class="chart chart-line" data="dashboard.data" labels="dashboard.labels" legend="true" series="dashboard.series" click="onClick"></canvas>  
 		</article>
 
-		<article class="alerts large-4 columns" cg-busy="dashboard.usersPromise">
+		<article ng-show="dashboard.lastAlertsBox" id="lastAlerts-box" class="alerts large-4 columns" cg-busy="dashboard.usersPromise">
 			<h4>Últimas alertas</h4>
 
-		<div class="pricing-table last-alerts" >
+		<div ng-scrollable="{scrollX:'none',scrollY:'right'}" class="pricing-table last-alerts" >
 
-			<div data-alert class="alert-box info radius" ng-repeat="alert in dashboard.alertTexts" ng-style="dashboard.alertsStyle('{{alert.userId}}')" >
+			<div data-alert class="alert-box info radius last-alerts-box" ng-repeat="alert in dashboard.alertTexts" ng-style="dashboard.alertsStyle('{{alert.userId}}')" >
 				<div class="left"><span class="strong-words">{{alert.userId}}</span> {{alert.text}}</div>
 				<div class="right">{{alert.time.fromNow()}}</div>
 			</div>

@@ -11,7 +11,11 @@
 // about supported directives.
 //
 
+
+
 //= require angular
+//= require angular-touch.min
+//= require foundation-apps.min
 //= require moment.min
 //= require momentLocales
 //= require lodash.min
@@ -22,6 +26,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
+//= require ng-scrollable.min
+//= require matchmedia-ng
 
 
 $(function(){ $(document).foundation(); });

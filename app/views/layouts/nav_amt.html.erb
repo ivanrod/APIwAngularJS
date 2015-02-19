@@ -29,11 +29,11 @@
     <%= csrf_meta_tags %>
   </head>
 
-  <body ng-app="play">
+  <body ng-cloak ng-app="play" ng-controller="dashboardCtrl as dashboard">
       
 
 
-  <nav class="top-bar" data-topbar role="navigation">
+  <nav ng-hide="dashboard.phone" class="top-bar" data-topbar role="navigation">
     <ul class="middle tab-bar-section">
       <li class="name">
         <h1><%= image_tag "VueForgePlay.png", class: "logo" %></h1>
@@ -60,7 +60,7 @@
 
   <!-- Left Nav Sidebar -->
 
-<nav class="large-1 columns left-nav">
+<nav ng-hide="dashboard.phone" class="large-1 columns left-nav">
   <div class="icon-bar vertical five-up">
     <a class="item">
         <i class="fi-info"></i>
@@ -71,7 +71,7 @@
 
     <%= yield %>
 
-<footer class="footer-basic-centered">
+<footer class="footer-basic-centered" ng-hide="dashboard.phone">
 
   <p class="footer-company-motto">Play by Altran.</p>
 

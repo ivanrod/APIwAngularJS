@@ -13,7 +13,13 @@
 
     // Declare app level module which depends on views, and components
     angular
-        .module('play', ['chart.js', 'uiGmapgoogle-maps', 'cgBusy', 'ngAnimate'])
+        .module('play', ['chart.js', 
+            'matchmedia-ng', 
+            'uiGmapgoogle-maps', 
+            'cgBusy', 
+            'ngAnimate', 
+            'ngScrollable', 
+            'ngTouch'])
 
     angular
         .module('play')

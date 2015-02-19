@@ -11,12 +11,15 @@
  * file per style scope.
  *
  *= require_self
+ *= require foundation-apps.min
  *= require foundation_and_overrides
  *= require foundation-icons/foundation-icons
  *= require foundation
  *= require animate
  *= require angular-chart
  *= require angular-busy.min
+ *= require ng-scrollable.min
+
 
 
  */
