@@ -9,6 +9,17 @@ footer{
 	background-color: #fff;
 }
 
+#account1, #account2{
+	color: black;
+}
+.fill-box {
+	height: 100%;
+}
+.phone-nav{
+	z-index: 1000;
+}
+.dashboard-phone{
+}
 div.pricing-table{
 	height: 400px;
 }
@@ -23,10 +34,6 @@ div.pricing-table>div.alert-box>div.right{
 	font-weight: bold;
 }
 
-#line {
-	height: 100px;
-	
-}
 .circle {
 	display: inline-block;
 	width: 1em;
@@ -169,6 +176,9 @@ div.pricing-table.last-alerts{
 }
 
 @media (max-width: 600px) {
+	body,div.pricing-table.last-alerts{
+		height: 100%;
+	}
 
 	.footer-basic-centered{
 		padding: 35px;

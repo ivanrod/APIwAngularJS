@@ -1,21 +1,52 @@
+<section class="phone-view">
+<nav class="phone-nav">
+<div ng-if="dashboard.phone" class="primary title-bar">
+<div class="center title">Play by altran</div>
+<span class="left"><a href="#"> </a></span>
+<span class="right"><a href="#" zf-toggle="my-actionsheet"></a>
+	
+	
+	<zf-action-sheet id="my-actionsheet">
+	<zf-as-button><i class="fi-list"></i></zf-as-button>
+	<zf-as-content position="bottom">
+		<ul>
+			<li ><a href="#" id="account1">Mis datos</a></li>
+            <li ><a href="#" id="account2">Salir</a></li>
+        </ul>
+	</zf-as-content>
+	</zf-action-sheet>
+</span>
+
+</div>
+
+
+
+
+
+
+
+
 
 
 <ul class="dark menu-bar"  ng-if="dashboard.phone">
-	<li ng-click="dashboard.enableUsersBox()" class="is-active"><a href="#">Usuarios</a></li>
-	<li ng-click="dashboard.enableMapBox()"><a href="#">Mapa</a></li>
-	<li ng-click="dashboard.enableStatisticsBox()"><a href="#">Estadísticas</a></li>
-	<li ng-click="dashboard.enableLastAlertsBox()"><a href="#">Últimas alertas</a></li>
+	<li ng-click="dashboard.enableBox('users')" ng-class="{'is-active': dashboard.selected == 'users'}"><a href="#"><i class="fi-torsos-all"></i></a></li>
+	<li ng-click="dashboard.enableBox('map')" ng-class="{'is-active': dashboard.selected == 'map'}"><a href="#"><i class="fi-map"></i></a></li>
+	<li ng-click="dashboard.enableBox('stats')" ng-class="{'is-active': dashboard.selected == 'stats'}"><a href="#"><i class="fi-graph-trend"></i></a></li>
+	<li ng-click="dashboard.enableBox('alerts')" ng-class="{'is-active': dashboard.selected == 'alerts'}"><a href="#"><i class="fi-alert"></i></a></li>
 </ul>
 
-<div ng-if="dashboard.phone">
+</nav>
+
+<div class="fill-box dashboard-phone" ng-if="dashboard.phone">
+
 <div class="model-input">
 	<input type="search" ng-model="dashboard.people" placeholder="Filtrar por nombre de usuario..." />	
 </div>
-<div ng-include="dashboard.fillBox">>
+<div class="fill-box" ng-include="dashboard.fillBox">>
 	
 </div>
 </div>
-
+</section>
 
 <section ng-if="!dashboard.phone" class="large-11 small-12 columns">
 	<!--

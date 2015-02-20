@@ -75,29 +75,15 @@ function dashboardCtrl($scope, matchmedia, sharedData, ajaxFactory, dashboardFac
   /*
   Media queries with matchmedia
   */
-  vm.fillBox = 'assets/static_pages/partials/_users.html';
+  vm.fillBox = sharedData.getPartial('users');
+  vm.selected = 'users';
 
-  vm.enableUsersBox = function(){
-    console.log("Tio, has clickado")
-    vm.fillBox = 'assets/static_pages/partials/_users.html';   
+  vm.enableBox = function(box){
+    vm.fillBox = sharedData.getPartial(box);
+    vm.selected = box;
   }
 
-  vm.enableMapBox = function(){
-    console.log("Tio, has clickado")
-    vm.fillBox = 'assets/static_pages/partials/_map.html'; 
-  }
 
-  vm.enableStatisticsBox = function(){
-    console.log("Tio, has clickado")
-    //Hacer que se recargue como si fuese un cambio de tamaño HECHO ng-if
-    vm.fillBox = 'assets/static_pages/partials/_statistics.html';   
-  }
-
-  vm.enableLastAlertsBox = function(){
-    console.log("Tio, has clickado")
-     vm.fillBox = 'assets/static_pages/partials/_lastAlerts.html';    
-  }
-  
   matchmedia.onPhone( function(mediaQueryList){
     vm.phone = mediaQueryList.matches;
     if (mediaQueryList.matches){

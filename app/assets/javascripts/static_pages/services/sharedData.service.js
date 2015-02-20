@@ -8,6 +8,13 @@ function sharedData($rootScope, filterFilter, dashboardFactory) {
   var payloads = {};
   var filteredData = filterFilter(response, {name: people});
   var colours = Chart.defaults.global.colours;
+  var partialsUrl = 'assets/static_pages/partials/'
+  var partials = {
+    'users': partialsUrl + '_users.html',
+    'map': partialsUrl + '_map.html',
+    'stats': partialsUrl + '_statistics.html',
+    'alerts': partialsUrl + '_lastAlerts.html'
+  }
 
         return {
             getResponse:function () {
@@ -50,6 +57,9 @@ function sharedData($rootScope, filterFilter, dashboardFactory) {
             },
             getFilteredData: function(){
               return filteredData;
+            },
+            getPartial: function(partial){
+              return partials[partial];
             }
         }
       };

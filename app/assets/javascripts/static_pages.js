@@ -1,3 +1,4 @@
+//= require actionsheet/actionsheet
 //= require static_pages/static_pages.config
 //= require static_pages/services/sharedData.service
 //= require static_pages/services/ajax.factory
@@ -19,7 +20,8 @@
             'cgBusy', 
             'ngAnimate', 
             'ngScrollable', 
-            'ngTouch'])
+            'ngTouch',
+            'foundation.actionsheet'])
 
     angular
         .module('play')
