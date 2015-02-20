@@ -20,14 +20,6 @@
 </div>
 
 
-
-
-
-
-
-
-
-
 <ul class="dark menu-bar"  ng-if="dashboard.phone">
 	<li ng-click="dashboard.enableBox('users')" ng-class="{'is-active': dashboard.selected == 'users'}"><a href="#"><i class="fi-torsos-all"></i></a></li>
 	<li ng-click="dashboard.enableBox('map')" ng-class="{'is-active': dashboard.selected == 'map'}"><a href="#"><i class="fi-map"></i></a></li>
@@ -42,7 +34,7 @@
 <div class="model-input">
 	<input type="search" ng-model="dashboard.people" placeholder="Filtrar por nombre de usuario..." />	
 </div>
-<div class="fill-box" ng-include="dashboard.fillBox">>
+<div class="fill-box" cg-busy="dashboard.usersPromise" ng-include="dashboard.fillBox">>
 	
 </div>
 </div>
