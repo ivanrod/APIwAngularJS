@@ -6,6 +6,8 @@ gem 'rails', '4.1.8'
 ##Sprockets better errors
 #gem 'sprockets_better_errors'
 
+gem 'rails_karma'
+
 #gem 'angular-rails-templates'
 
 #PRotractor
@@ -93,4 +95,10 @@ end
 group :production do
   gem 'pg',  '0.17.1'
   gem 'rails_12factor',  '0.0.2'
+end
+
+source 'https://rails-assets.org'
+gem "rails-assets-angular"
+group :development, :test do
+  gem 'rails-assets-angular-mocks'
 end
