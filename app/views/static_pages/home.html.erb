@@ -1,4 +1,4 @@
-<section class="phone-view">
+<section id="phone-section" class="phone-view" ng-class="{'slidification': dashboard.slidification}" ng-swipe-right="dashboard.slideBoxRight(dashboard.selected)" ng-swipe-left="dashboard.slideBoxLeft(dashboard.selected)">
 <nav class="phone-nav">
 <div ng-if="dashboard.phone" class="primary title-bar">
 <div class="center title">Play by altran</div>
@@ -20,11 +20,11 @@
 </div>
 
 
-<ul class="dark menu-bar"  ng-if="dashboard.phone">
-	<li ng-click="dashboard.enableBox('users')" ng-class="{'is-active': dashboard.selected == 'users'}"><a href="#"><i class="fi-torsos-all"></i></a></li>
-	<li ng-click="dashboard.enableBox('map')" ng-class="{'is-active': dashboard.selected == 'map'}"><a href="#"><i class="fi-map"></i></a></li>
-	<li ng-click="dashboard.enableBox('stats')" ng-class="{'is-active': dashboard.selected == 'stats'}"><a href="#"><i class="fi-graph-trend"></i></a></li>
-	<li ng-click="dashboard.enableBox('alerts')" ng-class="{'is-active': dashboard.selected == 'alerts'}"><a href="#"><i class="fi-alert"></i></a></li>
+<ul class="dark menu-bar" ng-animate-children ng-if="dashboard.phone">
+	<li ng-animate ng-click="dashboard.enableBox(1)" ng-class="{'is-active': dashboard.selected === 1}"><a href="#"><i class="fi-torsos-all"></i></a></li>
+	<li ng-animate ng-click="dashboard.enableBox(2)" ng-class="{'is-active': dashboard.selected === 2}"><a href="#"><i class="fi-map"></i></a></li>
+	<li ng-animate ng-click="dashboard.enableBox(3)" ng-class="{'is-active': dashboard.selected === 3}"><a href="#"><i class="fi-graph-trend"></i></a></li>
+	<li ng-animate ng-click="dashboard.enableBox(4)" ng-class="{'is-active': dashboard.selected === 4}"><a href="#"><i class="fi-alert"></i></a></li>
 </ul>
 
 </nav>

@@ -1,0 +1,20 @@
+
+.is-active-add {
+  opacity: 1;
+  display: block !important;
+  transition: opacity 0.3s;
+}
+
+.is-active-add-active {
+  opacity: 0;
+}
+
+.slideLeft-add {
+    -webkit-animation: fadeInRight 0.5s;
+    animation: fadeInRight 0.5s;
+}
+
+.slideRight-add{
+    -webkit-animation: fadeInLeft 0.5s;
+    animation: fadeInLeft 0.5s;	
+}

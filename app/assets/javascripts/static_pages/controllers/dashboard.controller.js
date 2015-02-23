@@ -1,4 +1,4 @@
-function dashboardCtrl($scope, matchmedia, sharedData, ajaxFactory, dashboardFactory, alertsFactory) {
+function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, dashboardFactory, alertsFactory) {
 'use strict';
   //Si falla para algún explorador el matchmedia se puede mirar de incluir los polyfills;
   var vm = this;
@@ -75,12 +75,42 @@ function dashboardCtrl($scope, matchmedia, sharedData, ajaxFactory, dashboardFac
   /*
   Media queries with matchmedia
   */
-  vm.fillBox = sharedData.getPartial('users');
-  vm.selected = 'users';
+  vm.fillBox = sharedData.getPartial(1);
+  vm.selected = 1;
+  vm.slidification = false;
+  vm.phoneSection = angular.element(document.getElementById('phone-section'));
 
   vm.enableBox = function(box){
     vm.fillBox = sharedData.getPartial(box);
     vm.selected = box;
+  }
+  vm.slideBoxLeft = function(box){
+    $animate.addClass(vm.phoneSection, 'slideLeft').then(function(){
+      vm.phoneSection.removeClass('slideLeft');
+    })
+    if (box < 4){
+      vm.fillBox = sharedData.getPartial(box + 1);
+      vm.selected = box + 1;
+    }
+    else{
+      vm.fillBox = sharedData.getPartial(1);
+      vm.selected = 1;
+    }
+    
+  }
+
+  vm.slideBoxRight = function(box){
+    $animate.addClass(vm.phoneSection, 'slideRight').then(function(){
+      vm.phoneSection.removeClass('slideRight');
+    })
+    if (box > 1){
+      vm.fillBox = sharedData.getPartial(box - 1);
+      vm.selected = box - 1;
+    }
+    else{
+      vm.fillBox = sharedData.getPartial(4);
+      vm.selected = 4;
+    }
   }
 
 
