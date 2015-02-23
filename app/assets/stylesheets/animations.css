@@ -1,11 +1,11 @@
 
-.is-active-add {
+li.is-active-add {
   opacity: 1;
   display: block !important;
   transition: opacity 0.3s;
 }
 
-.is-active-add-active {
+li.is-active-add-active {
   opacity: 0;
 }
 

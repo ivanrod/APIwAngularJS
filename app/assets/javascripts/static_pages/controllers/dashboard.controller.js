@@ -114,7 +114,7 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
   }
 
 
-  matchmedia.onPhone( function(mediaQueryList){
+  matchmedia.on('(max-width: 1025px)', function(mediaQueryList){
     vm.phone = mediaQueryList.matches;
     if (mediaQueryList.matches){
       vm.usersBox = true;
