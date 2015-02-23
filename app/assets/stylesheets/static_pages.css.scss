@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com
 body{
 	background: image-url("fondo.png");
+
 }
 footer{
 	height: 100px;
@@ -14,6 +15,7 @@ footer{
 }
 .with-chevron > a{
 }
+.with-chevron{}
 .fill-box {
 	height: 100%;
 }
@@ -178,6 +180,10 @@ div.pricing-table.last-alerts{
 }
 
 @media (max-width: 600px) {
+	body{
+		width:100%;
+		overflow-x: hidden;
+	}
 	body,div.pricing-table.last-alerts{
 		height: 100%;
 	}
