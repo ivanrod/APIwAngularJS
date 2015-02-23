@@ -13,7 +13,7 @@
 
 
 
-//= require angular
+//= require angular.min
 //= require angular-touch.min
 //= require moment.min
 //= require momentLocales

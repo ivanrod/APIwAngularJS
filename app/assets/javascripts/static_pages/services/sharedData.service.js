@@ -10,10 +10,10 @@ function sharedData($rootScope, filterFilter, dashboardFactory) {
   var colours = Chart.defaults.global.colours;
   var partialsUrl = 'assets/static_pages/partials/'
   var partials = {
-    'users': partialsUrl + '_usersMobile.html',
-    'map': partialsUrl + '_map.html',
-    'stats': partialsUrl + '_statistics.html',
-    'alerts': partialsUrl + '_lastAlerts.html'
+    1: partialsUrl + '_usersMobile.html',
+    2: partialsUrl + '_map.html',
+    3: partialsUrl + '_statistics.html',
+    4: partialsUrl + '_lastAlerts.html'
   }
 
         return {
