@@ -1,4 +1,4 @@
-<div  id="map-box" class="large-12 columns" ng-controller="mapsCtrl as maps" cg-busy="dashboard.mapPromise">
+<div  id="map-box" class="large-12 columns" ng-controller="mapsCtrl as maps" cg-busy="dashboard.mapPromise"  ng-swipe-right="dashboard.enableBox('stats')" ng-swipe-left="dashboard.enableBox('users')">
 <ui-gmap-google-map center='maps.map.center' zoom='maps.map.zoom'>
 			<ui-gmap-circle ng-repeat="c in maps.circles track by c.id" center="c.center" stroke="c.stroke" fill="c.fill" radius="c.radius"
               visible="c.visible" geodesic="c.geodesic" editable="c.editable" draggable="c.draggable" clickable="c.clickable"></ui-gmap-circle>
