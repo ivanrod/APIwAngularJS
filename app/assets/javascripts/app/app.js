@@ -5,6 +5,7 @@
 //= require app/services/dashboard.factory
 //= require app/services/maps.factory
 //= require app/services/alerts.factory
+//= require app/layout/layout.controller
 //= require app/dashboard/dashboard.controller
 //= require app/dashboard/map.controller
 
@@ -21,7 +22,7 @@
             'ngAnimate', 
             'ngScrollable', 
             'ngTouch',
-            'ngRoute',
+            'ui.router',
             'foundation.actionsheet'])
 
     angular
@@ -32,6 +33,7 @@
         .factory('dashboardFactory', dashboardFactory)
         .factory('mapsFactory', mapsFactory)
         .factory('alertsFactory', alertsFactory)
+        .controller('layoutCtrl', layoutCtrl)
         .controller('dashboardCtrl', dashboardCtrl)
         .controller('mapsCtrl', mapsCtrl)
         .value('cgBusyDefaults',{
