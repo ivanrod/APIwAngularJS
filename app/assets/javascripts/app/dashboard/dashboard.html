@@ -1,0 +1,83 @@
+<section id="phone-section" class="phone-view" ng-class="{'slidification': dashboard.slidification}" ng-swipe-right="dashboard.slideBoxRight(dashboard.selected)" ng-swipe-left="dashboard.slideBoxLeft(dashboard.selected)">
+<nav class="phone-nav">
+<div ng-if="dashboard.phone" class="primary title-bar">
+<div class="center title">Play by altran</div>
+<span class="left"><a href="#"> </a></span>
+<span class="right"><a href="#" zf-toggle="my-actionsheet"></a>
+	
+	
+	<zf-action-sheet id="my-actionsheet">
+	<zf-as-button><i class="fi-list"></i></zf-as-button>
+	<zf-as-content position="bottom">
+		<ul>
+			<li ><a href="#" id="account1">Mis datos</a></li>
+            <li ><a href="#" id="account2">Salir</a></li>
+        </ul>
+	</zf-as-content>
+	</zf-action-sheet>
+</span>
+
+</div>
+
+
+<ul class="dark menu-bar" ng-animate-children ng-if="dashboard.phone">
+	<li ng-animate ng-click="dashboard.enableBox(1)" ng-class="{'is-active': dashboard.selected === 1}"><a href="#"><i class="fi-torsos-all"></i></a></li>
+	<li ng-animate ng-click="dashboard.enableBox(2)" ng-class="{'is-active': dashboard.selected === 2}"><a href="#"><i class="fi-map"></i></a></li>
+	<li ng-animate ng-click="dashboard.enableBox(3)" ng-class="{'is-active': dashboard.selected === 3}"><a href="#"><i class="fi-graph-trend"></i></a></li>
+	<li ng-animate ng-click="dashboard.enableBox(4)" ng-class="{'is-active': dashboard.selected === 4}"><a href="#"><i class="fi-alert"></i></a></li>
+</ul>
+
+</nav>
+
+<div class="fill-box dashboard-phone" ng-if="dashboard.phone">
+
+<div class="model-input">
+	<input type="search" ng-model="dashboard.people" placeholder="Filtrar por nombre de usuario..." />	
+</div>
+<div class="fill-box" cg-busy="dashboard.usersPromise" ng-include="dashboard.fillBox">>
+	
+</div>
+</div>
+</section>
+
+<section ng-if="!dashboard.phone" class="large-11 small-12 columns">
+	<!--
+	<h1>Dashboard</h1>
+	-->
+	<div class="model-input">
+		<input type="search" ng-model="dashboard.people" placeholder="Filtrar por nombre de usuario..." />	
+	</div>
+	
+	<div class="large-12 columns" ng-cloak>
+		<article id="users-box" class="people large-4 columns" >
+			<h4>Usuarios</h4>
+			<div ng-include="'assets/static_pages/partials/_users.html'">				
+			</div>
+		</article>
+
+		<article class="map large-8 columns"  >
+		<h4>Mapa</h4>
+		<div  class="large-12" ng-include="'assets/static_pages/partials/_map.html'">
+		</div>
+		</article>
+
+	</div>
+
+	<div class="large-12 columns" ng-cloak>
+	<article id="statistics-box" class="chart large-8 columns" cg-busy="dashboard.usersPromise">
+			<h4>Nº de alertas por usuario</h4>
+			<div ng-include="'assets/static_pages/partials/_statistics.html'">
+				
+			</div> 
+	</article>
+
+	<article id="lastAlerts-box" class="alerts large-4 columns" cg-busy="dashboard.usersPromise">
+			<h4>Últimas alertas</h4>
+
+		<div ng-include="'assets/static_pages/partials/_lastAlerts.html'" >
+				
+		</div>
+
+	</article>
+	</div>
+</section>

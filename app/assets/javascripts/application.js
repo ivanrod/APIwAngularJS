@@ -14,6 +14,7 @@
 
 
 //= require angular.min
+//= require angular-route.min
 //= require angular-touch.min
 //= require moment.min
 //= require momentLocales

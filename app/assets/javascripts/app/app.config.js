@@ -11,12 +11,21 @@ function playConfig(uiGmapGoogleMapApiProvider, $httpProvider, $routeProvider) {
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'AngularXMLHttpRequest';
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
 
-/*
-    $routeProvider.
-      when('/phones', {
-        templateUrl: 'partials/phone-list.html',
-        controller: 'PhoneListCtrl'
-      })
 
+    $routeProvider.
+      when('/', {
+        templateUrl: 'assets/app/dashboard/dashboard.html',
+        controller: 'dashboardCtrl'
+      }).
+/*
+      when('/user/:userId', {
+        templateUrl: 'partials/phone-detail.html',
+        controller: 'PhoneDetailCtrl'
+      }).
 */
+      otherwise({
+        redirectTo: '/'
+      });
+
+
 }
