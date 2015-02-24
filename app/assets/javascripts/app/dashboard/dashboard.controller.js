@@ -78,15 +78,14 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
   vm.fillBox = sharedData.getPartial(1);
   vm.selected = 1;
   vm.slidification = false;
-  vm.phoneSection = angular.element(document.getElementById('phone-section'));
 
   vm.enableBox = function(box){
     vm.fillBox = sharedData.getPartial(box);
     vm.selected = box;
   }
   vm.slideBoxLeft = function(box){
-    $animate.addClass(vm.phoneSection, 'slideLeft').then(function(){
-      vm.phoneSection.removeClass('slideLeft');
+    $animate.addClass(sharedData.getPhoneSection(), 'slideLeft').then(function(){
+      sharedData.getPhoneSection().removeClass('slideLeft');
     })
     if (box < 4){
       vm.fillBox = sharedData.getPartial(box + 1);
@@ -100,8 +99,8 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
   }
 
   vm.slideBoxRight = function(box){
-    $animate.addClass(vm.phoneSection, 'slideRight').then(function(){
-      vm.phoneSection.removeClass('slideRight');
+    $animate.addClass(sharedData.getPhoneSection(), 'slideRight').then(function(){
+      sharedData.getPhoneSection().removeClass('slideRight');
     })
     if (box > 1){
       vm.fillBox = sharedData.getPartial(box - 1);
@@ -117,6 +116,7 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
   matchmedia.on('(max-width: 1025px)', function(mediaQueryList){
     vm.phone = mediaQueryList.matches;
     if (mediaQueryList.matches){
+      sharedData.setPhoneSection();
       vm.usersBox = true;
       vm.mapBox = false;
       vm.statisticsBox = false;

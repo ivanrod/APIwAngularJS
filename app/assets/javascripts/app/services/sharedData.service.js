@@ -8,6 +8,7 @@ function sharedData($rootScope, filterFilter, dashboardFactory) {
   var payloads = {};
   var filteredData = filterFilter(response, {name: people});
   var colours = Chart.defaults.global.colours;
+  var phoneSection = angular.element(document.getElementById('phone-section'));
   var partialsUrl = 'assets/static_pages/partials/'
   var partials = {
     1: partialsUrl + '_usersMobile.html',
@@ -17,6 +18,12 @@ function sharedData($rootScope, filterFilter, dashboardFactory) {
   }
 
         return {
+            getPhoneSection: function() {
+              return phoneSection;
+            },
+            setPhoneSection: function() {
+              phoneSection = angular.element(document.getElementById('phone-section'));
+            },
             getResponse:function () {
               return response;
             },
