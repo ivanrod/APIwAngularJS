@@ -8,6 +8,7 @@
 //= require app/layout/layout.controller
 //= require app/dashboard/dashboard.controller
 //= require app/dashboard/map.controller
+//= require app/user/user.controller
 
 (function() {
 
@@ -36,6 +37,7 @@
         .controller('layoutCtrl', layoutCtrl)
         .controller('dashboardCtrl', dashboardCtrl)
         .controller('mapsCtrl', mapsCtrl)
+        .controller('userCtrl', userCtrl)
         .value('cgBusyDefaults',{
           message:'Cargando...',
         })

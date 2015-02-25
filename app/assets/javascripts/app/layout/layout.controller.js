@@ -1,5 +1,8 @@
 function layoutCtrl($scope, $animate, matchmedia, sharedData){
-	vm = this;
+  'use strict';
+  //Si falla para algún explorador el matchmedia se puede mirar de incluir los polyfills;
+
+	var vm = this;
   /*
   Media queries with matchmedia
   */

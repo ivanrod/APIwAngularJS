@@ -1,20 +1,20 @@
 function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, dashboardFactory, alertsFactory) {
 'use strict';
-  //Si falla para algún explorador el matchmedia se puede mirar de incluir los polyfills;
   var vm = this;
   activate();
 
   function activate(){
-    ajaxFactory.getGroups().then(function(groups){
-
-      vm.usersStyle = function(indexColor, name){
-        sharedData.setPeopleOrder(indexColor, name);
-        return {background: sharedData.getColours()[indexColor].strokeColor}
-      }        
+    vm.usersPromise = ajaxFactory.getGroups().then(function(groups){
 
       sharedData.setResponse(groups.data)
+      vm.response = sharedData.getResponse()
+      vm.people = sharedData.getPeople();
 
-        vm.usersPromise = ajaxFactory.getAlertsLast7days(groups.data).then(function(alerts){
+        vm.alertsPromise = ajaxFactory.getAlertsLast7days(groups.data).then(function(alerts){
+        vm.usersStyle = function(indexColor, name){
+          sharedData.setPeopleOrder(indexColor, name);
+          return {background: sharedData.getColours()[indexColor].strokeColor}
+        } 
         vm.response = sharedData.getResponse();
         sharedData.setAlerts(alerts.data)
         vm.alertTexts = alertsFactory.lastUsersAlerts(sharedData.getResponse(), sharedData.getAlerts());

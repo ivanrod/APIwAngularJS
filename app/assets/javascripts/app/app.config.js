@@ -18,11 +18,11 @@ function playConfig(uiGmapGoogleMapApiProvider, $httpProvider, $urlRouterProvide
 
   $stateProvider
     .state('index', {
-      url: "",
+      url: "/",
       views: {
-        "dashboard": { controller: 'dashboardCtrl as dashboard', 
+        "viewNormal": { controller: 'dashboardCtrl as dashboard', 
                         templateUrl: 'assets/app/dashboard/dashboard.html' },
-        "dashboardMobile": { controller: 'dashboardCtrl as dashboard', 
+        "viewMobile": { controller: 'dashboardCtrl as dashboard', 
                         templateUrl: "assets/app/dashboard/dashboard.mobile.html" },
       },
       
@@ -30,19 +30,21 @@ function playConfig(uiGmapGoogleMapApiProvider, $httpProvider, $urlRouterProvide
     .state('dashboard', {
       url: "/dashboard",
       views: {
-        "dashboard": { controller: 'dashboardCtrl as dashboard', 
+        "viewNormal": { controller: 'dashboardCtrl as dashboard', 
                         templateUrl: "assets/app/dashboard/dashboard.html" },
-        "dashboardMobile": { controller: 'dashboardCtrl as dashboard', 
+        "viewMobile": { controller: 'dashboardCtrl as dashboard', 
                         templateUrl: "assets/app/dashboard/dashboard.mobile.html" },
       },
       controller: 'dashboardCtrl as dashboard'
-    })  /*
-    .state('route2', {
-      url: "/route2",
+    })  
+    .state('user', {
+      url: "/:userId",
       views: {
-        "viewA": { template: "route2.viewA" },
-        "viewB": { template: "route2.viewB" }
+        "viewNormal": { controller: 'userCtrl as user',
+                        templateUrl: "assets/app/user/user.html" },
+        "viewMobile": { controller: 'userCtrl as user',
+                        templateUrl: "assets/app/user/user.mobile.html" }
       }
-    })  */
+    })  
 
 }

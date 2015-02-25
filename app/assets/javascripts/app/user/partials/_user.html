@@ -1,0 +1,34 @@
+<ul class="pricing-table" ng-if="!user.editMode">
+  <li class="title">{{user.userId}}</li>
+  <li class="price">{{user.name || "-"}}</li>
+  <li class="description">{{user.adress || "-"}}</li>
+  <li class="bullet-item">{{user.tel || "-"}}</li>
+  <li class="cta-button"><a class="button" href="#">Essential Tablet</a></li>
+  <li class="cta-button"><a class="button" href="#">Ver cámara</a></li>
+  <li class="bullet-item">
+  	<div class="right">
+  		<a href="" ng-click="user.editMode = true">Editar...</a>
+  	</div>
+  </li>
+</ul>
+
+<ul class="pricing-table" ng-if="user.editMode">
+  <li class="title">{{user.userId}}</li>
+  <li class="price">
+  	<input type="text" placeholder="Nombre..." value="{{user.name || ''}}"></input>
+  </li>
+  <li class="description">
+  	<input type="text" placeholder="Dirección..." value="{{user.adress || ''}}"></input>
+  </li>
+  <li class="bullet-item">
+  	<input type="text" placeholder="Teléfono..." value="{{user.tel || '-'}}"></input>
+  </li>
+  <li class="cta-button"><a class="button" href="#">Essential Tablet</a></li>
+  <li class="cta-button"><a class="button" href="#">Ver cámara</a></li>
+  <li class="bullet-item">
+  	<div class="right">
+  		<a href="">Guardar</a>
+  		<a href="" ng-click="user.editMode = false">Cancelar</a>
+  	</div>
+  </li>
+</ul>

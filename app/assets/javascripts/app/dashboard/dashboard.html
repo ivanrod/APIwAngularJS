@@ -21,14 +21,14 @@
 	</div>
 
 	<div class="large-12 columns" ng-cloak>
-	<article id="statistics-box" class="chart large-8 columns" cg-busy="dashboard.usersPromise">
+	<article id="statistics-box" class="chart large-8 columns" cg-busy="dashboard.alertsPromise">
 			<h4>Nº de alertas por usuario</h4>
 			<div ng-include="'assets/app/dashboard/partials/_statistics.html'">
 				
 			</div> 
 	</article>
 
-	<article id="lastAlerts-box" class="alerts large-4 columns" cg-busy="dashboard.usersPromise">
+	<article id="lastAlerts-box" class="alerts large-4 columns" cg-busy="dashboard.alertsPromise">
 			<h4>Últimas alertas</h4>
 
 		<div ng-include="'assets/app/dashboard/partials/_lastAlerts.html'" >

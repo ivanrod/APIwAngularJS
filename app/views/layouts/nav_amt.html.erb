@@ -62,7 +62,7 @@
 
 <nav ng-hide="layout.phone" class="large-1 columns left-nav">
   <div class="icon-bar vertical five-up">
-    <a class="item">
+    <a class="item" href="/#/dashboard">
         <i class="fi-info"></i>
         <label>Dashboard</label>
       </a>
@@ -99,11 +99,11 @@
 
 </nav>
 
-<div class="fill-box dashboard-phone" ng-if="layout.phone" ui-view="dashboardMobile"></div>
+<div class="fill-box dashboard-phone" ng-if="layout.phone" ui-view="viewMobile"></div>
 
 </section>
 
-<section ui-view="dashboard" ng-if="!layout.phone" class="large-11 small-12 columns">
+<section ui-view="viewNormal" ng-if="!layout.phone" class="large-11 small-12 columns">
 </section>
 
 <footer class="footer-basic-centered" ng-hide="layout.phone">
