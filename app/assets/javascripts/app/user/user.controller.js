@@ -1,4 +1,4 @@
-function userCtrl($scope, $stateParams, sharedData, alertsFactory){
+function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory){
 'use strict';
 	var vm = this;
 
@@ -20,5 +20,10 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory){
 		}
 	}
 
+	vm.editElder = function(userId, name, address, phone){
+		ajaxFactory.editElderData(userId, name, address, phone)
+			.then(function(data){console.log(data)})
+	}
+	
 
 }

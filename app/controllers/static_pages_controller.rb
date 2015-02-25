@@ -32,6 +32,28 @@ class StaticPagesController < ApplicationController
     render json: StaticPagesHelper::get_groups_latest_payloads(groups, 1)
     
   end
-
   #HACER LOS DOS ULTIMOS METODOS JUNTOS
+
+  def edit_elder_data
+    @new_elder_data = JSON.parse(request.body.read)
+    @old_elder_data = Elder.find_by_userId(@new_elder_data["userId"])
+    if @old_elder_data == nil
+      p "No data"
+      p @new_elder_data
+      p @old_elder_data
+
+      render json: "User created".to_json
+
+    else
+      p @new_elder_data
+      p @old_elder_data
+
+      render json: "User edited".to_json
+    end
+
+    
+
+  end
+
+
 end

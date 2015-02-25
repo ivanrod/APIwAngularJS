@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   post 'group_alerts' => 'static_pages#send_groups_alerts_last_7days'
   post 'group_payloads' => 'static_pages#send_groups_latest_payload'
 
+  post 'edit_elder_data' => 'static_pages#edit_elder_data'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -47,7 +49,7 @@ Rails.application.routes.draw do
   #     resources :sales do
   #       get 'recent', on: :collection
   #     end
-  #   end
+  #   end 
 
   # Example resource route with concerns:
   #   concern :toggleable do

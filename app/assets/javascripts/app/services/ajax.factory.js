@@ -9,6 +9,17 @@ function ajaxFactory($http){
     },
     getLatestsPayloads: function(groups){
       return $http.post("/group_payloads", JSON.stringify(groups))
+    },
+
+    editElderData: function(userId, name, address, phone){
+      var elderData = {
+        "userId": userId,
+        "name": name,
+        "address": address,
+        "phone": phone
+      };
+      return $http.post("/edit_elder_data", JSON.stringify(elderData));
     }
+
   }
 }
