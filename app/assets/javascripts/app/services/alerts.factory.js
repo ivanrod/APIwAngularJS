@@ -40,6 +40,21 @@ function alertsFactory(){
       alertsTexts = alertsTexts.sort(this.sortMomentHelper);
       return alertsTexts.reverse();
     },
+    lastWeekAlerts: function(alerts){
+      var lastAlerts = [];
+      for (var i = 0; i < alerts.length; i++){
+        if (alerts[i].time > moment().subtract(7, 'days')){
+          lastAlerts.push(alerts[i]);
+
+        }
+      }
+      return lastAlerts;
+    },
+    userAlerts: function(userId, alerts){
+      var alerts = this.formatAlerts({"alerts": alerts, "userId": userId});
+      alerts = alerts.sort(this.sortMomentHelper);
+      return alerts.reverse();
+    },
     alertsNames: {
       1: " ha pulsado el botón de alerta.",
       2: " lleva mas de 9 horas inactivo.",

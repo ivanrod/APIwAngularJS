@@ -64,17 +64,18 @@ class StaticPagesController < ApplicationController
       p @old_elder_data
 
       render json: "User edited".to_json
-    end
-
-    def get_all_user_alerts
-      @user_id = JSON.parse(request.body.read)
-
-      render json: StaticPagesHelper::get_all_user_alerts(@user_id['userId'])
-    end
-
-    
+    end  
 
   end
 
+  def get_all_user_alerts
+    @user = JSON.parse(request.body.read)
+
+    if @user['assets'] == nil 
+      render json: StaticPagesHelper::get_all_group_alerts(@user['userId'])
+    else
+    end
+
+  end
 
 end

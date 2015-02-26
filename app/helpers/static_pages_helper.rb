@@ -173,11 +173,40 @@ module StaticPagesHelper
 
 
 	#NOT IMPLEMENTED IN JAVA
-	def self.get_all_alerts(asset_id)
+
+	def self.get_group_assets(group_name)
+		call("group/" + group_name)
+	end
+
+
+	def self.get_group_assets_names(group_name)
+		assets_names = []
+		group_assets = get_group_assets(group_name)
+		
+		group_assets['assets'].each do |asset|
+			assets_names.push(asset['assetId'])
+		end
+
+		return assets_names
+	end
+
+	def self.get_all_asset_alerts(asset_id)
 		start_date = 0
 		end_date = Time.now.to_i*1000 
 		return asset_alerts_call(asset_id, start_date, end_date)
 	end
+
+	def self.get_all_group_alerts(group_name)
+		alerts = []
+		assets_names = get_group_assets_names(group_name)
+		assets_names.each do |asset_name|
+			alerts.concat get_all_asset_alerts(asset_name)
+		end
+
+		return alerts
+	end
+
+
 
 
 	

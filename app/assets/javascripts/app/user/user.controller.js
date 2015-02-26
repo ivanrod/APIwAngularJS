@@ -17,7 +17,31 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 			vm.editedAddress = vm.address;
 			vm.phone = data.data.phone;
 			vm.editedPhone = vm.phone;
+			vm.viewAllAlerts = false;
+			if (sharedData.getAlerts().length == 0){
+				vm.allUserAlertsPromise = ajaxFactory.getAllUserAlerts(vm.userId)
+					.then(function(data){
+						vm.allUserAlerts = alertsFactory.userAlerts(vm.userId,data.data);
+						vm.lastWeekAlerts = alertsFactory.lastWeekAlerts(vm.allUserAlerts);
+						vm.alertTexts = vm.lastWeekAlerts;
+					
+						//vm.viewAllAlerts = true;
+					})
+			}
+			else{
+				var userAlerts = alertsFactory.getAlertsByUser(vm.userId, sharedData.getAlerts());
+				
+				vm.alertTexts = alertsFactory.userAlerts(vm.userId, userAlerts.alerts);	
+				vm.viewAllAlerts = false;
+				ajaxFactory.getAllUserAlerts(vm.userId)
+					.then(function(data){
+						vm.allUserAlerts = alertsFactory.userAlerts(vm.userId,data.data);
+						vm.lastWeekAlerts = alertsFactory.lastWeekAlerts(vm.allUserAlerts);
+					})	
+			}	
 		})
+
+
 		if (sharedData.getAlerts().length === 0){
 			console.log("No data");
 		}
@@ -43,6 +67,16 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 
 	vm.pop = function(title, text){
 		toaster.pop('success', title, text);
+	}
+
+	vm.showAllAlerts = function(){
+		vm.alertTexts = vm.allUserAlerts;
+		vm.viewAllAlerts = true;
+	}
+
+	vm.showWeekAlerts = function(){
+		vm.alertTexts = vm.lastWeekAlerts;
+		vm.viewAllAlerts = false;
 	}
 
 

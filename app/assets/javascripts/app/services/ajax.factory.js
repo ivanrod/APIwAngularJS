@@ -11,6 +11,13 @@ function ajaxFactory($http){
       return $http.post("/group_payloads", JSON.stringify(groups));
     },
 
+    getAllUserAlerts: function(userId){
+      var userObj = {
+        "userId": userId,
+      };
+      return $http.post("/get_all_user_alerts", JSON.stringify(userObj));
+    },
+
     getElderData: function(userId){
       var userObj = {
         "userId": userId,
