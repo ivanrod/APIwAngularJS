@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   post 'group_alerts' => 'static_pages#send_groups_alerts_last_7days'
   post 'group_payloads' => 'static_pages#send_groups_latest_payload'
 
+  post 'get_elder_data' => 'static_pages#get_elder_data'
+  post 'get_all_user_alerts' => 'static_pages#get_all_user_alerts'
   post 'edit_elder_data' => 'static_pages#edit_elder_data'
 
 

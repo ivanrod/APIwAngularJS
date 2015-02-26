@@ -20,6 +20,7 @@
  *= require angular-busy.min
  *= require ng-scrollable.min
  *= require animations
+ *= require toaster
 
 
 

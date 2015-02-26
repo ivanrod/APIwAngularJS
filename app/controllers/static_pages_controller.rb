@@ -34,21 +34,42 @@ class StaticPagesController < ApplicationController
   end
   #HACER LOS DOS ULTIMOS METODOS JUNTOS
 
+  def get_elder_data
+    @user_id = JSON.parse(request.body.read)
+    @elder_data = Elder.find_by_userId(@user_id["userId"])
+    if @elder_data == nil
+      render json: "No elder with this Id in the DB".to_json
+    else
+      render json: @elder_data.to_json
+    end
+  end
+
   def edit_elder_data
     @new_elder_data = JSON.parse(request.body.read)
     @old_elder_data = Elder.find_by_userId(@new_elder_data["userId"])
     if @old_elder_data == nil
       p "No data"
+      @new_elder = Elder.new(@new_elder_data)
+      @new_elder.save
+
       p @new_elder_data
       p @old_elder_data
 
       render json: "User created".to_json
 
     else
+      @old_elder_data.update_attributes(@new_elder_data)
+
       p @new_elder_data
       p @old_elder_data
 
       render json: "User edited".to_json
+    end
+
+    def get_all_user_alerts
+      @user_id = JSON.parse(request.body.read)
+
+      render json: StaticPagesHelper::get_all_user_alerts(@user_id['userId'])
     end
 
     

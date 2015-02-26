@@ -5,7 +5,7 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
+    basePath: '../',
 
 
     // frameworks to use
@@ -15,9 +15,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '"spec/javascripts/**/*spec.js"',
-      '"spec/**/*spec.js"',
-      '"/home/ivan/Documentos/ALTRAN/APIwAngularJS/spec/javascripts/**/*spec.js"',
+      'spec/javascripts/**/*spec.js',
+      'app/assets/javascripts/**/*.html',
+      '/home/ivan/Documentos/ALTRAN/APIwAngularJS/spec/javascripts/app/**/*spec.js',
       'spec/javascripts/**/*spec.js'
     ],
 
@@ -58,8 +58,10 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Firefox', 'Safari'],
+    browsers: ['Firefox'],
 
+    // If browser does not capture in given timeout [ms], kill it
+    captureTimeout: 60000,
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits

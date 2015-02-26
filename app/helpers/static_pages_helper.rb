@@ -172,5 +172,13 @@ module StaticPagesHelper
 	end
 
 
+	#NOT IMPLEMENTED IN JAVA
+	def self.get_all_alerts(asset_id)
+		start_date = 0
+		end_date = Time.now.to_i*1000 
+		return asset_alerts_call(asset_id, start_date, end_date)
+	end
+
+
 	
 end

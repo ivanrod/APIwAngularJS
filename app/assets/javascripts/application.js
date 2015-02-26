@@ -29,6 +29,7 @@
 //= require foundation
 //= require ng-scrollable.min
 //= require matchmedia-ng
+//= require toaster
 
 
 $(function(){ $(document).foundation(); });

@@ -24,7 +24,8 @@
             'ngScrollable', 
             'ngTouch',
             'ui.router',
-            'foundation.actionsheet'])
+            'foundation.actionsheet',
+            'toaster'])
 
     angular
         .module('play')

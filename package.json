@@ -4,10 +4,13 @@
     "karma": ">= 0.10.9",
     "karma-jasmine": "0.1.5",
     "karma-ng-scenario": "0.1.0",
-    "phantomjs": "1.9.7-1"
+    "karma-phantomjs-launcher": ">= 0.1.4",
+    "phantomjs": "1.9.7-1",
+    "karma-ng-html2js-preprocessor": "git://github.com/monterail/karma-ng-html2js-preprocessor#feature/strip-sufix"
   },
   "devDependencies": {
     "karma-firefox-launcher": "^0.1.4",
+    "karma-phantomjs-launcher": "^0.1.4",
     "karma-safari-launcher": "^0.1.1"
   }
 }
