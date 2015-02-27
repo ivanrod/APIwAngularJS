@@ -206,6 +206,15 @@ module StaticPagesHelper
 		return alerts
 	end
 
+	def self.get_group_names_from_my_db(groups)
+		groups.each do |group|
+			if Elder.find_by_userId(group["name"]) != nil
+				group["dbName"] = Elder.find_by_userId(group["name"])["name"]
+			end
+		end 
+		return groups
+	end
+
 
 
 

@@ -15,7 +15,9 @@ class StaticPagesController < ApplicationController
 
   def send_groups
     if request.xhr?
-      render json: (StaticPagesHelper::groups_call).to_json
+      groups_call = StaticPagesHelper::groups_call
+      groups_call = StaticPagesHelper::get_group_names_from_my_db(groups_call)
+      render json: (groups_call).to_json
     else
       render json: "bad request"
     end

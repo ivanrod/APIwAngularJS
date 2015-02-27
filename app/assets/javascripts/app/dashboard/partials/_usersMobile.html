@@ -2,7 +2,7 @@
 <header>Usuarios</header>
 <ul>
  
-<li class="with-chevron" ng-repeat="group in dashboard.response | filter:{name: dashboard.people}" ng-animate="'animate'" ng-style="dashboard.usersStyle($index, '{{group.name}}')"><a href="#">{{group.name}}</a></li>
+<li class="with-chevron" ng-repeat="group in dashboard.response | filter:{name: dashboard.people}" ng-animate="'animate'" ng-style="dashboard.usersStyle($index, '{{group.name}}')"><a href="#">{{group.dbName || group.name}}</a></li>
 
 </ul>
 </section>

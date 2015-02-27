@@ -1,5 +1,8 @@
 /* Dashboard Helper Function Factory */
-function dashboardFactory(){
+
+
+/* CAMBIAR NOMBRE POR CHARTFACTORY!!!!! */
+function dashboardFactory(sharedData){
   'use strict';
   return {
     last7daysArray: function(){
@@ -36,11 +39,41 @@ function dashboardFactory(){
         alerts: []
       };
       for (var i=0; i<groups.length; i++){
+        if (groups[i].dbName == undefined){
         chartData.names.push(groups[i].name)
+        }
+        else{
+        chartData.names.push(groups[i].dbName)
+        }
         chartData.alerts.push(this.lastAlertsFindUserNum(groups[i].name, alerts))
       }
 
       return chartData;
+    },
+
+    alertsNumberByType: function(type, alerts){
+      var alertsCounter = 0;
+      for (var i = 0; i < alerts.length; i++){
+        if (type == alerts[i].level){
+          alertsCounter += 1;
+        }
+      }
+      return alertsCounter;
+    },
+    allUserAlertsNum: function(alerts){
+      var alertsNames = sharedData.getAlertsNames();
+
+      var chartData = {
+        alertTypes: [],
+        alertsNumber: []
+      };
+      for (var i in alertsNames){
+        chartData.alertTypes.push(alertsNames[i]["type"])
+        chartData.alertsNumber.push(this.alertsNumberByType(i, alerts))
+      }
+
+      return chartData;
     }
+
   }
 }

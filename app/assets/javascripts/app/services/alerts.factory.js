@@ -1,5 +1,5 @@
 /* Ultimas alertas Helper function Factory */
-function alertsFactory(){
+function alertsFactory(sharedData){
   'use strict';
   return{
     sortMomentHelper: function(a, b){
@@ -7,12 +7,14 @@ function alertsFactory(){
         else if (b.time.isAfter(a.time)){return -1}
           else if (a.time.isSame(b.time)){return 0}
     },
-    formatAlerts: function(alerts){
+    formatAlerts: function(alerts, name){
       var alertsFormated = [];
       for (var i = 0; i < alerts.alerts.length; i++){
         var alert = {
+          "name": name,
           "userId": alerts.userId,
-          "text": " " + this.alertsNames[alerts.alerts[i].level],
+          "text": " " + this.alertsNames[alerts.alerts[i].level].text,
+          "level": alerts.alerts[i].level,
           "time": moment(alerts.alerts[i].fecha).locale("es")
         }
         alertsFormated.push(alert)
@@ -33,9 +35,10 @@ function alertsFactory(){
       for (var i=0; i<groups.length; i++){
         //console.log(groups[i])
         var user = groups[i].name;
+        var name = groups[i].dbName
 
         var alertsByUser = this.getAlertsByUser(user, alerts);
-        alertsTexts = alertsTexts.concat(this.formatAlerts(alertsByUser));
+        alertsTexts = alertsTexts.concat(this.formatAlerts(alertsByUser, name));
       }
       alertsTexts = alertsTexts.sort(this.sortMomentHelper);
       return alertsTexts.reverse();
@@ -50,16 +53,11 @@ function alertsFactory(){
       }
       return lastAlerts;
     },
-    userAlerts: function(userId, alerts){
-      var alerts = this.formatAlerts({"alerts": alerts, "userId": userId});
+    userAlerts: function(userId, alerts, name){
+      var alerts = this.formatAlerts({"alerts": alerts, "userId": userId}, name);
       alerts = alerts.sort(this.sortMomentHelper);
       return alerts.reverse();
     },
-    alertsNames: {
-      1: " ha pulsado el botón de alerta.",
-      2: " lleva mas de 9 horas inactivo.",
-      3: " se ha caído.",
-      4: " ha salido de su zona de seguridad."
-    }
+    alertsNames: sharedData.getAlertsNames()
   }
 }

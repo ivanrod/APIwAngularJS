@@ -1,15 +1,21 @@
-function sharedData($rootScope, filterFilter, dashboardFactory) {
+function sharedData($rootScope, filterFilter) {
   'use strict';
   var response = {};
   var people = "";
   var peopleOrder = {};
   var alerts = [];
-  var chartData = dashboardFactory.allUsersAlertsNum(response, alerts);
+  //var chartData = dashboardFactory.allUsersAlertsNum(response, alerts);
   var payloads = {};
-  var filteredData = filterFilter(response, {name: people});
+  var filteredData = filterFilter(response, people);
   var colours = Chart.defaults.global.colours;
   var phoneSection = angular.element(document.getElementById('phone-section'));
-  var partialsUrl = 'assets/app/dashboard/partials/'
+  var partialsUrl = 'assets/app/dashboard/partials/';
+  var alertsNames = {
+      1: {type:"Botón de alerta", text:" ha pulsado el botón de alerta."},
+      2: {type:"Inactividad", text:" lleva mas de 9 horas inactivo."},
+      3: {type:"Caída", text:" se ha caído."},
+      4: {type:"Salida de zona", text:" ha salido de su zona de seguridad."}
+    }
   var partials = {
     1: partialsUrl + '_usersMobile.html',
     2: partialsUrl + '_map.html',
@@ -36,6 +42,9 @@ function sharedData($rootScope, filterFilter, dashboardFactory) {
             setAlerts: function(obj){
               alerts = obj;
             },
+            getAlertsNames: function(){
+              return alertsNames;
+            },
             getPayloads: function(){
               return payloads;
             },
@@ -47,7 +56,7 @@ function sharedData($rootScope, filterFilter, dashboardFactory) {
             },
             setPeople: function(value){
               people = value;
-              filteredData = filterFilter(response, {name: people})
+              filteredData = filterFilter(response, people)
               $rootScope.$broadcast("people");
             },
             getPeopleOrder: function(){

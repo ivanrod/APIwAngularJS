@@ -1,10 +1,11 @@
-function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, toaster){
+function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, dashboardFactory, toaster){
 'use strict';
 	var vm = this;
 
 	vm.userId = $stateParams.userId;
 
 	vm.editMode = false;
+
 
 	activate();
 
@@ -21,52 +22,40 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 			if (sharedData.getAlerts().length == 0){
 				vm.allUserAlertsPromise = ajaxFactory.getAllUserAlerts(vm.userId)
 					.then(function(data){
-						vm.allUserAlerts = alertsFactory.userAlerts(vm.userId,data.data);
+						vm.allUserAlerts = alertsFactory.userAlerts(vm.userId,data.data, vm.name);
 						vm.lastWeekAlerts = alertsFactory.lastWeekAlerts(vm.allUserAlerts);
 						vm.alertTexts = vm.lastWeekAlerts;
-					
-						//vm.viewAllAlerts = true;
+						vm.chartData = dashboardFactory.allUserAlertsNum(vm.lastWeekAlerts);
+						startChart()
 					})
 			}
 			else{
 				var userAlerts = alertsFactory.getAlertsByUser(vm.userId, sharedData.getAlerts());
 				
-				vm.alertTexts = alertsFactory.userAlerts(vm.userId, userAlerts.alerts);	
+				vm.alertTexts = alertsFactory.userAlerts(vm.userId, userAlerts.alerts, vm.name);	
 				vm.viewAllAlerts = false;
 				ajaxFactory.getAllUserAlerts(vm.userId)
 					.then(function(data){
-						vm.allUserAlerts = alertsFactory.userAlerts(vm.userId,data.data);
+						vm.allUserAlerts = alertsFactory.userAlerts(vm.userId,data.data, vm.name);
 						vm.lastWeekAlerts = alertsFactory.lastWeekAlerts(vm.allUserAlerts);
+						vm.chartData = dashboardFactory.allUserAlertsNum(vm.lastWeekAlerts)
 					})	
-			}	
+			}
+			
 		})
-
-
-		if (sharedData.getAlerts().length === 0){
-			console.log("No data");
-		}
-		else{
-			console.log(
-				alertsFactory.getAlertsByUser(vm.userId,sharedData.getAlerts())
-				);
-		}
 	}
 
 	vm.editElder = function(){
 		ajaxFactory.editElderData(vm.userId, vm.editedName, vm.editedAddress, vm.editedPhone)
 			.then(function(data){
-				console.log(data);
 				vm.editMode = false;
 				vm.name = vm.editedName;
 				vm.address = vm.editedAddress;
 				vm.phone = vm.editedPhone;
 
-				vm.pop("Hecho", "Usuario modificado")
-			})
-	}
+				toaster.pop('success', "Hecho", "Usuario modificado")
 
-	vm.pop = function(title, text){
-		toaster.pop('success', title, text);
+			})
 	}
 
 	vm.showAllAlerts = function(){
@@ -79,6 +68,13 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 		vm.viewAllAlerts = false;
 	}
 
+	function startChart(){
+		//vm.labels = dashboardFactory.last7daysArray();
+		vm.labels = vm.chartData.alertTypes;
+		vm.series = vm.chartData.alertTypes;
+		vm.data = vm.chartData.alertsNumber;	
+		console.log(vm.data)			
+	}
 
 
 }

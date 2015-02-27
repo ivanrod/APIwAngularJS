@@ -44,7 +44,6 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
       })
     })
   }
-  console.log(vm.usersPromise)
   $scope.$on('people', function(newValue, oldValue) {
     var filteredData = sharedData.getFilteredData();
     var newChartData = dashboardFactory.allUsersAlertsNum(filteredData, sharedData.getAlerts());
