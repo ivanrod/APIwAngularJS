@@ -5,7 +5,10 @@
 			<div ng-click="showDetails = ! showDetails" class="left" ><i class="fi-minus" ng-show="showDetails"></i><i class="fi-plus" ng-hide="showDetails" >
 		</i></div> <a href="/#/{{group.name}}">{{group.name}}</a>
 	</div>
-		<div class="circle right" ng-style="dashboard.usersStyle($index, '{{group.name}}')"></div>
+		<div ng-hide="dashboard.waitingForUsers" class="circle right" ng-style="dashboard.usersStyle($index, '{{group.name}}')"></div>
+		<div ng-show="dashboard.waitingForUsers" class="right">
+			<span class="one">.</span><span class="two">.</span><span class="three">.</span>
+		</div>
 		
 		<div ng-show="showDetails" ng-animate="'animate'">
 			<div class="bullet-item item" ng-repeat="family in group.assets" ng-animate="'animate'">{{family.assetId}}</div>	

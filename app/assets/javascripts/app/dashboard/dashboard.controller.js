@@ -1,16 +1,20 @@
 function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, dashboardFactory, alertsFactory) {
 'use strict';
   var vm = this;
+
+  
   activate();
 
   function activate(){
-    vm.usersPromise = ajaxFactory.getGroups().then(function(groups){
+    vm.waitingForUsers = true;
 
+    vm.usersPromise = ajaxFactory.getGroups().then(function(groups){
       sharedData.setResponse(groups.data)
       vm.response = sharedData.getResponse()
       vm.people = sharedData.getPeople();
 
         vm.alertsPromise = ajaxFactory.getAlertsLast7days(groups.data).then(function(alerts){
+        vm.waitingForUsers = false;
         vm.usersStyle = function(indexColor, name){
           sharedData.setPeopleOrder(indexColor, name);
           return {background: sharedData.getColours()[indexColor].strokeColor}
@@ -40,7 +44,7 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
       })
     })
   }
-
+  console.log(vm.usersPromise)
   $scope.$on('people', function(newValue, oldValue) {
     var filteredData = sharedData.getFilteredData();
     var newChartData = dashboardFactory.allUsersAlertsNum(filteredData, sharedData.getAlerts());
