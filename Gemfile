@@ -100,4 +100,7 @@ gem "rails-assets-angular"
 group :development, :test do
   gem 'rails-assets-angular-mocks'
   gem 'rails_karma'
+  gem "teaspoon"
+  gem 'jasmine'
+  gem 'jasmine-headless-webkit'
 end
