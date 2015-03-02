@@ -10,7 +10,8 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
 
     vm.usersPromise = ajaxFactory.getGroups().then(function(groups){
       sharedData.setResponse(groups.data)
-      vm.response = sharedData.getResponse()
+      vm.response = sharedData.getResponse();
+      sharedData.setPeople("");
       vm.people = sharedData.getPeople();
 
         vm.alertsPromise = ajaxFactory.getAlertsLast7days(groups.data).then(function(alerts){

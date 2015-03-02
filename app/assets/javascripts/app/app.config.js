@@ -38,12 +38,21 @@ function playConfig(uiGmapGoogleMapApiProvider, $httpProvider, $urlRouterProvide
       controller: 'dashboardCtrl as dashboard'
     })  
     .state('user', {
-      url: "/:userId",
+      url: "/users/:userId",
       views: {
         "viewNormal": { controller: 'userCtrl as user',
                         templateUrl: "assets/app/user/user.html" },
         "viewMobile": { controller: 'userCtrl as user',
                         templateUrl: "assets/app/user/user.mobile.html" }
+      }
+    })  
+    .state('admin', {
+      url: "/admin",
+      views: {
+        "viewNormal": { controller: 'adminCtrl as admin',
+                        templateUrl: "assets/app/admin/admin.html" },
+        "viewMobile": { controller: 'adminCtrl as admin',
+                        templateUrl: "assets/app/admin/admin.mobile.html" }
       }
     })  
 

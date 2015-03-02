@@ -6,13 +6,14 @@ describe('dashboardController', function() {
 
   beforeEach(inject(function($rootScope, $controller) {
     scope = $rootScope.$new();
-    ctrl = $controller('dashboardCtrl', {$scope: scope});
+    vm = $controller('dashboardCtrl', {$scope: scope});
   }));
 
-  describe('$scope.grade', function() {
-    it('sets the strength to "strong" if the password length is >8 chars', function() {
+  
+  it('should start with waitingForUsers true until users data is loaded', function() {
 
-      expect(true).toEqual(true);
-    });
+    expect(vm.waitingForUsers).toEqual(true);
+
   });
+  
 });

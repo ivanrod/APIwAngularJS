@@ -1,17 +1,15 @@
 describe("Shared data in the app", function() {
-	beforeEach(module('play'));
+  var sharedData, httpBackend;
 
-  it("gets the phone section to implement it in the view", function() {
-    expect(true).toBe(true);
+  beforeEach(module("play"));
+
+  beforeEach(inject(function (_sharedData_, $httpBackend) {
+    sharedData = _sharedData_;
+    httpBackend = $httpBackend;
+  }));
+
+  it("should have a getResponse() function", function() {
+    expect(sharedData.getResponse()).toBeDefined();
   });
-
-/*
-  it('should have a working LoginService service', inject(
-    function() {
-      expect(true).toBe(true);
-
-    })
-  );
-*/
 
 });
