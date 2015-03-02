@@ -12,11 +12,13 @@ module.exports = function(config) {
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
 
-
     // list of files / patterns to load in the browser
     files: [
       'vendor/assets/javascripts/angular.min.js',
       'vendor/assets/javascripts/angular-mocks.js',
+      'vendor/assets/javascripts/jquery-2.1.3.min.js',
+      'vendor/assets/javascripts/angular-ui-router.min.js',
+      'vendor/assets/javascripts/*.js',
       'app/assets/javascripts/*/*.html',
       'app/assets/javascripts/app/*/*.js',
       'app/assets/javascripts/app/*.js',
@@ -28,6 +30,7 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
+    'vendor/assets/javascripts/*.map.js',
     ],
 
 

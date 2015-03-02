@@ -1,11 +1,12 @@
 describe('dashboardController', function() {
   beforeEach(module('play'));
 
-  var $controller;
+  var scope;
+  var ctrl;
 
-  beforeEach(inject(function(_$controller_){
-    // The injector unwraps the underscores (_) from around the parameter names when matching
-    $controller = _$controller_;
+  beforeEach(inject(function($rootScope, $controller) {
+    scope = $rootScope.$new();
+    ctrl = $controller('dashboardCtrl', {$scope: scope});
   }));
 
   describe('$scope.grade', function() {
