@@ -5,11 +5,13 @@ describe("Shared data in the app", function() {
     expect(true).toBe(true);
   });
 
+/*
   it('should have a working LoginService service', inject(
     function() {
       expect(true).toBe(true);
 
     })
   );
+*/
 
 });

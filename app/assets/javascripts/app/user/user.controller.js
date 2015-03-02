@@ -6,7 +6,6 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 
 	vm.editMode = false;
 
-
 	activate();
 
 	function activate(){
@@ -26,7 +25,7 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 						vm.lastWeekAlerts = alertsFactory.lastWeekAlerts(vm.allUserAlerts);
 						vm.alertTexts = vm.lastWeekAlerts;
 						vm.chartData = dashboardFactory.allUserAlertsNum(vm.lastWeekAlerts);
-						startChart()
+						vm.startChart();
 					})
 			}
 			else{
@@ -38,7 +37,8 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 					.then(function(data){
 						vm.allUserAlerts = alertsFactory.userAlerts(vm.userId,data.data, vm.name);
 						vm.lastWeekAlerts = alertsFactory.lastWeekAlerts(vm.allUserAlerts);
-						vm.chartData = dashboardFactory.allUserAlertsNum(vm.lastWeekAlerts)
+						vm.chartData = dashboardFactory.allUserAlertsNum(vm.lastWeekAlerts);
+						vm.startChart();
 					})	
 			}
 			
@@ -68,12 +68,9 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 		vm.viewAllAlerts = false;
 	}
 
-	function startChart(){
-		//vm.labels = dashboardFactory.last7daysArray();
+	vm.startChart = function(){
 		vm.labels = vm.chartData.alertTypes;
-		vm.series = vm.chartData.alertTypes;
-		vm.data = vm.chartData.alertsNumber;	
-		console.log(vm.data)			
+		vm.data = [vm.chartData.alertsNumber];
 	}
 
 
