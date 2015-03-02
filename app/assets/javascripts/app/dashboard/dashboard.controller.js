@@ -32,6 +32,7 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
 
         vm.mapPromise = ajaxFactory.getLatestsPayloads(groups.data).then(function(payloads){
           sharedData.setPayloads(payloads.data)
+          console.log(payloads.data)
           vm.people = sharedData.getPeople();
 
           //Tambien se puede $scope.$watch('dashboard.people', function(){...})

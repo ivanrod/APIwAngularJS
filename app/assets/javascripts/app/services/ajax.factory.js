@@ -17,6 +17,12 @@ function ajaxFactory($http){
       };
       return $http.post("/get_all_user_alerts", JSON.stringify(userObj));
     },
+    getLatestPayloadFromGroup: function(userId){
+      var userObj = {
+        "userId": userId,
+      };
+      return $http.post("/get_latest_payload_from_group", JSON.stringify(userObj));
+    },
 
     getElderData: function(userId){
       var userObj = {

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post 'get_elder_data' => 'static_pages#get_elder_data'
   post 'get_all_user_alerts' => 'static_pages#get_all_user_alerts'
   post 'edit_elder_data' => 'static_pages#edit_elder_data'
+  post 'get_latest_payload_from_group' => 'static_pages#get_latest_payload_from_group'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

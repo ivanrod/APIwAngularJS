@@ -11,6 +11,24 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 	function activate(){
 		vm.elderDataPromise = ajaxFactory.getElderData(vm.userId)
 		.then(function(data){
+			//sharedData.setPeople(vm.userId)
+
+			ajaxFactory.getLatestPayloadFromGroup(vm.userId)
+			.then(function(data){
+				ajaxFactory.getGroups().then(function(groups){
+      				sharedData.setResponse(groups.data)
+      				sharedData.setPeople(vm.userId)
+      			})
+				var newPayload = {
+					payloads: data.data,
+					userId: vm.userId
+				}
+
+				sharedData.setPayloads([newPayload])
+				
+			})
+
+			
 			vm.name = data.data.name;
 			vm.editedName = vm.name;
 			vm.address = data.data.address;

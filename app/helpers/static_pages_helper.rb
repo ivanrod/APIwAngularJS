@@ -206,6 +206,21 @@ module StaticPagesHelper
 		return alerts
 	end
 
+
+#EN  CUANTO HAY HAYA ALERTAS (CAIDAS,..) EL ULTIMO PAYLOAD NO TIENE POR QUE LLEVAR LOCATION??, POR TANTO PODRIA HABER QUE IMPLEMENTAR OTRA FUNCIÓN QUE BUSCASE EL ULTIMO PAYLOAD CON POSICION
+	def self.get_latest_group_payload(group_name)
+		payload = []
+		asset_names = get_group_assets_names(group_name)
+		asset_names.each do |asset|
+			new_payload = asset_latest_payloads_call(asset, 1)
+			if new_payload != [] && new_payload[0]['data'] != nil
+				payload = new_payload
+			end
+		end
+
+		return payload
+	end
+
 	def self.get_group_names_from_my_db(groups)
 		groups.each do |group|
 			if Elder.find_by_userId(group["name"]) != nil

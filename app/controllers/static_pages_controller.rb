@@ -80,4 +80,9 @@ class StaticPagesController < ApplicationController
 
   end
 
+  def get_latest_payload_from_group
+    @user = JSON.parse(request.body.read)
+    render json: StaticPagesHelper::get_latest_group_payload(@user['userId'])
+  end
+
 end
