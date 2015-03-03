@@ -14,3 +14,47 @@
   <li class="bullet-item">5GB Storage</li>
   <li class="bullet-item">20 Users</li>
 </ul>
+
+
+
+<a zf-open="basicModal" class="button">Nuevo...</a>
+<div zf-modal="" id="basicModal">
+<a zf-close="" class="close-button">×</a>
+<h3>Modificar datos</h3>
+<ul class="pricing-table">
+  <li class="title">{{admin.elderData.elderId}}</li>
+  <li class="price">
+    <label>Nombre</label>
+    <input ng-model="admin.elderData.name" type="text" placeholder="Nombre..." value="{{admin.elderData.name || ''}}"></input>
+  </li>
+  <li class="description">
+    <label>Dirección</label>
+    <input ng-model="admin.elderData.address" type="text" placeholder="Dirección..." value="{{admin.elderData.address || ''}}"></input>
+  </li>
+  <li class="bullet-item">
+    <label>Teléfono</label>
+    <input ng-model="admin.elderData.phone" type="text" placeholder="Teléfono..." value="{{admin.elderData.phone || '-'}}"></input>
+  </li>
+  <li class="bullet-item">
+      <label>Cuidador
+        <select>
+          <option value="husker">Faemino</option>
+          <option value="starbuck">Cansado</option>
+          <option value="hotdog">Tip</option>
+          <option value="apollo">Coll</option>
+        </select>
+      </label>
+  </li>
+
+  <li class="bullet-item">
+    <div class="right">
+      <a href="" ng-click="user.editElder()">Guardar</a>
+      <a href="" ng-click="user.editMode = false">Cancelar</a>
+    </div>
+  </li>
+</ul>
+</div>
+
+
+
+<toaster-container></toaster-container>

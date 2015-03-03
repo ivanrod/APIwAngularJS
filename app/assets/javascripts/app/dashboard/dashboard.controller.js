@@ -50,7 +50,7 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
           return {background: sharedData.getColours()[indexColor].strokeColor}
         } 
         vm.response = sharedData.getResponse();
-        sharedData.setAlerts(alerts.data)
+        sharedData.setAlerts(alerts.data);
         vm.alertTexts = alertsFactory.lastUsersAlerts(sharedData.getResponse(), sharedData.getAlerts());
         vm.chartData = dashboardFactory.allUsersAlertsNum(sharedData.getResponse(), sharedData.getAlerts());
         vm.people = sharedData.getPeople();
@@ -62,7 +62,6 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
 
         vm.mapPromise = ajaxFactory.getLatestsPayloads(groups.data).then(function(payloads){
           sharedData.setPayloads(payloads.data)
-          console.log(payloads.data)
           vm.people = sharedData.getPeople();
 
           //Tambien se puede $scope.$watch('dashboard.people', function(){...})

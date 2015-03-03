@@ -5,7 +5,7 @@
   	<div class="large-2 columns">Cuidador</div>
   	<div class="large-2 columns">Alertas</div>
   </li>
-  <li class="bullet-item" ng-repeat="elder in admin.elders">
+  <li class="bullet-item" ng-repeat="elder in admin.elders" ng-click="admin.editElder('{{elder.name}}')">
   	<div class="large-2 columns">{{elder.name}}</div>
     <div class="large-2 columns">{{elder.dbName || "-"}}</div>
   	<div class="large-2 columns">Faemino</div>
@@ -13,23 +13,23 @@
   </li>
 </ul>
 
-<a zf-open="basicModal" class="button">Nuevo...</a>
+
 <div zf-modal="" id="basicModal">
 <a zf-close="" class="close-button">×</a>
 <h3>Modificar datos</h3>
 <ul class="pricing-table">
-  <li class="title">{{user.userId}}</li>
+  <li class="title">{{admin.elderData.elderId}}</li>
   <li class="price">
     <label>Nombre</label>
-    <input ng-model="user.editedName" type="text" placeholder="Nombre..." value="{{user.name || ''}}"></input>
+    <input ng-model="admin.elderData.name" type="text" placeholder="Nombre..." value="{{admin.elderData.name || ''}}"></input>
   </li>
   <li class="description">
     <label>Dirección</label>
-    <input ng-model="user.editedAddress" type="text" placeholder="Dirección..." value="{{user.address || ''}}"></input>
+    <input ng-model="admin.elderData.address" type="text" placeholder="Dirección..." value="{{admin.elderData.address || ''}}"></input>
   </li>
   <li class="bullet-item">
     <label>Teléfono</label>
-    <input ng-model="user.editedPhone" type="text" placeholder="Teléfono..." value="{{user.phone || '-'}}"></input>
+    <input ng-model="admin.elderData.phone" type="text" placeholder="Teléfono..." value="{{admin.elderData.phone || '-'}}"></input>
   </li>
   <li class="bullet-item">
       <label>Cuidador

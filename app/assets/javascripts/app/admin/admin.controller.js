@@ -1,4 +1,4 @@
-function adminCtrl($scope, sharedData, ajaxFactory, FoundationApi){
+function adminCtrl($scope, sharedData, ajaxFactory, usersFactory, FoundationApi){
 	
 	var vm = this;
 
@@ -8,7 +8,11 @@ function adminCtrl($scope, sharedData, ajaxFactory, FoundationApi){
 		sharedData.setResponse(groups.data);
         vm.elders = sharedData.getResponse();
         sharedData.setPeople("");
-        console.log(vm.response)
+	}
+
+	vm.editElder = function(elderId){
+		vm.elderData = usersFactory.getElderDataFromGroup(vm.elders, elderId)
+		FoundationApi.publish('basicModal', 'open');
 	}
 	
 	if (vm.elders === {} ){
