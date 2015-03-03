@@ -35,7 +35,6 @@ function playConfig(uiGmapGoogleMapApiProvider, $httpProvider, $urlRouterProvide
         "viewMobile": { controller: 'dashboardCtrl as dashboard', 
                         templateUrl: "assets/app/dashboard/dashboard.mobile.html" },
       },
-      controller: 'dashboardCtrl as dashboard'
     })  
     .state('user', {
       url: "/users/:userId",
