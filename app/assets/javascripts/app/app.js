@@ -1,4 +1,6 @@
 //= require actionsheet/actionsheet
+//= require foundation.core
+//= require modal/modal
 //= require app/app.config
 //= require app/services/sharedData.service
 //= require app/services/ajax.factory
@@ -25,7 +27,10 @@
             'ngScrollable', 
             'ngTouch',
             'ui.router',
+            'foundation.core',
             'foundation.actionsheet',
+            'foundation.common',
+            'foundation.modal',
             'toaster'])
 
     angular

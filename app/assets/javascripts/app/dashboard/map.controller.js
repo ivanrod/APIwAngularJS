@@ -1,6 +1,8 @@
 function mapsCtrl($scope, sharedData, uiGmapGoogleMapApi, mapsFactory) {
   'use strict';
+  
   var vm = this;
+
    uiGmapGoogleMapApi.then(function(maps) {
       vm.mapData = sharedData.getPayloads();
       vm.map = { 
@@ -30,7 +32,6 @@ function mapsCtrl($scope, sharedData, uiGmapGoogleMapApi, mapsFactory) {
         vm.people = sharedData.getPeople();
         vm.circles = mapsFactory.getAllCirclesMapData(vm.filteredData)
         vm.randomMarkers = mapsFactory.getMarkersByUser(vm.mapData, Chart.defaults.global.colours, vm.filteredData);
-console.log(vm.filteredData)
       });
       
     });

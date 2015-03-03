@@ -2,8 +2,37 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
 'use strict';
   var vm = this;
 
+  $scope.$on('people', function(newValue, oldValue) {
+    var filteredData = sharedData.getFilteredData();
+    var newChartData = dashboardFactory.allUsersAlertsNum(filteredData, sharedData.getAlerts());
+    if (newChartData != vm.chartData){
+      vm.chartData = newChartData;
+      vm.data = vm.chartData.alerts;
+      vm.series = vm.chartData.names;
+      vm.alertTexts = alertsFactory.lastUsersAlerts(filteredData, sharedData.getAlerts())
+     
+      if (vm.data[0] == undefined){
+        vm.data=[[0,0,0,0,0,0,0]]; 
+        vm.series = ["No hay usuarios que coincidan con la búsqueda"];
+      }
+    }
+  });
+
+  /*
+  To have last alert colors equal to index colors uncomment the following lines
+  and add it to the alert div in the HTML tag:
+  --> ng-style="dashboard.alertsStyle('{{alert.userId}}')"  
+  */
+  
+  vm.alertsStyle = function(userId){    
+    return {background: sharedData.getColours()[sharedData.getPersonIndex(userId)].strokeColor}
+  }
   
   activate();
+
+
+
+  ///////////
 
   function activate(){
     vm.waitingForUsers = true;
@@ -46,33 +75,8 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
       })
     })
   }
-  $scope.$on('people', function(newValue, oldValue) {
-    var filteredData = sharedData.getFilteredData();
-    var newChartData = dashboardFactory.allUsersAlertsNum(filteredData, sharedData.getAlerts());
-    if (newChartData != vm.chartData){
-      vm.chartData = newChartData;
-      vm.data = vm.chartData.alerts;
-      vm.series = vm.chartData.names;
-      vm.alertTexts = alertsFactory.lastUsersAlerts(filteredData, sharedData.getAlerts())
-     
-      if (vm.data[0] == undefined){
-        vm.data=[[0,0,0,0,0,0,0]]; 
-        vm.series = ["No hay usuarios que coincidan con la búsqueda"];
-      }
-    }
-  });
 
 
-
-  /*
-  To have last alert colors equal to index colors uncomment the following lines
-  and add it to the alert div in the HTML tag:
-  --> ng-style="dashboard.alertsStyle('{{alert.userId}}')"  
-  */
-  
-  vm.alertsStyle = function(userId){    
-    return {background: sharedData.getColours()[sharedData.getPersonIndex(userId)].strokeColor}
-  }
 
 
 };

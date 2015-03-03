@@ -6,7 +6,39 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 
 	vm.editMode = false;
 
+	vm.editElder = function(){
+		ajaxFactory.editElderData(vm.userId, vm.editedName, vm.editedAddress, vm.editedPhone)
+			.then(function(data){
+				vm.editMode = false;
+				vm.name = vm.editedName;
+				vm.address = vm.editedAddress;
+				vm.phone = vm.editedPhone;
+
+				toaster.pop('success', "Hecho", "Usuario modificado")
+
+			})
+	}
+
+	vm.showAllAlerts = function(){
+		vm.alertTexts = vm.allUserAlerts;
+		vm.viewAllAlerts = true;
+	}
+
+	vm.showWeekAlerts = function(){
+		vm.alertTexts = vm.lastWeekAlerts;
+		vm.viewAllAlerts = false;
+	}
+
+	vm.startChart = function(){
+		vm.labels = vm.chartData.alertTypes;
+		vm.data = [vm.chartData.alertsNumber];
+	}
+
+
 	activate();
+
+
+	//////////
 
 	function activate(){
 		vm.elderDataPromise = ajaxFactory.getElderData(vm.userId)
@@ -63,33 +95,7 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 		})
 	}
 
-	vm.editElder = function(){
-		ajaxFactory.editElderData(vm.userId, vm.editedName, vm.editedAddress, vm.editedPhone)
-			.then(function(data){
-				vm.editMode = false;
-				vm.name = vm.editedName;
-				vm.address = vm.editedAddress;
-				vm.phone = vm.editedPhone;
 
-				toaster.pop('success', "Hecho", "Usuario modificado")
-
-			})
-	}
-
-	vm.showAllAlerts = function(){
-		vm.alertTexts = vm.allUserAlerts;
-		vm.viewAllAlerts = true;
-	}
-
-	vm.showWeekAlerts = function(){
-		vm.alertTexts = vm.lastWeekAlerts;
-		vm.viewAllAlerts = false;
-	}
-
-	vm.startChart = function(){
-		vm.labels = vm.chartData.alertTypes;
-		vm.data = [vm.chartData.alertsNumber];
-	}
 
 
 }

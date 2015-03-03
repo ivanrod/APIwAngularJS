@@ -221,10 +221,12 @@ module StaticPagesHelper
 		return payload
 	end
 
-	def self.get_group_names_from_my_db(groups)
+	def self.get_group_data_from_my_db(groups)
 		groups.each do |group|
 			if Elder.find_by_userId(group["name"]) != nil
 				group["dbName"] = Elder.find_by_userId(group["name"])["name"]
+				group["address"] = Elder.find_by_userId(group["name"])["address"]
+				group["phone"] = Elder.find_by_userId(group["name"])["phone"]
 			end
 		end 
 		return groups

@@ -1,14 +1,56 @@
-<ul class="pricing-table">
+<ul class="pricing-table" cg-busy="admin.usersPromise">
   <li class="title">
-  	<div class="large-2 columns">Anciano</div>
+  	<div class="large-2 columns">Id</div>
+    <div class="large-2 columns">Nombre</div>
   	<div class="large-2 columns">Cuidador</div>
   	<div class="large-2 columns">Alertas</div>
-
-
   </li>
-  <li class="bullet-item">
-	<div class="large-2 columns">Andrés Pajares</div>
-	<div class="large-2 columns">Faemino</div>
-	<div class="large-2 columns">12</div>
+  <li class="bullet-item" ng-repeat="elder in admin.elders">
+  	<div class="large-2 columns">{{elder.name}}</div>
+    <div class="large-2 columns">{{elder.dbName || "-"}}</div>
+  	<div class="large-2 columns">Faemino</div>
+  	<div class="large-2 columns">12</div>
   </li>
 </ul>
+
+<a zf-open="basicModal" class="button">Nuevo...</a>
+<div zf-modal="" id="basicModal">
+<a zf-close="" class="close-button">×</a>
+<h3>Modificar datos</h3>
+<ul class="pricing-table">
+  <li class="title">{{user.userId}}</li>
+  <li class="price">
+    <label>Nombre</label>
+    <input ng-model="user.editedName" type="text" placeholder="Nombre..." value="{{user.name || ''}}"></input>
+  </li>
+  <li class="description">
+    <label>Dirección</label>
+    <input ng-model="user.editedAddress" type="text" placeholder="Dirección..." value="{{user.address || ''}}"></input>
+  </li>
+  <li class="bullet-item">
+    <label>Teléfono</label>
+    <input ng-model="user.editedPhone" type="text" placeholder="Teléfono..." value="{{user.phone || '-'}}"></input>
+  </li>
+  <li class="bullet-item">
+      <label>Cuidador
+        <select>
+          <option value="husker">Faemino</option>
+          <option value="starbuck">Cansado</option>
+          <option value="hotdog">Tip</option>
+          <option value="apollo">Coll</option>
+        </select>
+      </label>
+  </li>
+
+  <li class="bullet-item">
+    <div class="right">
+      <a href="" ng-click="user.editElder()">Guardar</a>
+      <a href="" ng-click="user.editMode = false">Cancelar</a>
+    </div>
+  </li>
+</ul>
+</div>
+
+
+
+<toaster-container></toaster-container>
