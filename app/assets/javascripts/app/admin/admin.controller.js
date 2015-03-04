@@ -1,8 +1,6 @@
-function adminCtrl($scope, sharedData, ajaxFactory, usersFactory, FoundationApi){
+function adminCtrl($scope, sharedData, ajaxFactory, usersFactory, FoundationApi, toaster){
 	
 	var vm = this;
-
-	vm.elders = sharedData.getResponse();
 
 	vm.getGroups = function(groups){
 		sharedData.setResponse(groups.data);
@@ -14,17 +12,33 @@ function adminCtrl($scope, sharedData, ajaxFactory, usersFactory, FoundationApi)
 		vm.elderData = usersFactory.getElderDataFromGroup(vm.elders, elderId)
 		FoundationApi.publish('basicModal', 'open');
 	}
-	
-	if (vm.elders === {} ){
-		vm.usersPromise = ajaxFactory.getGroups().then(vm.getGroups);
+
+	vm.cancelEdit  = function(){
+		FoundationApi.publish('basicModal', 'close');
 	}
-	else{
-		ajaxFactory.getGroups().then(vm.getGroups);
+	vm.saveElderData = function(){
+		ajaxFactory.editElderData(vm.elderData.elderId, vm.elderData.name, vm.elderData.address, vm.elderData.phone)
+			.then(function(data){
+				ajaxFactory.getGroups().then(vm.getGroups);
+				FoundationApi.publish('basicModal', 'close');
+				toaster.pop('success', "Guardado", "Datos del anciano modificados")
+
+			})
 	}
 
+	activate();
 
-	
+	////
 
-
+	function activate(){
+		vm.elders = sharedData.getResponse();
+		
+		if (vm.elders === null || vm.elders === undefined ){
+			vm.usersPromise = ajaxFactory.getGroups().then(vm.getGroups);
+		}
+		else{
+			ajaxFactory.getGroups().then(vm.getGroups);
+		}
+	}
 	
 }

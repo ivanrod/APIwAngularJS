@@ -1,9 +1,9 @@
 function sharedData($rootScope, filterFilter) {
   'use strict';
-  var response = {};
+  var response = null;
   var people = "";
   var peopleOrder = {};
-  var alerts = [];
+  var alerts = null;
   //var chartData = dashboardFactory.allUsersAlertsNum(response, alerts);
   var payloads = {};
   var filteredData = filterFilter(response, people);
