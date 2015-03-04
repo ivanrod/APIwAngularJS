@@ -1,15 +1,17 @@
+<div class="model-input">
+  <input type="search" ng-model="admin.carerInput" placeholder="Filtrar cuidadores..." /> 
+</div>
+
 <ul class="pricing-table">
   <li class="title">
   	<div class="large-2 columns">Cuidador</div>
   	<div class="large-2 columns">Personas a su cargo</div>
   	<div class="large-2 columns">Último acceso</div>
-
-
   </li>
   <li class="bullet-item">
-	<div class="large-2 columns">Mariano</div>
-	<div class="large-2 columns">2</div>
-	<div class="large-2 columns">23/12/2014</div>
+  	<div class="large-2 columns">Mariano</div>
+  	<div class="large-2 columns">2</div>
+  	<div class="large-2 columns">23/12/2014</div>
   </li>
 </ul>
 
@@ -20,25 +22,22 @@
 <a zf-close="" class="close-button">×</a>
 <h3>Modificar datos</h3>
 <ul class="pricing-table">
-  <li class="title">{{admin.elderData.elderId}}</li>
+  <li class="title">{{carer.name}}</li>
   <li class="price">
     <label>Nombre</label>
     <input ng-model="admin.elderData.name" type="text" placeholder="Nombre..." value="{{admin.elderData.name || ''}}"></input>
   </li>
+
   <li class="description">
-    <label>Ancianos bajo su responsabilidad:</label>
-    <div class="alert-box info radius"><p class="left">Carmen Sevilla</p><i class="right fi-x"></i></div>
-    
+    <label><h5>Ancianos bajo su responsabilidad:</h5></label>
+    <div class="alert-box info radius elder-carer-list"><p class="left">Carmen Sevilla</p><a><i class="right fi-x"></i></a></div>
   </li>
+
   <li class="description row">
-    
     <div class="large-10 columns left">
       <label>
         <select>
-          <option value="husker">Faemino</option>
-          <option value="starbuck">Cansado</option>
-          <option value="hotdog">Tip</option>
-          <option value="apollo">Coll</option>
+          <option ng-repeat="elder in admin.elders" value="{{elder.name}}">{{elder.dbName || elder.name}}</option>
         </select>
       </label>
     </div>
@@ -55,7 +54,3 @@
   </li>
 </ul>
 </div>
-
-
-
-<toaster-container></toaster-container>

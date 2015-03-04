@@ -33,6 +33,9 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 		vm.elderDataPromise = ajaxFactory.getElderData(vm.userId)
 		.then(function(data){
 			//sharedData.setPeople(vm.userId)
+			vm.name = data.data.name;
+			vm.address = data.data.address;
+			vm.phone = data.data.phone;
 
 			ajaxFactory.getLatestPayloadFromGroup(vm.userId)
 			.then(function(data){
@@ -44,9 +47,7 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 					payloads: data.data,
 					userId: vm.userId
 				}
-
 				sharedData.setPayloads([newPayload])
-				
 			})
 
 			
