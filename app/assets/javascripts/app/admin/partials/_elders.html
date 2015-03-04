@@ -1,15 +1,19 @@
+<div class="model-input">
+  <input type="search" ng-model="admin.elderInput" placeholder="Filtrar usuarios..." /> 
+</div>
+
 <ul class="pricing-table" cg-busy="admin.usersPromise">
   <li class="title">
   	<div class="large-2 columns">Id</div>
     <div class="large-2 columns">Nombre</div>
+    <div class="large-2 columns">Teléfono</div>
   	<div class="large-2 columns">Cuidador</div>
-  	<div class="large-2 columns">Alertas</div>
   </li>
-  <li class="bullet-item" ng-repeat="elder in admin.elders" ng-click="admin.editElder('{{elder.name}}')">
+  <li class="bullet-item" ng-repeat="elder in admin.elders | filter: admin.elderInput" ng-click="admin.editElder('{{elder.name}}')">
   	<div class="large-2 columns">{{elder.name}}</div>
     <div class="large-2 columns">{{elder.dbName || "-"}}</div>
+    <div class="large-2 columns">{{elder.phone || "-"}}</div>
   	<div class="large-2 columns">Faemino</div>
-  	<div class="large-2 columns">12</div>
   </li>
 </ul>
 
@@ -17,7 +21,7 @@
 <div zf-modal="" id="basicModal">
 <a zf-close="" class="close-button">×</a>
 <h3>Modificar datos</h3>
-<ul class="pricing-table">
+<ul class="pricing-table"  cg-busy="admin.saveElderDataPromise">
   <li class="title">{{admin.elderData.elderId}}</li>
   <li class="price">
     <label>Nombre</label>
@@ -53,4 +57,3 @@
 
 
 
-<toaster-container></toaster-container>

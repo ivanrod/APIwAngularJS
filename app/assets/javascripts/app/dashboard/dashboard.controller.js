@@ -45,37 +45,37 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
   }
   
   function waitForUsers(groups){
-      sharedData.setResponse(groups.data)
-      vm.response = sharedData.getResponse();
-      sharedData.setPeople("");
-      vm.people = sharedData.getPeople();    
+    sharedData.setResponse(groups.data)
+    vm.response = sharedData.getResponse();
+    sharedData.setPeople("");
+    vm.people = sharedData.getPeople();    
   }
 
   function waitForAlerts(alerts){
-      vm.waitingForUsers = false;
-      vm.response = sharedData.getResponse();
-      sharedData.setAlerts(alerts.data);
-      vm.alertTexts = alertsFactory.lastUsersAlerts(sharedData.getResponse(), sharedData.getAlerts());
-      vm.chartData = dashboardFactory.allUsersAlertsNum(sharedData.getResponse(), sharedData.getAlerts());
-      vm.people = sharedData.getPeople();
-      
-      vm.labels = dashboardFactory.last7daysArray();
-      vm.series = vm.chartData.names;
-      vm.data = vm.chartData.alerts;
+    vm.waitingForUsers = false;
+    vm.response = sharedData.getResponse();
+    sharedData.setAlerts(alerts.data);
+    vm.alertTexts = alertsFactory.lastUsersAlerts(sharedData.getResponse(), sharedData.getAlerts());
+    vm.chartData = dashboardFactory.allUsersAlertsNum(sharedData.getResponse(), sharedData.getAlerts());
+    vm.people = sharedData.getPeople();
+    
+    vm.labels = dashboardFactory.last7daysArray();
+    vm.series = vm.chartData.names;
+    vm.data = vm.chartData.alerts;
   }
 
   function waitForMap(payloads){
-      sharedData.setPayloads(payloads.data)
-      vm.people = sharedData.getPeople();
+    sharedData.setPayloads(payloads.data)
+    vm.people = sharedData.getPeople();
 
-      //Tambien se puede $scope.$watch('dashboard.people', function(){...})
-      $scope.$watch(angular.bind(vm, function () {
-                          return vm.people;}), 
-                        function(newValue, oldValue) {
-                            sharedData.setPeople(vm.people)        
-      })    
+    //Tambien se puede $scope.$watch('dashboard.people', function(){...})
+    $scope.$watch(angular.bind(vm, function () {
+                        return vm.people;}), 
+                      function(newValue, oldValue) {
+                          sharedData.setPeople(vm.people)        
+    })    
   }
- 
+
 
   activate();
 

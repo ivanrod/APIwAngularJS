@@ -4,21 +4,6 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 
 	vm.userId = $stateParams.userId;
 
-	vm.editMode = false;
-
-	vm.editElder = function(){
-		ajaxFactory.editElderData(vm.userId, vm.editedName, vm.editedAddress, vm.editedPhone)
-			.then(function(data){
-				vm.editMode = false;
-				vm.name = vm.editedName;
-				vm.address = vm.editedAddress;
-				vm.phone = vm.editedPhone;
-
-				toaster.pop('success', "Hecho", "Usuario modificado")
-
-			})
-	}
-
 	vm.showAllAlerts = function(){
 		vm.alertTexts = vm.allUserAlerts;
 		vm.viewAllAlerts = true;
@@ -29,7 +14,11 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 		vm.viewAllAlerts = false;
 	}
 
-	vm.startChart = function(){
+	vm.startChart = function(data){
+		vm.allUserAlerts = alertsFactory.userAlerts(vm.userId,data.data, vm.name);
+		vm.lastWeekAlerts = alertsFactory.lastWeekAlerts(vm.allUserAlerts);
+		vm.alertTexts = vm.lastWeekAlerts;
+		vm.chartData = dashboardFactory.allUserAlertsNum(vm.lastWeekAlerts);
 		vm.labels = vm.chartData.alertTypes;
 		vm.data = [vm.chartData.alertsNumber];
 	}
@@ -61,21 +50,11 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 			})
 
 			
-			vm.name = data.data.name;
-			vm.editedName = vm.name;
-			vm.address = data.data.address;
-			vm.editedAddress = vm.address;
-			vm.phone = data.data.phone;
-			vm.editedPhone = vm.phone;
 			vm.viewAllAlerts = false;
-			if (sharedData.getAlerts().length == 0){
+			if (sharedData.getAlerts() === null){
 				vm.allUserAlertsPromise = ajaxFactory.getAllUserAlerts(vm.userId)
 					.then(function(data){
-						vm.allUserAlerts = alertsFactory.userAlerts(vm.userId,data.data, vm.name);
-						vm.lastWeekAlerts = alertsFactory.lastWeekAlerts(vm.allUserAlerts);
-						vm.alertTexts = vm.lastWeekAlerts;
-						vm.chartData = dashboardFactory.allUserAlertsNum(vm.lastWeekAlerts);
-						vm.startChart();
+						vm.startChart(data);
 					})
 			}
 			else{
@@ -85,10 +64,7 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 				vm.viewAllAlerts = false;
 				ajaxFactory.getAllUserAlerts(vm.userId)
 					.then(function(data){
-						vm.allUserAlerts = alertsFactory.userAlerts(vm.userId,data.data, vm.name);
-						vm.lastWeekAlerts = alertsFactory.lastWeekAlerts(vm.allUserAlerts);
-						vm.chartData = dashboardFactory.allUserAlertsNum(vm.lastWeekAlerts);
-						vm.startChart();
+						vm.startChart(data);
 					})	
 			}
 			

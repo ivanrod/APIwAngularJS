@@ -8,35 +8,8 @@
   <li class="cta-button"><a class="button" href="#">Essential Tablet</a></li>
   <li class="cta-button"><a class="button" href="#">Ver cámara</a></li>
   <li class="bullet-item">
-  	<div class="right">
-  		<a href="" ng-click="user.editMode = true">Editar...</a>
-  	</div>
   </li>
 </ul>
 
-<ul class="pricing-table" ng-if="user.editMode">
-  <li class="title">{{user.userId}}</li>
-  <li class="price">
-    <label>Nombre</label>
-  	<input ng-model="user.editedName" type="text" placeholder="Nombre..." value="{{user.name || ''}}"></input>
-  </li>
-  <li class="description">
-    <label>Dirección</label>
-  	<input ng-model="user.editedAddress" type="text" placeholder="Dirección..." value="{{user.address || ''}}"></input>
-  </li>
-  <li class="bullet-item">
-    <label>Teléfono</label>
-  	<input ng-model="user.editedPhone" type="text" placeholder="Teléfono..." value="{{user.phone || '-'}}"></input>
-  </li>
-
-  <li class="bullet-item">
-  	<div class="right">
-  		<a href="" ng-click="user.editElder()">Guardar</a>
-  		<a href="" ng-click="user.editMode = false">Cancelar</a>
-  	</div>
-  </li>
-</ul>
-<toaster-container></toaster-container>
-</div>
 
 

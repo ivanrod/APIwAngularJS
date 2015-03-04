@@ -17,7 +17,7 @@ function adminCtrl($scope, sharedData, ajaxFactory, usersFactory, FoundationApi,
 		FoundationApi.publish('basicModal', 'close');
 	}
 	vm.saveElderData = function(){
-		ajaxFactory.editElderData(vm.elderData.elderId, vm.elderData.name, vm.elderData.address, vm.elderData.phone)
+		vm.saveElderDataPromise = ajaxFactory.editElderData(vm.elderData.elderId, vm.elderData.name, vm.elderData.address, vm.elderData.phone)
 			.then(function(data){
 				ajaxFactory.getGroups().then(vm.getGroups);
 				FoundationApi.publish('basicModal', 'close');
@@ -28,11 +28,11 @@ function adminCtrl($scope, sharedData, ajaxFactory, usersFactory, FoundationApi,
 
 	activate();
 
-	////
+	//////////
 
 	function activate(){
 		vm.elders = sharedData.getResponse();
-		
+
 		if (vm.elders === null || vm.elders === undefined ){
 			vm.usersPromise = ajaxFactory.getGroups().then(vm.getGroups);
 		}
