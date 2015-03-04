@@ -1,7 +1,7 @@
 <ul class="pricing-table">
   <li class="title">
   	<div class="large-2 columns">Cuidador</div>
-  	<div class="large-2 columns">Personas a cargo</div>
+  	<div class="large-2 columns">Personas a su cargo</div>
   	<div class="large-2 columns">Último acceso</div>
 
 
@@ -11,8 +11,6 @@
 	<div class="large-2 columns">2</div>
 	<div class="large-2 columns">23/12/2014</div>
   </li>
-  <li class="bullet-item">5GB Storage</li>
-  <li class="bullet-item">20 Users</li>
 </ul>
 
 
@@ -28,15 +26,14 @@
     <input ng-model="admin.elderData.name" type="text" placeholder="Nombre..." value="{{admin.elderData.name || ''}}"></input>
   </li>
   <li class="description">
-    <label>Dirección</label>
-    <input ng-model="admin.elderData.address" type="text" placeholder="Dirección..." value="{{admin.elderData.address || ''}}"></input>
+    <label>Ancianos bajo su responsabilidad:</label>
+    <div class="alert-box info radius"><p class="left">Carmen Sevilla</p><i class="right fi-x"></i></div>
+    
   </li>
-  <li class="bullet-item">
-    <label>Teléfono</label>
-    <input ng-model="admin.elderData.phone" type="text" placeholder="Teléfono..." value="{{admin.elderData.phone || '-'}}"></input>
-  </li>
-  <li class="bullet-item">
-      <label>Cuidador
+  <li class="description row">
+    
+    <div class="large-10 columns left">
+      <label>
         <select>
           <option value="husker">Faemino</option>
           <option value="starbuck">Cansado</option>
@@ -44,6 +41,10 @@
           <option value="apollo">Coll</option>
         </select>
       </label>
+    </div>
+    <a class="large-2 columns right add-button">
+      <i class="fi-plus"></i>
+    </a>
   </li>
 
   <li class="bullet-item">

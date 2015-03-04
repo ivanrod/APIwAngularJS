@@ -22,6 +22,11 @@ function sharedData($rootScope, filterFilter) {
     3: partialsUrl + '_statistics.html',
     4: partialsUrl + '_lastAlerts.html'
   }
+  var adminPartialsUrl = 'assets/app/admin/partials/';
+  var adminPartials = {
+    1: adminPartialsUrl + '_elders.html',
+    2: adminPartialsUrl + '_carers.html'
+  }
 
         return {
             getPhoneSection: function() {
@@ -76,6 +81,9 @@ function sharedData($rootScope, filterFilter) {
             },
             getPartial: function(partial){
               return partials[partial];
+            },
+            getAdminPartial: function(partial){
+              return adminPartials[partial];
             }
         }
       };

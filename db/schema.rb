@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225160514) do
+ActiveRecord::Schema.define(version: 20150304145544) do
+
+  create_table "carers", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "carers_elders", id: false, force: true do |t|
+    t.integer "carer_id"
+    t.integer "elder_id"
+  end
+
+  add_index "carers_elders", ["carer_id"], name: "index_carers_elders_on_carer_id"
+  add_index "carers_elders", ["elder_id"], name: "index_carers_elders_on_elder_id"
 
   create_table "elders", force: true do |t|
     t.string   "userId"

@@ -1,7 +1,7 @@
 <ul class="breadcrumbs">
-  <li class="current"><a href="#">Ancianos</a></li>
-  <li ><a href="#">Cuidadores</a></li>
+  <li ng-class="{'current': (admin.adminPartialActive === 1)}"><a href="" ng-click="admin.changeEldersOrCarers(1)">Ancianos</a></li>
+  <li ng-class="{'current': (admin.adminPartialActive === 2)}"><a href="" ng-click="admin.changeEldersOrCarers(2)">Cuidadores</a></li>
 </ul>
 
-<div ng-include="'assets/app/admin/partials/_elders.html'"></div>
+<div ng-include="admin.adminPartial"></div>
 

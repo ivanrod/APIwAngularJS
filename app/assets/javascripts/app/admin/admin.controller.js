@@ -2,6 +2,11 @@ function adminCtrl($scope, sharedData, ajaxFactory, usersFactory, FoundationApi,
 	
 	var vm = this;
 
+	vm.changeEldersOrCarers = function(eldersOrCarers){
+		vm.adminPartial = sharedData.getAdminPartial(eldersOrCarers);
+		vm.adminPartialActive = eldersOrCarers;
+	}
+
 	vm.getGroups = function(groups){
 		sharedData.setResponse(groups.data);
         vm.elders = sharedData.getResponse();
@@ -31,6 +36,7 @@ function adminCtrl($scope, sharedData, ajaxFactory, usersFactory, FoundationApi,
 	//////////
 
 	function activate(){
+		vm.changeEldersOrCarers(1);
 		vm.elders = sharedData.getResponse();
 
 		if (vm.elders === null || vm.elders === undefined ){
