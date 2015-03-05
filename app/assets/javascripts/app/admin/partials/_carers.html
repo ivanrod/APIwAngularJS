@@ -8,16 +8,16 @@
   	<div class="large-2 columns">Personas a su cargo</div>
   	<div class="large-2 columns">Último acceso</div>
   </li>
-  <li class="bullet-item">
-  	<div class="large-2 columns">Mariano</div>
-  	<div class="large-2 columns">2</div>
+  <li class="bullet-item admin-list" ng-repeat="carer in admin.carers | filter:admin.carerInput"  ng-click="admin.editOrCreateCarer('{{carer.name}}')">
+  	<div class="large-2 columns">{{carer.name}}</div>
+  	<div class="large-2 columns">{{carer.elders.length}}</div>
   	<div class="large-2 columns">23/12/2014</div>
   </li>
 </ul>
 
 
 
-<a zf-open="basicModal" class="button">Nuevo...</a>
+<a ng-click="admin.editOrCreateCarer('')" class="button">Nuevo...</a>
 <div zf-modal="" id="basicModal">
 <a zf-close="" class="close-button">×</a>
 <h3>Modificar datos</h3>
@@ -25,23 +25,23 @@
   <li class="title">{{carer.name}}</li>
   <li class="price">
     <label>Nombre</label>
-    <input ng-model="admin.elderData.name" type="text" placeholder="Nombre..." value="{{admin.elderData.name || ''}}"></input>
+    <input ng-model="admin.carerData.name" type="text" placeholder="Nombre..." value="{{admin.carerData.name || ''}}"></input>
   </li>
 
   <li class="description">
     <label><h5>Ancianos bajo su responsabilidad:</h5></label>
-    <div class="alert-box info radius elder-carer-list"><p class="left">Carmen Sevilla</p><a><i class="right fi-x"></i></a></div>
+    <div class="alert-box info radius elder-carer-list" ng-repeat="elder in admin.eldersCarerList"><p class="left">{{elder.name || elder.userId}}</p><a><i class="right fi-x"></i></a></div>
   </li>
 
   <li class="description row">
     <div class="large-10 columns left">
       <label>
-        <select>
-          <option ng-repeat="elder in admin.elders" value="{{elder.name}}">{{elder.dbName || elder.name}}</option>
+        <select ng-model="admin.elderToCarer">
+          <option ng-repeat="elder in admin.elders" value="{{elder.name}}">{{elder.dbName || elder.name || elder.userId}}</option>
         </select>
       </label>
     </div>
-    <a class="large-2 columns right add-button">
+    <a class="large-2 columns right add-button" ng-click="admin.addElderToCarer()">
       <i class="fi-plus"></i>
     </a>
   </li>

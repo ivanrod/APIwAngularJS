@@ -24,6 +24,9 @@ function ajaxFactory($http){
       return $http.post("/get_latest_payload_from_group", JSON.stringify(userObj));
     },
 
+    getCarersData: function(){
+      return $http.get("/carers");
+    },
     getElderData: function(userId){
       var userObj = {
         "userId": userId,

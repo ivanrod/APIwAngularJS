@@ -85,4 +85,13 @@ class StaticPagesController < ApplicationController
     render json: StaticPagesHelper::get_latest_group_payload(@user['userId'])
   end
 
+  def get_carers
+    @carers = []
+    Carer.all.each do |carer|
+      @carer = {"name"=>carer.name, "elders"=>carer.elders}
+      @carers << @carer
+    end
+    render json: @carers
+  end
+
 end

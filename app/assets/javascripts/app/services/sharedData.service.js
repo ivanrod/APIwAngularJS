@@ -4,6 +4,7 @@ function sharedData($rootScope, filterFilter) {
   var people = "";
   var peopleOrder = {};
   var alerts = null;
+  var carers = null;
   //var chartData = dashboardFactory.allUsersAlertsNum(response, alerts);
   var payloads = {};
   var filteredData = filterFilter(response, people);
@@ -46,6 +47,12 @@ function sharedData($rootScope, filterFilter) {
             },
             setAlerts: function(obj){
               alerts = obj;
+            },
+            getCarers: function(){
+              return carers;
+            },
+            setCarers: function(obj){
+              carers = obj;
             },
             getAlertsNames: function(){
               return alertsNames;

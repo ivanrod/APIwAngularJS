@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   post 'edit_elder_data' => 'static_pages#edit_elder_data'
   post 'get_latest_payload_from_group' => 'static_pages#get_latest_payload_from_group'
 
+  get 'carers' => 'static_pages#get_carers'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
