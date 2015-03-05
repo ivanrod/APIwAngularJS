@@ -1,7 +1,7 @@
-function adminCtrl($scope, sharedData, ajaxFactory, usersFactory, FoundationApi, toaster){
+function adminCtrl($scope, $filter, sharedData, ajaxFactory, usersFactory, FoundationApi, toaster){
 	
 	var vm = this;
-
+vm.filteredElders = [];
 	vm.changeEldersOrCarers = function(eldersOrCarers){
 		vm.adminPartial = sharedData.getAdminPartial(eldersOrCarers);
 		vm.adminPartialActive = eldersOrCarers;
@@ -30,12 +30,19 @@ function adminCtrl($scope, sharedData, ajaxFactory, usersFactory, FoundationApi,
 		if (vm.carerData != undefined){
 			vm.eldersCarerList = vm.carerData.elders.slice();		
 		}
+		vm.filteredElders = $filter('usersFilter')(vm.elders, vm.eldersCarerList)
 
 		FoundationApi.publish('basicModal', 'open');
 	}
 
 	vm.addElderToCarer = function(){
 		vm.eldersCarerList.push(usersFactory.getElderDataFromGroup(vm.elders, vm.elderToCarer));
+		vm.filteredElders = $filter('usersFilter')(vm.elders, vm.eldersCarerList)
+		console.log(vm.eldersCarerList)
+		console.log(vm.filteredElders)
+	}
+	vm.subtractElderFormCarer =function(index){
+		vm.eldersCarerList.splice(index,1)
 	}
 
 	vm.cancelEdit  = function(){
