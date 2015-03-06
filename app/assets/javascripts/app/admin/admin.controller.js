@@ -22,7 +22,6 @@ function adminCtrl($scope, $filter, sharedData, ajaxFactory, usersFactory, Found
 	vm.getCarers = function(carers){
 		vm.carers = carers.data;
 		sharedData.setCarers(carers.data);
-		console.log(JSON.stringify(carers.data))
 	}
 
 	/* ---
@@ -73,7 +72,6 @@ function adminCtrl($scope, $filter, sharedData, ajaxFactory, usersFactory, Found
 	vm.addElderToCarer = function(){
 		vm.eldersCarerList.push(usersFactory.getElderDataFromGroup(vm.elders, vm.elderToCarer));
 		vm.refreshFilteredElders();
-		console.log(vm.eldersCarerList)
 	}
 	vm.subtractElderFromCarer =function(index){
 		vm.eldersCarerList.splice(index,1)
