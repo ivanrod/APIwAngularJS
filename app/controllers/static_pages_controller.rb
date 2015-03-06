@@ -70,6 +70,40 @@ class StaticPagesController < ApplicationController
 
   end
 
+  def edit_carer_data
+    @new_carer_data = JSON.parse(request.body.read)
+    @old_carer_data = Carer.find_by_name(@new_carer_data["name"])
+    if @old_carer_data == nil
+      p "No data"
+      @new_carer = Carer.new({"name"=>@new_carer_data["name"]})
+      @new_carer_data["elders"].each do |elder|
+        @new_carer.elders << Elder.find_by_userId(elder["userId"])
+      end
+      @new_carer.save
+
+      p @new_carer_data
+      p @old_carer_data
+
+      render json: "User created".to_json
+
+    else
+      @old_carer_data.elders = []
+      @new_carer_data["elders"].each do |elder|
+        if Elder.find_by_userId(elder["userId"]) === nil
+          @new_elder = Elder.new({"userId" => elder["userId"]})
+          @new_elder.save
+        end
+        @old_carer_data.elders << Elder.find_by_userId(elder["userId"])
+      end 
+      @old_carer_data.save
+
+      p @new_carer_data
+      p @old_carer_data
+
+      render json: "User edited".to_json
+    end      
+  end
+
   def get_all_user_alerts
     @user = JSON.parse(request.body.read)
 

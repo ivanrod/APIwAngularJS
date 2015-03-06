@@ -41,6 +41,13 @@ function ajaxFactory($http){
         "phone": phone
       };
       return $http.post("/edit_elder_data", JSON.stringify(elderData));
+    },
+    editCarerData: function(carerName, carerElders){
+      var carerData =  {
+        "name": carerName,
+        "elders": carerElders
+      };
+      return $http.post("/edit_carer_data", JSON.stringify(carerData));
     }
 
   }

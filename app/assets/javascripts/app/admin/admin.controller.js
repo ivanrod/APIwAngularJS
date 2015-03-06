@@ -2,11 +2,17 @@ function adminCtrl($scope, $filter, sharedData, ajaxFactory, usersFactory, Found
 	
 	var vm = this;
 
+	/* ---
+	Panel choice
+	--- */
 	vm.changeEldersOrCarers = function(eldersOrCarers){
 		vm.adminPartial = sharedData.getAdminPartial(eldersOrCarers);
 		vm.adminPartialActive = eldersOrCarers;
 	}
 
+	/* ---
+	Get data
+	--- */
 	vm.getGroups = function(groups){
 		sharedData.setResponse(groups.data);
         vm.elders = sharedData.getResponse();
@@ -19,11 +25,34 @@ function adminCtrl($scope, $filter, sharedData, ajaxFactory, usersFactory, Found
 		console.log(JSON.stringify(carers.data))
 	}
 
+	/* ---
+	New & Edit 
+	--- */
+	vm.cancelEdit  = function(){
+		FoundationApi.publish('basicModal', 'close');
+	}
+
+	/*
+	New & Edit Elders
+	*/
 	vm.editElder = function(elderId){
 		vm.elderData = usersFactory.getElderDataFromGroup(vm.elders, elderId)
 		FoundationApi.publish('basicModal', 'open');
 	}
 
+	vm.saveElderData = function(){
+		vm.saveElderDataPromise = ajaxFactory.editElderData(vm.elderData.userId, vm.elderData.name, vm.elderData.address, vm.elderData.phone)
+			.then(function(data){
+				ajaxFactory.getGroups().then(vm.getGroups);
+				FoundationApi.publish('basicModal', 'close');
+				toaster.pop('success', "Guardado", "Datos del anciano modificados")
+
+			})
+	}
+
+	/*
+	New & Edit Carers
+	*/
 	vm.refreshFilteredElders = function(elders, eldersCarerList){
 		vm.filteredElders = $filter('usersFilter')(vm.elders, vm.eldersCarerList)
 		if (vm.filteredElders.length > 0){
@@ -44,21 +73,19 @@ function adminCtrl($scope, $filter, sharedData, ajaxFactory, usersFactory, Found
 	vm.addElderToCarer = function(){
 		vm.eldersCarerList.push(usersFactory.getElderDataFromGroup(vm.elders, vm.elderToCarer));
 		vm.refreshFilteredElders();
+		console.log(vm.eldersCarerList)
 	}
 	vm.subtractElderFromCarer =function(index){
 		vm.eldersCarerList.splice(index,1)
 		vm.refreshFilteredElders();
 	}
 
-	vm.cancelEdit  = function(){
-		FoundationApi.publish('basicModal', 'close');
-	}
-	vm.saveElderData = function(){
-		vm.saveElderDataPromise = ajaxFactory.editElderData(vm.elderData.userId, vm.elderData.name, vm.elderData.address, vm.elderData.phone)
+	vm.saveCarerData = function(){
+		vm.saveCarerDataPromise = ajaxFactory.editCarerData(vm.carerData.name, vm.eldersCarerList)
 			.then(function(data){
-				ajaxFactory.getGroups().then(vm.getGroups);
+				ajaxFactory.getCarersData().then(vm.getCarers);
 				FoundationApi.publish('basicModal', 'close');
-				toaster.pop('success', "Guardado", "Datos del anciano modificados")
+				toaster.pop('success', "Guardado", "Datos del cuidador modificados")
 
 			})
 	}

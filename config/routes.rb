@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post 'get_latest_payload_from_group' => 'static_pages#get_latest_payload_from_group'
 
   get 'carers' => 'static_pages#get_carers'
+  post 'edit_carer_data' => 'static_pages#edit_carer_data'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
