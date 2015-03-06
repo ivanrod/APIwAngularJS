@@ -30,10 +30,10 @@
 
   <li class="description">
     <label><h5>Ancianos bajo su responsabilidad:</h5></label>
-    <div class="alert-box info radius elder-carer-list" ng-repeat="elder in admin.eldersCarerList"><p class="left">{{elder.name || elder.userId}}</p><a ng-click="admin.subtractElderFormCarer($index)"><i class="right fi-x"></i></a></div>
+    <div class="alert-box info radius elder-carer-list" ng-repeat="elder in admin.eldersCarerList"><p class="left">{{elder.name || elder.userId}}</p><a ng-click="admin.subtractElderFromCarer($index)"><i class="right fi-x"></i></a></div>
   </li>
 
-  <li class="description row">
+  <li class="description row" ng-show="admin.filteredElders.length > 0">
     <div class="large-10 columns left">
       <label>
         <select ng-model="admin.elderToCarer">

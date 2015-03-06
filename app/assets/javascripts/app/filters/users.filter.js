@@ -1,7 +1,7 @@
 function usersFilter(){
 	'use strict';
 	return function(inputArray, anotherArray) {
-	    var inputArray = inputArray || [];
+	    var inputArray = inputArray.slice() || [];
 	    
 	    for (var i = 0; i < anotherArray.length; i++){
 	    	for (var j = 0; j < inputArray.length; j++){
