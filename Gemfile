@@ -8,6 +8,11 @@ gem 'rails', '4.1.8'
 
 #gem 'angular-rails-templates'
 
+# Devise token auth
+gem 'devise_token_auth'
+
+gem 'omniauth' 
+
 #PRotractor
 gem 'protractor-rails'
 

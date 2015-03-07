@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "karma-firefox-launcher": "^0.1.4",
+    "karma-jasmine": "^0.1.5",
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-safari-launcher": "^0.1.1"
   }
