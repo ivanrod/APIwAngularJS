@@ -53,6 +53,15 @@ function playConfig(uiGmapGoogleMapApiProvider, $httpProvider, $urlRouterProvide
         "viewMobile": { controller: 'adminCtrl as admin',
                         templateUrl: "assets/app/admin/admin.mobile.html" }
       }
-    })  
+    }) 
+    .state('signIn', {
+      url: "/signIn",
+      views: {
+        "viewNormal": { controller: 'sessionCtrl as session',
+                        templateUrl: "assets/app/sessions/new.html" },
+        "viewMobile": { controller: 'sessionCtrl as session',
+                        templateUrl: "assets/app/sessions/new.mobile.html" }        
+      }
+    }) 
 
 }

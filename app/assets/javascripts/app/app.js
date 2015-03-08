@@ -1,6 +1,7 @@
 //= require actionsheet/actionsheet
 //= require foundation.core
 //= require modal/modal
+//= require devise-min
 //= require app/app.config
 //= require app/filters/users.filter
 //= require app/services/sharedData.service
@@ -14,6 +15,7 @@
 //= require app/dashboard/map.controller
 //= require app/admin/admin.controller
 //= require app/user/user.controller
+//= require app/sessions/sessions.controller
 
 (function() {
 
@@ -33,7 +35,8 @@
             'foundation.actionsheet',
             'foundation.common',
             'foundation.modal',
-            'toaster'])
+            'toaster',
+            'Devise'])
 
     angular
         .module('play')
@@ -50,6 +53,7 @@
         .controller('mapsCtrl', mapsCtrl)
         .controller('adminCtrl', adminCtrl)
         .controller('userCtrl', userCtrl)
+        .controller('sessionsCtrl', sessionsCtrl)
         .value('cgBusyDefaults',{
           message:'Cargando...',
         })
