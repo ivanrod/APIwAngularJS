@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
 
+  get 'signIn' => 'users#sign_in'
+
 #AJAX Static Pages calls
   get 'groups' => 'static_pages#send_groups'
   post 'group_alerts' => 'static_pages#send_groups_alerts_last_7days'
