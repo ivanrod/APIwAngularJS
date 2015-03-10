@@ -1,42 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="">
-    <meta name="author" content="Ivan Rodriguez">
-
-    <title><%= content_for?(:title) ? yield(:title) : "Asistencia integral a mayores" %></title>
-
-    <%= stylesheet_link_tag    "application" %>
-    <%= stylesheet_link_tag    params[:controller] %>
-    <% if defined?(@specific_css) != nil %>
-      <% @specific_css.each do |specific| %>
-      <%= stylesheet_link_tag (specific || '') %>
-      <% end %>
-    <% end %>
-
-    <%= include_gon %>
-    <%= javascript_include_tag "vendor/modernizr" %>
-    <% if defined?(@specific_js) != nil %>
-      <% @specific_js.each do |specific| %>
-      <%= javascript_include_tag (specific || ''), :defer => "defer" %>
-      <% end %>
-    <% end %>
-    <%= javascript_include_tag "application", :defer => "defer" %>
-    <%= javascript_include_tag (params[:controller]), :defer => "defer" %>
-    
-    <%= csrf_meta_tags %>
-  </head>
-
-  <body ng-cloak ng-app="play" ng-controller="layoutCtrl as layout">
-      
-
-
   <nav ng-hide="layout.phone" class="top-bar" data-topbar role="navigation">
     <ul class="middle tab-bar-section">
       <li class="name">
-        <h1><%= image_tag "VueForgePlay.png", class: "logo" %></h1>
+        <h1><img ng-src="assets/VueForgePlay.png" class="logo"></h1>
       </li>
       <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
     </ul>
@@ -62,10 +27,14 @@
 
 <nav ng-hide="layout.phone" class="large-1 columns left-nav">
   <div class="icon-bar vertical five-up">
-    <a class="item">
+    <a class="item" href="/#/dashboard">
         <i class="fi-info"></i>
         <label>Dashboard</label>
-      </a>
+    </a>
+    <a class="item" href="/#/admin">
+      <i class="fi-wrench"></i>
+      <label>Administración</label>
+    </a>
   </div>
 </nav>
 
@@ -99,11 +68,11 @@
 
 </nav>
 
-<div class="fill-box dashboard-phone" ng-if="layout.phone" ui-view="dashboardMobile"></div>
+<div class="fill-box dashboard-phone" ng-if="layout.phone" ui-view="viewMobile"></div>
 
 </section>
 
-<section ui-view="dashboard" ng-if="!layout.phone" class="large-11 small-12 columns">
+<section ui-view="viewNormal" ng-if="!layout.phone" class="large-11 small-12 columns">
 </section>
 
 <footer class="footer-basic-centered" ng-hide="layout.phone">
@@ -121,6 +90,4 @@
   <p class="footer-company-name">Altran &copy; 2015</p>
 
 </footer>
-    
-  </body>
-</html>
+<toaster-container></toaster-container>

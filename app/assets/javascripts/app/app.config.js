@@ -18,13 +18,11 @@ function playConfig(uiGmapGoogleMapApiProvider, $httpProvider, $urlRouterProvide
 
   $stateProvider
     .state('index', {
+      abstract: true,
       url: "/",
-      views: {
-        "viewNormal": { controller: 'dashboardCtrl as dashboard', 
-                        templateUrl: 'assets/app/dashboard/dashboard.html' },
-        "viewMobile": { controller: 'dashboardCtrl as dashboard', 
-                        templateUrl: "assets/app/dashboard/dashboard.mobile.html" },
-      },
+      controller: 'layoutCtrl as layout', 
+      templateUrl: 'assets/app/layout/mainLayout.html'        
+
       
     })
     .state('dashboard', {
