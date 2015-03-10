@@ -18,15 +18,13 @@ function playConfig(uiGmapGoogleMapApiProvider, $httpProvider, $urlRouterProvide
 
   $stateProvider
     .state('index', {
-      abstract: true,
       url: "/",
       controller: 'layoutCtrl as layout', 
-      templateUrl: 'assets/app/layout/mainLayout.html'        
-
+      templateUrl: 'assets/app/layout/mainLayout.html' 
       
     })
-    .state('dashboard', {
-      url: "/dashboard",
+    .state('index.dashboard', {
+      url: "dashboard",
       views: {
         "viewNormal": { controller: 'dashboardCtrl as dashboard', 
                         templateUrl: "assets/app/dashboard/dashboard.html" },
@@ -34,8 +32,8 @@ function playConfig(uiGmapGoogleMapApiProvider, $httpProvider, $urlRouterProvide
                         templateUrl: "assets/app/dashboard/dashboard.mobile.html" },
       },
     })  
-    .state('user', {
-      url: "/users/:userId",
+    .state('index.user', {
+      url: "users/:userId",
       views: {
         "viewNormal": { controller: 'userCtrl as user',
                         templateUrl: "assets/app/user/user.html" },
@@ -43,8 +41,8 @@ function playConfig(uiGmapGoogleMapApiProvider, $httpProvider, $urlRouterProvide
                         templateUrl: "assets/app/user/user.mobile.html" }
       }
     })  
-    .state('admin', {
-      url: "/admin",
+    .state('index.admin', {
+      url: "admin",
       views: {
         "viewNormal": { controller: 'adminCtrl as admin',
                         templateUrl: "assets/app/admin/admin.html" },
@@ -54,12 +52,8 @@ function playConfig(uiGmapGoogleMapApiProvider, $httpProvider, $urlRouterProvide
     }) 
     .state('signIn', {
       url: "/signIn",
-      views: {
-        "viewNormal": { controller: 'sessionCtrl as session',
-                        templateUrl: "assets/app/sessions/new.html" },
-        "viewMobile": { controller: 'sessionCtrl as session',
-                        templateUrl: "assets/app/sessions/new.mobile.html" }        
-      }
+      controller: 'sessionsCtrl as sessions',
+      templateUrl: "assets/app/sessions/new.html" 
     }) 
 
 }
