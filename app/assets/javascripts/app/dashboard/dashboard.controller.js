@@ -94,6 +94,7 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
 
           vm.alertsPromise = ajaxFactory.getAlertsLast7days(groups.data).then(function(alerts){
             waitForAlerts(alerts);
+            console.log(JSON.stringify(alerts.data))
 
             vm.mapPromise = ajaxFactory.getLatestsPayloads(groups.data).then(function(payloads){
               waitForMap(payloads);

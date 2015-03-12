@@ -14,7 +14,7 @@ describe("Users (elders) helper functions in the app", function() {
   it("should have a getElderDataFromGroup() function which take a group from play platform and returns only the elder data", function(){
   	var elderData = usersFactory.getElderDataFromGroup(response, "Elder_005");
   	var expectedData = {
-					    "elderId": "Elder_005",
+					    "userId": "Elder_005",
 					    "name": "Concha Velasco",
 					    "address": "C/ Falsa 123",
 					    "phone": "98789798"

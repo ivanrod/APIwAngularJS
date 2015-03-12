@@ -1,5 +1,18 @@
-function ajaxFactory($http){
+function ajaxFactory($http, sharedData){
   'use strict';
+
+  function corsReq(method, urlExtension, data){
+    var request = {
+       method: method,
+       url: sharedData.getBaseApiUrl() + urlExtension,
+       headers: angular.fromJson(sharedData.getCredentials()),
+       data: data 
+       }
+    request.headers['X-Requested-With'] = undefined;
+    request.headers['X-CSRF-Token'] = undefined;
+    return request;
+    };
+
   return {
     getGroups: function(){
       return $http.get("/groups");
@@ -48,7 +61,25 @@ function ajaxFactory($http){
         "elders": carerElders
       };
       return $http.post("/edit_carer_data", JSON.stringify(carerData));
-    }
+    },
+
+
+
+
+
+    getAssetAlerts: function(assetId, startDate, endDate){
+      return $http(corsReq("GET", "/asset/" + assetId + '/alerts/' + startDate + "/" + endDate))
+    },
+    getAssetPayloads: function(assetId, startDate, endDate){
+      return $http(corsReq("GET", "/asset/" + assetId + '/payloads/' + startDate + "/" + endDate))
+    },
+    getAssetLatestPayloads: function(assetId, numberOfPayloads){
+     return $http(corsReq("GET", "/asset/" + assetId + "/latestPayloads/" + numberOfPayloads))
+    },
+    getUserAssets: function(userId){
+      return $http(corsReq("GET", "/group/" + userId));
+    },
+
 
   }
 }
