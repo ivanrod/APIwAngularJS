@@ -1,0 +1,7 @@
+admin = Admin.new()
+admin.email = x@x.com
+admin.password = "xxx"
+admin.password_confirmation = "xxx"
+admin.provider = "email"
+admin.skip_confirmation!
+admin.save
