@@ -1,4 +1,4 @@
-function playConfig(uiGmapGoogleMapApiProvider, $httpProvider, $urlRouterProvider, $stateProvider) {
+function playConfig(uiGmapGoogleMapApiProvider, $authProvider, $httpProvider, $urlRouterProvider, $stateProvider) {
 	'use strict';
     //Config to load Google maps SDK
     uiGmapGoogleMapApiProvider.configure({
@@ -19,8 +19,15 @@ function playConfig(uiGmapGoogleMapApiProvider, $httpProvider, $urlRouterProvide
   $stateProvider
     .state('index', {
       url: "/",
+      abstract:true,
       controller: 'layoutCtrl as layout', 
-      templateUrl: 'assets/app/layout/mainLayout.html' 
+      templateUrl: 'assets/app/layout/mainLayout.html' ,
+      resolve: {
+          auth: function($auth) {
+            console.log($auth.validateUser())
+            return $auth.validateUser();
+          }
+        }
       
     })
     .state('index.dashboard', {
@@ -55,5 +62,35 @@ function playConfig(uiGmapGoogleMapApiProvider, $httpProvider, $urlRouterProvide
       controller: 'sessionsCtrl as sessions',
       templateUrl: "assets/app/sessions/new.html" 
     }) 
+
+$authProvider.configure([
+  { 
+    default: {
+      apiUrl:                '',
+      signOutUrl:            '/auth/sign_out',
+      emailSignInPath:       '/auth/sign_in',
+      emailRegistrationPath: '/auth',
+      accountUpdatePath:     '/auth',
+      accountDeletePath:     '/auth',
+      passwordResetPath:     '/auth/password',
+      passwordUpdatePath:    '/auth/password',
+      tokenValidationPath:   '/auth/validate_token',
+    }   
+  }, {
+    admin: {
+      apiUrl:                '',
+      signOutUrl:            '/admin_auth/sign_out',
+      emailSignInPath:       '/admin_auth/sign_in',
+      emailRegistrationPath: '/admin_auth',
+      accountUpdatePath:     '/admin_auth',
+      accountDeletePath:     '/admin_auth',
+      passwordResetPath:     '/admin_auth/password',
+      passwordUpdatePath:    '/admin_auth/password',
+      tokenValidationPath:   '/admin_auth/validate_token',
+    }
+  }
+]);
+
+
 
 }

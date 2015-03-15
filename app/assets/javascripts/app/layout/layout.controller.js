@@ -1,6 +1,7 @@
-function layoutCtrl($scope, $animate, matchmedia, sharedData){
+function layoutCtrl($scope, $document, $animate, $state, $auth, matchmedia, sharedData){
   'use strict';
   //Si falla para algún explorador el matchmedia se puede mirar de incluir los polyfills;
+  
 
 	var vm = this;
   /*
@@ -9,6 +10,18 @@ function layoutCtrl($scope, $animate, matchmedia, sharedData){
   vm.fillBox = sharedData.getPartial(1);
   vm.selected = 1;
   vm.slidification = false;
+ 
+
+  vm.signOut = function(){
+    console.log("fwea")
+    $auth.signOut()
+    .then(function(resp){
+      $state.go('signIn');
+    })
+    .catch(function(resp){
+      console.log(resp)
+    })
+  }
 
   vm.enableBox = function(box){
     vm.fillBox = sharedData.getPartial(box);

@@ -1,7 +1,6 @@
 //= require actionsheet/actionsheet
 //= require foundation.core
 //= require modal/modal
-//= require devise-min
 //= require app/app.config
 //= require app/filters/users.filter
 //= require app/services/sharedData.service
@@ -37,7 +36,7 @@
             'foundation.common',
             'foundation.modal',
             'toaster',
-            'Devise'])
+            'ng-token-auth'])
 
     angular
         .module('play')
@@ -59,5 +58,5 @@
         .value('cgBusyDefaults',{
           message:'Cargando...',
         })
-
+        
 })();

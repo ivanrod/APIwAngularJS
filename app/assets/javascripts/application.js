@@ -16,6 +16,8 @@
 //= require angular.min
 //= require angular-ui-router.min
 //= require angular-touch.min
+//= require angular-cookie.min
+//= require ng-token-auth.min
 //= require moment.min
 //= require momentLocales
 //= require lodash.min
@@ -27,6 +29,7 @@
 //= require jquery_ujs
 //= require foundation-apps.min
 //= require foundation
+//= require foundation.dropdown
 //= require ng-scrollable.min
 //= require matchmedia-ng
 //= require toaster

@@ -12,10 +12,10 @@
       <ul class="right">
         <li class="active"><a href="http://playbyaltran.appspot.com/admin.html"><i class="fa fa-diamond"></i> Administración Play</a></li>
         <li class="has-dropdown">
-          <a href="#"><i class="fa fa-user"></i> Mi cuenta</a>
+          <a href="#" ng-click="layout.si"><i class="fa fa-user"></i> Mi cuenta</a>
           <ul class="dropdown">
             <li><a href="#">Mis datos</a></li>
-            <li><a href="#">Salir</a></li>
+            <li><a  ng-click="layout.signOut()">Salir</a></li>
           </ul>
         </li>
       </ul>
