@@ -23,10 +23,17 @@ function playConfig(uiGmapGoogleMapApiProvider, $authProvider, $httpProvider, $u
       controller: 'layoutCtrl as layout', 
       templateUrl: 'assets/app/layout/mainLayout.html' ,
       resolve: {
-          auth: function($auth) {
-            console.log($auth.validateUser())
-            return $auth.validateUser();
-          }
+          auth: function($auth, $state) {
+              $auth.validateUser().then(function(data){
+                console.log(data);
+                if (!data.signedIn){
+                  console.log("No logeado")
+                  $state.go('signIn');
+                }
+                
+              })
+            return true;
+          },
         }
       
     })
@@ -38,6 +45,7 @@ function playConfig(uiGmapGoogleMapApiProvider, $authProvider, $httpProvider, $u
         "viewMobile": { controller: 'dashboardCtrl as dashboard', 
                         templateUrl: "assets/app/dashboard/dashboard.mobile.html" },
       },
+
     })  
     .state('index.user', {
       url: "users/:userId",
@@ -60,7 +68,20 @@ function playConfig(uiGmapGoogleMapApiProvider, $authProvider, $httpProvider, $u
     .state('signIn', {
       url: "/signIn",
       controller: 'sessionsCtrl as sessions',
-      templateUrl: "assets/app/sessions/new.html" 
+      templateUrl: "assets/app/sessions/new.html",
+      resolve: {
+          auth: function($auth, $state) {
+              $auth.validateUser().then(function(data){
+                console.log(data);
+                if (data.signedIn){
+                  console.log("Logeado")
+                  $state.go('index.dashboard');
+                }
+                
+              })
+            return true;
+          },
+        }
     }) 
 
 $authProvider.configure([
