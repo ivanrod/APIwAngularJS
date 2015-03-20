@@ -1,3 +1,8 @@
+/**
+ * Data shared through the play module (between controllers, factories or directives)
+ * @namespace sharedData
+ * @memberOf Services
+ */
 function sharedData($rootScope, filterFilter) {
   'use strict';
   var response = null;

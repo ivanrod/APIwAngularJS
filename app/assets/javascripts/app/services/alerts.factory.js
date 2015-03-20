@@ -1,12 +1,28 @@
-/* Ultimas alertas Helper function Factory */
+/**
+ * Ultimas alertas Helper function Factory
+ * @namespace alertsFactory
+ * @memberOf Factories
+ */
 function alertsFactory(sharedData){
   'use strict';
   return{
+    /**
+     * @desc Helper to JS sort() function, to sort an array with Moment objects
+     * @param  {Object} a Moment object
+     * @param  {Object} b Moment object
+     * @return {Integer} 1, -1 or 0
+     */
     sortMomentHelper: function(a, b){
       if (a.time.isAfter(b.time)){ return 1}
         else if (b.time.isAfter(a.time)){return -1}
           else if (a.time.isSame(b.time)){return 0}
     },
+  /**
+   * @desc Obtains an array of alerts with a custom format
+   * @param  {Object} alerts  
+   * @param  {String} name
+   * @return {Array} List of alerts formated
+   */
     formatAlerts: function(alerts, name){
       var alertsFormated = [];
       for (var i = 0; i < alerts.alerts.length; i++){
@@ -21,6 +37,12 @@ function alertsFactory(sharedData){
       }
       return alertsFormated;
     },
+    /**
+     * @desc Selects only the alerts from a given user
+     * @param  {String} user 
+     * @param  {Array} alerts
+     * @return {Array} User alerts
+     */
     getAlertsByUser: function(user, alerts){
       var alertsByUser = [];
       for (var i = 0; i < alerts.length; i++){
@@ -30,6 +52,12 @@ function alertsFactory(sharedData){
       }
       return alertsByUser;
     },
+    /**
+     * @desc Sort alerts by date (moment) and format them
+     * @param  {Array} groups An array of groups (people)
+     * @param  {Array} groups An array of  alerts
+     * @return {Array}
+     */
     lastUsersAlerts: function(groups, alerts){
       var alertsTexts = [];
       for (var i=0; i<groups.length; i++){
@@ -43,6 +71,11 @@ function alertsFactory(sharedData){
       alertsTexts = alertsTexts.sort(this.sortMomentHelper);
       return alertsTexts.reverse();
     },
+    /**
+     * @desc Given a list of alerts, selects only those added the last 7 days
+     * @param  {Array} alerts
+     * @return {Array}
+     */
     lastWeekAlerts: function(alerts){
       var lastAlerts = [];
       for (var i = 0; i < alerts.length; i++){
@@ -53,11 +86,22 @@ function alertsFactory(sharedData){
       }
       return lastAlerts;
     },
+    /**
+     * @desc Format a list of alerts and then sort them    
+     * @param  {String} userId ID given in play DB
+     * @param  {Array} alerts List of alerts
+     * @param  {String} name Name given in our DB
+     * @return {Array}
+     */
     userAlerts: function(userId, alerts, name){
       var alerts = this.formatAlerts({"alerts": alerts, "userId": userId}, name);
       alerts = alerts.sort(this.sortMomentHelper);
       return alerts.reverse();
     },
+    /**
+     * @desc Obtains the alerts texts and levels from sharedData service
+     * @type {Object}
+     */
     alertsNames: sharedData.getAlertsNames()
   }
 }

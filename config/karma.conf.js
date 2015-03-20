@@ -18,6 +18,7 @@ module.exports = function(config) {
       'vendor/assets/javascripts/angular-mocks.js',
       'vendor/assets/javascripts/jquery-2.1.3.min.js',
       'vendor/assets/javascripts/angular-ui-router.min.js',
+      'vendor/assets/javascripts/foundation.js',
       'vendor/assets/javascripts/*.js',
       'app/assets/javascripts/*/*.html',
       'app/assets/javascripts/app/*/*.js',

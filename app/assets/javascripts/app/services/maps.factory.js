@@ -3,7 +3,8 @@
  * @namespace mapsFactory
  * @memberOf Factories
  */
-(function mapsFactory(){
+function mapsFactory(){
+  'use strict';
   return{
     /**
     * @name rgb2hex
@@ -166,4 +167,4 @@
     }
 
   }
-})();
+};
