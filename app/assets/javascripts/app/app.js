@@ -4,6 +4,7 @@
 //= require app/app.config
 //= require app/filters/users.filter
 //= require app/services/sharedData.service
+//= require app/services/authentication.service
 //= require app/services/ajax.factory
 //= require app/services/dashboard.factory
 //= require app/services/maps.factory
@@ -43,6 +44,7 @@
         .config(playConfig)
         .filter('usersFilter', usersFilter)
         .service('sharedData', sharedData)
+        .service('authenticationService', authenticationService)
         .factory('ajaxFactory', ajaxFactory)
         .factory('dashboardFactory', dashboardFactory)
         .factory('mapsFactory', mapsFactory)

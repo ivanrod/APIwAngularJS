@@ -1,4 +1,4 @@
-function playConfig(uiGmapGoogleMapApiProvider, $authProvider, $httpProvider, $urlRouterProvider, $stateProvider) {
+function playConfig(uiGmapGoogleMapApiProvider ,$authProvider, $httpProvider, $urlRouterProvider, $stateProvider) {
 	'use strict';
     //Config to load Google maps SDK
     uiGmapGoogleMapApiProvider.configure({
@@ -23,17 +23,11 @@ function playConfig(uiGmapGoogleMapApiProvider, $authProvider, $httpProvider, $u
       controller: 'layoutCtrl as layout', 
       templateUrl: 'assets/app/layout/mainLayout.html' ,
       resolve: {
-          auth: function($auth, $state) {
-              $auth.validateUser().then(function(data){
-                console.log(data);
-                if (!data.signedIn){
-                  console.log("No logeado")
-                  $state.go('signIn');
-                }
-                
-              })
-            return true;
-          },
+          auth: function(authenticationService, $auth){
+            var authPromise = $auth.validateUser()
+            return authenticationService.redirectToSingin(authPromise);
+          }
+
         }
       
     })

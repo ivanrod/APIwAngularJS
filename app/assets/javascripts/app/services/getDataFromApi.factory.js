@@ -1,4 +1,4 @@
-function getDataFromApiFactory(ajaxFactory, $q, $rootScope){
+function getDataFromApiFactory(ajaxFactory, $q, $timeout, $rootScope, $state){
 	'use strict';
 
 	return {
@@ -116,7 +116,16 @@ function getDataFromApiFactory(ajaxFactory, $q, $rootScope){
 			})
 
 			return userAlertsq.promise;
-		}
+		},
+
+		prueba: function(){
+             var deferred = $q.defer();
+             $timeout(function() {
+             	$state.go('signIn')
+                 deferred.resolve('Hello!');
+             }, 1000);
+             return deferred.promise;
+         }
 	}
 
 }
