@@ -12,9 +12,9 @@ function layoutCtrl($scope, auth, $rootScope, $document, $animate, $state, $auth
   vm.selected = 1;
   vm.slidification = false;
  
+ $(document).foundation('reflow');
 
   vm.signOut = function(){
-    console.log("fwea")
     $auth.signOut()
     .then(function(resp){
       $state.go('signIn');
