@@ -8,6 +8,9 @@ describe("Shared data in the app", function() {
     httpBackend = $httpBackend;
   }));
 
+  //////////
+  //Tests //
+  //////////
   it("should have a getResponse() function", function() {
     expect(sharedData.getResponse()).toBeDefined();
   });

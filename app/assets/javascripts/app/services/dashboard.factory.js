@@ -1,5 +1,5 @@
 /**
- * Dashboard Helper Function Factory
+ * Chart Helper Function Factory
  * @namespace dashboardFactory
  * @memberOf Factories
  */
@@ -62,7 +62,7 @@ function dashboardFactory(sharedData){
         alerts: []
       };
       for (var i=0; i<groups.length; i++){
-        if (groups[i].dbName == undefined){
+        if (groups[i].dbName == undefined || groups[i].dbName == ""){
         chartData.names.push(groups[i].name)
         }
         else{

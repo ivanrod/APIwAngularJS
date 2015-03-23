@@ -1,4 +1,9 @@
 describe("getDataFromApi factory functions to retrieve data from play API to the app", function() {
+
+  //////////
+  //Mocks //
+  //////////
+
   var getDataFromApiFactory, $httpBackend;
 
   var groups = [
@@ -43,7 +48,9 @@ describe("getDataFromApi factory functions to retrieve data from play API to the
   }));
 
 
-
+  //////////
+  //Tests //
+  //////////
   it("should have a getAssetAlertsLast7days() function which take a assetId and returns all the alerts in the past 7 days from this asset", function(){
   	var test = getDataFromApiFactory.getAssetAlertsLast7days("Pulsera_001");
   	var firstLevel = undefined;
