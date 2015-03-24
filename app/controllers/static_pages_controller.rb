@@ -72,13 +72,21 @@ class StaticPagesController < ApplicationController
 
   def edit_carer_data
     @new_carer_data = JSON.parse(request.body.read)
-    @old_carer_data = Carer.find_by_name(@new_carer_data["name"])
+    @old_carer_data = User.find_by_name(@new_carer_data["name"])
     if @old_carer_data == nil
       p "No data"
-      @new_carer = Carer.new({"name"=>@new_carer_data["name"]})
+      @new_carer = User.new()
+      @new_carer.email = @new_carer_data["name"]
+      @new_carer.name = @new_carer_data["name"]
+      @new_carer.password = "passwordlarga"
+      @new_carer.password_confirmation = "passwordlarga"
+      @new_carer.provider = "email"
+
       @new_carer_data["elders"].each do |elder|
         @new_carer.elders << Elder.find_by_userId(elder["userId"])
       end
+
+      @new_carer.skip_confirmation!
       @new_carer.save
 
       p @new_carer_data
@@ -121,7 +129,7 @@ class StaticPagesController < ApplicationController
 
   def get_carers
     @carers = []
-    Carer.all.each do |carer|
+    User.all.each do |carer|
       @carer = {"name"=>carer.name, "elders"=>carer.elders}
       @carers << @carer
     end

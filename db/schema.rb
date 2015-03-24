@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312215601) do
+ActiveRecord::Schema.define(version: 20150324185859) do
 
   create_table "admins", force: true do |t|
     t.string   "provider",                            null: false
@@ -64,6 +64,14 @@ ActiveRecord::Schema.define(version: 20150312215601) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "elders_users", id: false, force: true do |t|
+    t.integer "user_id"
+    t.integer "elder_id"
+  end
+
+  add_index "elders_users", ["elder_id"], name: "index_elders_users_on_elder_id"
+  add_index "elders_users", ["user_id"], name: "index_elders_users_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "provider",                            null: false
