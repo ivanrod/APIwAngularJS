@@ -1,7 +1,7 @@
 <div class="outer">
   <div class="middle">
     <div class="inner">
-<form class="large-4 columns large-offset-4 login" ng-submit="submitLogin(sessions.loginForm)" role="form" ng-init="sessions.loginForm = {}">
+<form class="large-4 columns large-offset-4 login" ng-submit="sessions.handleLoginSubmit()" role="form" ng-init="sessions.loginForm = {}">
   <fieldset class="login">
     <legend>Log in</legend>
     <div class="form-group">
@@ -23,7 +23,7 @@
              required="required"
              class="form-control">
     </div>
-    <a ng-click="sessions.handleLoginSubmit()" class="button">Entrar</a>
+    <input type="submit" class="button" value="Entrar"></input>
   </fieldset>
 </form>
 </div>
