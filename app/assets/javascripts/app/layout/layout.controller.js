@@ -5,6 +5,10 @@ function layoutCtrl($scope, auth, $rootScope, $document, $animate, $state, $auth
 	var vm = this;
 
   console.log("Logeado como: " + auth.email)
+  
+  if (auth.nickname === "ADMIN"){
+    vm.admin = true;
+  }
   /*
   Media queries with matchmedia
   */

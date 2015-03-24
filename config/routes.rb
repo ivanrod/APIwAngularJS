@@ -11,17 +11,17 @@ Rails.application.routes.draw do
   get 'signIn' => 'users#sign_in'
 
 #AJAX Static Pages calls
-  get 'groups' => 'static_pages#send_groups'
-  post 'group_alerts' => 'static_pages#send_groups_alerts_last_7days'
-  post 'group_payloads' => 'static_pages#send_groups_latest_payload'
+  get 'groups' => 'users#send_groups'
+  post 'group_alerts' => 'users#send_groups_alerts_last_7days'
+  post 'group_payloads' => 'users#send_groups_latest_payload'
 
-  post 'get_elder_data' => 'static_pages#get_elder_data'
-  post 'get_all_user_alerts' => 'static_pages#get_all_user_alerts'
-  post 'edit_elder_data' => 'static_pages#edit_elder_data'
-  post 'get_latest_payload_from_group' => 'static_pages#get_latest_payload_from_group'
+  post 'get_elder_data' => 'users#get_elder_data'
+  post 'get_all_user_alerts' => 'users#get_all_user_alerts'
+  post 'edit_elder_data' => 'users#edit_elder_data'
+  post 'get_latest_payload_from_group' => 'users#get_latest_payload_from_group'
 
-  get 'carers' => 'static_pages#get_carers'
-  post 'edit_carer_data' => 'static_pages#edit_carer_data'
+  get 'carers' => 'users#get_carers'
+  post 'edit_carer_data' => 'users#edit_carer_data'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

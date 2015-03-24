@@ -14,7 +14,7 @@ function authenticationService($q, $timeout, $state){
 		redirectToSingin: function(authPromise){
 			var deferred = $q.defer();
 			authPromise.then(function(data){
-                  deferred.resolve(data)
+                  deferred.resolve(data);
                 }).catch(function(data){
 					$state.go('signIn');
 					deferred.resolve("No logeado")
