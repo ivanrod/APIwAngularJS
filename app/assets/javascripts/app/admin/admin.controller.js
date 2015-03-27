@@ -2,17 +2,21 @@ function adminCtrl($scope, $filter, sharedData, ajaxFactory, usersFactory, Found
 	
 	var vm = this;
 
-	/* ---
-	Panel choice
-	--- */
+	
+	//////////////////
+	//Panel choice //
+	//////////////////
+	
 	vm.changeEldersOrCarers = function(eldersOrCarers){
 		vm.adminPartial = sharedData.getAdminPartial(eldersOrCarers);
 		vm.adminPartialActive = eldersOrCarers;
 	}
 
-	/* ---
-	Get data
-	--- */
+	
+	//////////////
+	//Get data //
+	//////////////
+	
 	vm.getGroups = function(groups){
 		sharedData.setResponse(groups.data);
         vm.elders = sharedData.getResponse();
@@ -24,16 +28,20 @@ function adminCtrl($scope, $filter, sharedData, ajaxFactory, usersFactory, Found
 		sharedData.setCarers(carers.data);
 	}
 
-	/* ---
-	New & Edit 
-	--- */
+	
+	/////////////////
+	//New & Edit  //
+	/////////////////
+	
 	vm.cancelEdit  = function(){
 		FoundationApi.publish('basicModal', 'close');
 	}
 
-	/*
-	New & Edit Elders
-	*/
+	
+	///////////////////////
+	//New & Edit Elders //
+	///////////////////////
+	
 	vm.editElder = function(elderId){
 		vm.elderData = usersFactory.getElderDataFromGroup(vm.elders, elderId)
 		FoundationApi.publish('basicModal', 'open');
@@ -49,9 +57,11 @@ function adminCtrl($scope, $filter, sharedData, ajaxFactory, usersFactory, Found
 			})
 	}
 
-	/*
-	New & Edit Carers
-	*/
+	
+	///////////////////////
+	//New & Edit Carers //
+	///////////////////////
+	
 	vm.refreshFilteredElders = function(elders, eldersCarerList){
 		vm.filteredElders = $filter('usersFilter')(vm.elders, vm.eldersCarerList)
 		if (vm.filteredElders.length > 0){
@@ -93,6 +103,10 @@ function adminCtrl($scope, $filter, sharedData, ajaxFactory, usersFactory, Found
 	//////////
 
 	function activate(){
+		console.log("hola caracola1")
+		sharedData.setPartials(sharedData.getAdminPartials());
+		console.log(sharedData.getPartials())
+		console.log("hola caracola")
 		vm.changeEldersOrCarers(1);
 		vm.elders = sharedData.getResponse();
 		vm.carers = sharedData.getCarers();

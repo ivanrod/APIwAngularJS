@@ -60,10 +60,7 @@
 </div>
 
 <ul class="dark menu-bar" ng-animate-children ng-if="layout.phone">
-  <li ng-animate ng-click="layout.enableBox(1)" ng-class="{'is-active': layout.selected === 1}"><a href="#"><i class="fi-torsos-all"></i></a></li>
-  <li ng-animate ng-click="layout.enableBox(2)" ng-class="{'is-active': layout.selected === 2}"><a href="#"><i class="fi-map"></i></a></li>
-  <li ng-animate ng-click="layout.enableBox(3)" ng-class="{'is-active': layout.selected === 3}"><a href="#"><i class="fi-graph-trend"></i></a></li>
-  <li ng-animate ng-click="layout.enableBox(4)" ng-class="{'is-active': layout.selected === 4}"><a href="#"><i class="fi-alert"></i></a></li>
+  <li ng-repeat="partial in layout.partials" ng-animate ng-click="partial" ng-class="{'is-active': layout.selected === $index}"><a href="#"><i class={{partial.logo}}></i></a></li>
 </ul>
 
 </nav>

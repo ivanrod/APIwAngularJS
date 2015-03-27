@@ -13,11 +13,16 @@ function layoutCtrl($scope, auth, $rootScope, $document, $animate, $state, $auth
   /*
   Media queries with matchmedia
   */
-  vm.fillBox = sharedData.getPartial(1);
-  vm.selected = 1;
-  vm.slidification = false;
- 
- $(document).foundation('reflow');
+  $(document).foundation('reflow');
+
+  vm.fillBoxes = function(){
+    vm.partials = sharedData.getPartials();
+    //console.log(sharedData.getPartials())
+    //console.log(sharedData.getAdminPartials())
+    vm.fillBox = sharedData.getPartial(0).url;
+    vm.selected = 0;
+    vm.slidification = false;    
+  }
 
   vm.signOut = function(){
     $auth.signOut()
@@ -30,20 +35,20 @@ function layoutCtrl($scope, auth, $rootScope, $document, $animate, $state, $auth
   }
 
   vm.enableBox = function(box){
-    vm.fillBox = sharedData.getPartial(box);
+    vm.fillBox = sharedData.getPartial(box).url;
     vm.selected = box;
   }
   vm.slideBoxLeft = function(box){
     $animate.addClass(sharedData.getPhoneSection(), 'slideLeft').then(function(){
       sharedData.getPhoneSection().removeClass('slideLeft');
     })
-    if (box < 4){
-      vm.fillBox = sharedData.getPartial(box + 1);
+    if (box < Object.keys(vm.partials).length-1){
+      vm.fillBox = sharedData.getPartial(box + 1).url;
       vm.selected = box + 1;
     }
     else{
-      vm.fillBox = sharedData.getPartial(1);
-      vm.selected = 1;
+      vm.fillBox = sharedData.getPartial(0).url;
+      vm.selected = 0;
     }
     
   }
@@ -52,13 +57,13 @@ function layoutCtrl($scope, auth, $rootScope, $document, $animate, $state, $auth
     $animate.addClass(sharedData.getPhoneSection(), 'slideRight').then(function(){
       sharedData.getPhoneSection().removeClass('slideRight');
     })
-    if (box > 1){
-      vm.fillBox = sharedData.getPartial(box - 1);
+    if (box > 0){
+      vm.fillBox = sharedData.getPartial(box - 1).url;
       vm.selected = box - 1;
     }
     else{
-      vm.fillBox = sharedData.getPartial(4);
-      vm.selected = 4;
+      vm.fillBox = sharedData.getPartial(Object.keys(vm.partials).length-1).url;
+      vm.selected = Object.keys(vm.partials).length-1;
     }
   }
 
@@ -66,6 +71,8 @@ function layoutCtrl($scope, auth, $rootScope, $document, $animate, $state, $auth
   matchmedia.on('(max-width: 1025px)', function(mediaQueryList){
     vm.phone = mediaQueryList.matches;
     if (mediaQueryList.matches){
+      vm.fillBoxes();
+
       sharedData.setPhoneSection();
       vm.usersBox = true;
       vm.mapBox = false;
@@ -83,4 +90,8 @@ function layoutCtrl($scope, auth, $rootScope, $document, $animate, $state, $auth
     }
   });
   
+  $scope.$on('partials', function(){
+    vm.fillBoxes();
+  })
+
 }

@@ -84,6 +84,8 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
   ///////////
 
   function activate(){
+    sharedData.setPartials(sharedData.getDashboardPartials());
+
     vm.waitingForUsers = true;
 
     vm.response = sharedData.getResponse();

@@ -15,24 +15,51 @@ function sharedData($rootScope, filterFilter) {
   var filteredData = filterFilter(response, people);
   var colours = Chart.defaults.global.colours;
   var phoneSection = angular.element(document.getElementById('phone-section'));
-  var partialsUrl = 'assets/app/dashboard/partials/';
+
   var alertsNames = {
       1: {type:"Botón de alerta", text:" ha pulsado el botón de alerta."},
       2: {type:"Inactividad", text:" lleva mas de 9 horas inactivo."},
       3: {type:"Caída", text:" se ha caído."},
       4: {type:"Salida de zona", text:" ha salido de su zona de seguridad."}
     }
-  var partials = {
-    1: partialsUrl + '_usersMobile.html',
-    2: partialsUrl + '_map.html',
-    3: partialsUrl + '_statistics.html',
-    4: partialsUrl + '_lastAlerts.html'
+
+  /////////////
+  //Partials //
+  /////////////
+
+  var dashboardPartialsUrl = 'assets/app/dashboard/partials/';
+  var dashboardPartials = {
+    0: {
+      url: dashboardPartialsUrl + '_usersMobile.html',
+      logo: "fi-torsos-all"
+    },
+    1: {
+      url: dashboardPartialsUrl + '_map.html',
+      logo: "fi-map"
+    },
+    2: {
+      url: dashboardPartialsUrl + '_statistics.html',
+      logo: "fi-graph-trend"
+    },
+    3: {
+      url: dashboardPartialsUrl + '_lastAlerts.html',
+      logo: "fi-alert"
+    }
   }
+
   var adminPartialsUrl = 'assets/app/admin/partials/';
   var adminPartials = {
-    1: adminPartialsUrl + '_elders.html',
-    2: adminPartialsUrl + '_carers.html'
+    0: {
+      url: adminPartialsUrl + '_elders.html',
+      logo: ""
+    },
+    1: {
+      url: adminPartialsUrl + '_carers.html',
+      logo: ""
+    }
   }
+
+  var partials = dashboardPartials;
 
         return {
             getPhoneSection: function() {
@@ -91,11 +118,27 @@ function sharedData($rootScope, filterFilter) {
             getFilteredData: function(){
               return filteredData;
             },
+            setPartials: function(obj){
+              partials = obj;
+              $rootScope.$broadcast("partials");
+            },
+            getPartials: function(){
+              return partials;
+            },
             getPartial: function(partial){
               return partials[partial];
             },
+            getDashboardPartial: function(partial){
+              return dashboardPartials[partial];
+            },
+            getDashboardPartials: function(){
+              return dashboardPartials;
+            },
             getAdminPartial: function(partial){
               return adminPartials[partial];
+            },
+            getAdminPartials: function(){
+              return adminPartials;
             }
         }
       };
