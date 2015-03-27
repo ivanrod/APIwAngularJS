@@ -51,11 +51,11 @@ function sharedData($rootScope, filterFilter) {
   var adminPartials = {
     0: {
       url: adminPartialsUrl + '_elders.html',
-      logo: ""
+      logo: "fi-torsos"
     },
     1: {
       url: adminPartialsUrl + '_carers.html',
-      logo: ""
+      logo: "fi-torso-business"
     }
   }
 
