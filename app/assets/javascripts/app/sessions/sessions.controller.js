@@ -32,6 +32,8 @@ $(document).foundation('reflow');
 	    toaster.pop('error', "Error", "El usuario o contraseña no es correcto")
 	});
 
-	
+	$rootScope.$on('admin_auth:login-error', function(ev, reason) {
+	    toaster.pop('error', "Error", "El usuario o contraseña no es correcto")
+	});
 
 }

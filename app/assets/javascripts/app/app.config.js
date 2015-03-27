@@ -1,19 +1,23 @@
 function playConfig(uiGmapGoogleMapApiProvider ,$authProvider, $httpProvider, $urlRouterProvider, $stateProvider) {
 	'use strict';
-    //Config to load Google maps SDK
-    uiGmapGoogleMapApiProvider.configure({
-        //    key: 'your api key',
-        v: '3.17',
-        libraries: 'weather,geometry,visualization'
-    });
+  ///////////////////////////////////
+  //Config to load Google maps SDK //
+  ///////////////////////////////////
+  uiGmapGoogleMapApiProvider.configure({
+      //    key: 'your api key',
+      v: '3.17',
+      libraries: 'weather,geometry,visualization'
+  });
 
-    //AJAX headers to allow rails to identify it as request.xhr
-    $httpProvider.defaults.headers.common['X-Requested-With'] = 'AngularXMLHttpRequest';
-    $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
+  //////////////////////////////////////////////////////////////
+  //AJAX headers to allow rails to identify it as request.xhr //
+  //////////////////////////////////////////////////////////////
+  $httpProvider.defaults.headers.common['X-Requested-With'] = 'AngularXMLHttpRequest';
+  $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
 
-/*
-    Routes with UI Router
-*/
+  //////////////////////////
+  //Routes with UI Router //
+  //////////////////////////
   $urlRouterProvider.otherwise("/dashboard");
 
   $stateProvider
@@ -78,33 +82,36 @@ function playConfig(uiGmapGoogleMapApiProvider ,$authProvider, $httpProvider, $u
         }
     }) 
 
-$authProvider.configure([
-  { 
-    default: {
-      apiUrl:                '',
-      signOutUrl:            '/auth/sign_out',
-      emailSignInPath:       '/auth/sign_in',
-      emailRegistrationPath: '/auth',
-      accountUpdatePath:     '/auth',
-      accountDeletePath:     '/auth',
-      passwordResetPath:     '/auth/password',
-      passwordUpdatePath:    '/auth/password',
-      tokenValidationPath:   '/auth/validate_token',
-    }   
-  }, {
-    admin: {
-      apiUrl:                '',
-      signOutUrl:            '/admin_auth/sign_out',
-      emailSignInPath:       '/admin_auth/sign_in',
-      emailRegistrationPath: '/admin_auth',
-      accountUpdatePath:     '/admin_auth',
-      accountDeletePath:     '/admin_auth',
-      passwordResetPath:     '/admin_auth/password',
-      passwordUpdatePath:    '/admin_auth/password',
-      tokenValidationPath:   '/admin_auth/validate_token',
+  ///////////////////////////////
+  //authProvider Configuration //
+  ///////////////////////////////
+  $authProvider.configure([
+    { 
+      default: {
+        apiUrl:                '',
+        signOutUrl:            '/auth/sign_out',
+        emailSignInPath:       '/auth/sign_in',
+        emailRegistrationPath: '/auth',
+        accountUpdatePath:     '/auth',
+        accountDeletePath:     '/auth',
+        passwordResetPath:     '/auth/password',
+        passwordUpdatePath:    '/auth/password',
+        tokenValidationPath:   '/auth/validate_token',
+      }   
+    }, {
+      admin: {
+        apiUrl:                '',
+        signOutUrl:            '/admin_auth/sign_out',
+        emailSignInPath:       '/admin_auth/sign_in',
+        emailRegistrationPath: '/admin_auth',
+        accountUpdatePath:     '/admin_auth',
+        accountDeletePath:     '/admin_auth',
+        passwordResetPath:     '/admin_auth/password',
+        passwordUpdatePath:    '/admin_auth/password',
+        tokenValidationPath:   '/admin_auth/validate_token',
+      }
     }
-  }
-]);
+  ]);
 
 
 

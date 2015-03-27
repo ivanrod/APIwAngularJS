@@ -6,6 +6,7 @@ function layoutCtrl($scope, auth, $rootScope, $document, $animate, $state, $auth
 
   console.log("Logeado como: " + auth.email)
   
+  //To identify an admin, his nickname has to be ADMIN
   if (auth.nickname === "ADMIN"){
     vm.admin = true;
   }

@@ -23,7 +23,14 @@ module StaticPagesHelper
 	end
 
 	def self.parse_payload_location(asset_id, lat, lon, distance)
-		return {"id"=> asset_id, "data"=>{"location"=> parse_location(lat,lon), "distanceToHome"=>distance}}
+		data = {"speed"=>85, 
+			"location"=> parse_location(lat,lon), 
+			"event" => "FALL", 
+			"battery" => "95", 
+			"hpe" => "75", 
+			"motion" => true, 
+			"date" => "2015-03-17T16:04:00"}
+		return {"id"=> asset_id, "data"=> data}
 	end
 
 	#Random functions

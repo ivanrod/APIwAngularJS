@@ -22,7 +22,11 @@
 
     'use strict';
 
-    // Declare app level module which depends on views, and components
+
+    ///////////////////////////////////////
+    ///Play App////////////////////////////
+    //App declaration with deppendencies //
+    ///////////////////////////////////////
     angular
         .module('play', ['chart.js', 
             'matchmedia-ng', 
@@ -39,24 +43,44 @@
             'toaster',
             'ng-token-auth'])
 
+
+    ///////////////////////////
+    //Component declarations //
+    ///////////////////////////
     angular
         .module('play')
+        //////////////////
+        //Configuration //
+        //////////////////
         .config(playConfig)
+        ////////////
+        //Filters //
+        ////////////
         .filter('usersFilter', usersFilter)
+        /////////////
+        //Services //
+        /////////////
         .service('sharedData', sharedData)
         .service('authenticationService', authenticationService)
+        //////////////
+        //Factories //
+        //////////////
         .factory('ajaxFactory', ajaxFactory)
         .factory('dashboardFactory', dashboardFactory)
         .factory('mapsFactory', mapsFactory)
         .factory('alertsFactory', alertsFactory)
         .factory('usersFactory', usersFactory)
         .factory('getDataFromApiFactory', getDataFromApiFactory)
+        ////////////////
+        //Controllers //
+        ////////////////
         .controller('layoutCtrl', layoutCtrl)
         .controller('dashboardCtrl', dashboardCtrl)
         .controller('mapsCtrl', mapsCtrl)
         .controller('adminCtrl', adminCtrl)
         .controller('userCtrl', userCtrl)
         .controller('sessionsCtrl', sessionsCtrl)
+        //cgBusy configuration
         .value('cgBusyDefaults',{
           message:'Cargando...',
         })
