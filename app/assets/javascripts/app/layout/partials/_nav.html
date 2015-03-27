@@ -1,0 +1,39 @@
+  <nav ng-hide="layout.phone" class="top-bar" data-topbar role="navigation">
+    <ul class="middle tab-bar-section">
+      <li class="name">
+        <h1><img ng-src="assets/VueForgePlay.png" class="logo"></h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="active"><a href="http://playbyaltran.appspot.com/admin.html"><i class="fa fa-diamond"></i> Administración Play</a></li>
+        <li class="has-dropdown">
+          <a data-dropdown="dropdown1" aria-controls="drop1" aria-expanded="false"><i class="fa fa-user"></i> Mi cuenta</a>
+          <ul data-dropdown-content aria-hidden="true" class="f-dropdown" id="dropdown1">
+            <li><a href="#">Mis datos</a></li>
+            <li><a ng-click="layout.signOut()">Salir</a></li>
+          </ul>
+        </li>
+      </ul>
+
+    </section>
+</nav>
+
+  <!-- Left Nav Sidebar -->
+
+<nav ng-hide="layout.phone" class="large-1 columns left-nav">
+  <div class="icon-bar vertical five-up">
+    <a class="item" href="/#/dashboard">
+        <i class="fi-info"></i>
+        <label>Dashboard</label>
+    </a>
+    <a ng-if="layout.admin" class="item" href="/#/admin">
+      <i class="fi-wrench"></i>
+      <label>Administración</label>
+    </a>
+  </div>
+</nav>

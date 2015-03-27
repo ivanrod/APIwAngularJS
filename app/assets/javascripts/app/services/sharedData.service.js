@@ -8,7 +8,6 @@ function sharedData($rootScope, filterFilter) {
   var response = null;
   var people = "";
   var peopleOrder = {};
-  var alerts = null;
   var carers = null;
   //var chartData = dashboardFactory.allUsersAlertsNum(response, alerts);
   var payloads = {};
@@ -16,6 +15,10 @@ function sharedData($rootScope, filterFilter) {
   var colours = Chart.defaults.global.colours;
   var phoneSection = angular.element(document.getElementById('phone-section'));
 
+  ///////////
+  //Alerts //
+  ///////////
+  var alerts = null;
   var alertsNames = {
       1: {type:"Botón de alerta", text:" ha pulsado el botón de alerta."},
       2: {type:"Inactividad", text:" lleva mas de 9 horas inactivo."},
@@ -26,7 +29,9 @@ function sharedData($rootScope, filterFilter) {
   /////////////
   //Partials //
   /////////////
-
+    //////////////////////
+    //Dashboard Partials//
+    //////////////////////
   var dashboardPartialsUrl = 'assets/app/dashboard/partials/';
   var dashboardPartials = {
     0: {
@@ -46,7 +51,9 @@ function sharedData($rootScope, filterFilter) {
       logo: "fi-alert"
     }
   }
-
+    ///////////////////
+    //Admin Partials //
+    ///////////////////
   var adminPartialsUrl = 'assets/app/admin/partials/';
   var adminPartials = {
     0: {
@@ -58,9 +65,21 @@ function sharedData($rootScope, filterFilter) {
       logo: "fi-torso-business"
     }
   }
+    ////////////////////
+    //Elders Partials //
+    ////////////////////
+  var elderPartialsUrl = 'assets/app/user/partials/';
+  var elderPartials = {
+    0: {
+      url: elderPartialsUrl + '',
+      logo: ''
+    }
+  }
 
   var partials = dashboardPartials;
-
+        //////////////////////
+        //Service functions //
+        //////////////////////
         return {
             getPhoneSection: function() {
               return phoneSection;
@@ -95,6 +114,9 @@ function sharedData($rootScope, filterFilter) {
             setPayloads: function(obj){
               payloads = obj;
             },
+            //////////////////
+            //People filter //
+            //////////////////
             getPeople:function () {
               return people;
             },
@@ -118,6 +140,9 @@ function sharedData($rootScope, filterFilter) {
             getFilteredData: function(){
               return filteredData;
             },
+            /////////////
+            //Partials //
+            /////////////
             setPartials: function(obj){
               partials = obj;
               $rootScope.$broadcast("partials");
@@ -139,6 +164,12 @@ function sharedData($rootScope, filterFilter) {
             },
             getAdminPartials: function(){
               return adminPartials;
+            },
+            getElderPartial: function(partial){
+              return elderPartials[partial];
+            },
+            getElderPartials: function(){
+              return elderPartials;
             }
         }
       };

@@ -30,6 +30,8 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 	//////////
 
 	function activate(){
+		sharedData.setPartials(sharedData.getDashboardPartials());
+		
 		vm.elderDataPromise = ajaxFactory.getElderData(vm.userId)
 		.then(function(data){
 			//sharedData.setPeople(vm.userId)
