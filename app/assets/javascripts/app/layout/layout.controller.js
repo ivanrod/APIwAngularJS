@@ -27,6 +27,7 @@ function layoutCtrl($scope, auth, $rootScope, $document, $animate, $state, $auth
   vm.signOut = function(){
     $auth.signOut()
     .then(function(resp){
+      sharedData.resetData();
       $state.go('signIn');
     })
     .catch(function(resp){

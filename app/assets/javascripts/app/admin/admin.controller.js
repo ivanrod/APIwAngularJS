@@ -8,7 +8,7 @@ function adminCtrl($scope, $filter, sharedData, ajaxFactory, usersFactory, Found
 	//////////////////
 	
 	vm.changeEldersOrCarers = function(eldersOrCarers){
-		vm.adminPartial = sharedData.getAdminPartial(eldersOrCarers);
+		vm.adminPartial = sharedData.getPartial(eldersOrCarers);
 		vm.adminPartialActive = eldersOrCarers;
 	}
 
@@ -107,7 +107,7 @@ function adminCtrl($scope, $filter, sharedData, ajaxFactory, usersFactory, Found
 		sharedData.setPartials(sharedData.getAdminPartials());
 		console.log(sharedData.getPartials())
 		console.log("hola caracola")
-		vm.changeEldersOrCarers(1);
+		vm.changeEldersOrCarers(0);
 		vm.elders = sharedData.getResponse();
 		vm.carers = sharedData.getCarers();
 

@@ -5,82 +5,121 @@
  */
 function sharedData($rootScope, filterFilter) {
   'use strict';
-  var response = null;
-  var people = "";
-  var peopleOrder = {};
-  var carers = null;
-  //var chartData = dashboardFactory.allUsersAlertsNum(response, alerts);
-  var payloads = {};
-  var filteredData = filterFilter(response, people);
-  var colours = Chart.defaults.global.colours;
-  var phoneSection = angular.element(document.getElementById('phone-section'));
+  /////////////////////////
+  //Variable definitions //
+  /////////////////////////
+  var response;
+  var people;
+  var peopleOrder;
+  var carers;
+  var payloads;
+  var filteredData;
+  var colours;
+  var phoneSection;
 
   ///////////
   //Alerts //
   ///////////
-  var alerts = null;
-  var alertsNames = {
-      1: {type:"Botón de alerta", text:" ha pulsado el botón de alerta."},
-      2: {type:"Inactividad", text:" lleva mas de 9 horas inactivo."},
-      3: {type:"Caída", text:" se ha caído."},
-      4: {type:"Salida de zona", text:" ha salido de su zona de seguridad."}
-    }
+  var alerts;
+  var alertsNames;
 
   /////////////
   //Partials //
   /////////////
+  var partials;
     //////////////////////
     //Dashboard Partials//
     //////////////////////
-  var dashboardPartialsUrl = 'assets/app/dashboard/partials/';
-  var dashboardPartials = {
-    0: {
-      url: dashboardPartialsUrl + '_usersMobile.html',
-      logo: "fi-torsos-all"
-    },
-    1: {
-      url: dashboardPartialsUrl + '_map.html',
-      logo: "fi-map"
-    },
-    2: {
-      url: dashboardPartialsUrl + '_statistics.html',
-      logo: "fi-graph-trend"
-    },
-    3: {
-      url: dashboardPartialsUrl + '_lastAlerts.html',
-      logo: "fi-alert"
-    }
-  }
+    var dashboardPartialsUrl;
+    var dashboardPartials;
     ///////////////////
     //Admin Partials //
     ///////////////////
-  var adminPartialsUrl = 'assets/app/admin/partials/';
-  var adminPartials = {
-    0: {
-      url: adminPartialsUrl + '_elders.html',
-      logo: "fi-torsos"
-    },
-    1: {
-      url: adminPartialsUrl + '_carers.html',
-      logo: "fi-torso-business"
-    }
-  }
+    var adminPartialsUrl;
+    var adminPartials;
     ////////////////////
     //Elders Partials //
     ////////////////////
-  var elderPartialsUrl = 'assets/app/user/partials/';
-  var elderPartials = {
-    0: {
-      url: elderPartialsUrl + '',
-      logo: ''
-    }
-  }
+    var elderPartialsUrl;
+    var elderPartials;
 
-  var partials = dashboardPartials;
+
+  /**
+   * Initializes the shared data service variables
+   * @return {[type]} [description]
+   */
+  var initData = function(){
+    response = null;
+    people = "";
+    peopleOrder = {};
+    carers = null;
+    payloads = {};
+    filteredData = filterFilter(response, people);
+    colours = Chart.defaults.global.colours;
+    phoneSection = angular.element(document.getElementById('phone-section'));
+
+    alerts = null;
+    alertsNames = {
+        1: {type:"Botón de alerta", text:" ha pulsado el botón de alerta."},
+        2: {type:"Inactividad", text:" lleva mas de 9 horas inactivo."},
+        3: {type:"Caída", text:" se ha caído."},
+        4: {type:"Salida de zona", text:" ha salido de su zona de seguridad."}
+      }
+
+    dashboardPartialsUrl = 'assets/app/dashboard/partials/';
+    dashboardPartials = {
+      0: {
+        url: dashboardPartialsUrl + '_usersMobile.html',
+        logo: "fi-torsos-all"
+      },
+      1: {
+        url: dashboardPartialsUrl + '_map.html',
+        logo: "fi-map"
+      },
+      2: {
+        url: dashboardPartialsUrl + '_statistics.html',
+        logo: "fi-graph-trend"
+      },
+      3: {
+        url: dashboardPartialsUrl + '_lastAlerts.html',
+        logo: "fi-alert"
+      }
+    }
+    adminPartialsUrl = 'assets/app/admin/partials/';
+    adminPartials = {
+      0: {
+        url: adminPartialsUrl + '_elders.html',
+        logo: "fi-torsos"
+      },
+      1: {
+        url: adminPartialsUrl + '_carers.html',
+        logo: "fi-torso-business"
+      }
+    }
+    elderPartialsUrl = 'assets/app/user/partials/';
+    elderPartials = {
+      0: {
+        url: elderPartialsUrl + '',
+        logo: ''
+      }
+    }
+
+    partials = dashboardPartials;
+  };
+
+  //Call the initData function at start
+  initData();
+
+
+
+
+
+
         //////////////////////
         //Service functions //
         //////////////////////
         return {
+            resetData: initData,
             getPhoneSection: function() {
               return phoneSection;
             },
