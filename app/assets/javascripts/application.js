@@ -17,7 +17,7 @@
 //= require angular-ui-router.min
 //= require angular-touch.min
 //= require angular-cookie.min
-//= require ng-token-auth.min
+//= require ng-token-auth
 //= require moment.min
 //= require momentLocales
 //= require lodash.min

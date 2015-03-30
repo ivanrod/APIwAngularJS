@@ -73,7 +73,6 @@ function layoutCtrl($scope, auth, $rootScope, $document, $animate, $state, $auth
     vm.phone = mediaQueryList.matches;
     if (mediaQueryList.matches){
       vm.fillBoxes();
-
       sharedData.setPhoneSection();
       vm.usersBox = true;
       vm.mapBox = false;
