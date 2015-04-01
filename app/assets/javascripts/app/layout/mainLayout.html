@@ -69,7 +69,7 @@
 
 </section>
 
-<section ui-view="viewNormal" ng-if="!layout.phone" class="large-11 small-12 columns">
+<section ui-view="viewNormal" ng-if="!layout.phone" class="large-11 small-12 columns" cg-busy="dashboard.usersPromise">
 </section>
 
 <footer class="footer-basic-centered" ng-hide="layout.phone">

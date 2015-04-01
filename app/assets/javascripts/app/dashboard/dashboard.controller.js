@@ -25,7 +25,7 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
   and add it to the alert div in the HTML tag:
   --> ng-style="dashboard.alertsStyle('{{alert.userId}}')"  
   */
-  
+
   vm.alertsStyle = function(userId){    
     return {background: sharedData.getColours()[sharedData.getPersonIndex(userId)].strokeColor}
   }
@@ -48,7 +48,9 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
     sharedData.setResponse(groups.data)
     vm.response = sharedData.getResponse();
     sharedData.setPeople("");
-    vm.people = sharedData.getPeople();    
+    vm.people = sharedData.getPeople();  
+
+    vm.usersReady = true;
   }
 
   function waitForAlerts(alerts){
@@ -62,12 +64,16 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
     vm.labels = dashboardFactory.last7daysArray();
     vm.series = vm.chartData.names;
     vm.data = vm.chartData.alerts;
+
+    vm.alertsReady = true;
   }
 
   function waitForMap(payloads){
     sharedData.setPayloads(payloads.data)
     vm.people = sharedData.getPeople();
 
+    //vm.showBox(angular.element(document.getElementById('map-box')))
+    vm.mapReady = true;
     //Tambien se puede $scope.$watch('dashboard.people', function(){...})
     $scope.$watch(angular.bind(vm, function () {
                         return vm.people;}), 
