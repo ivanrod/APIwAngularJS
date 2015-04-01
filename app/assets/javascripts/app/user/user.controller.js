@@ -21,6 +21,9 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 		vm.chartData = dashboardFactory.allUserAlertsNum(vm.lastWeekAlerts);
 		vm.labels = vm.chartData.alertTypes;
 		vm.data = [vm.chartData.alertsNumber];
+
+		vm.alertsReady = true;
+		vm.mapReady = true;
 	}
 
 
@@ -34,6 +37,7 @@ function userCtrl($scope, $stateParams, sharedData, alertsFactory, ajaxFactory, 
 		
 		vm.elderDataPromise = ajaxFactory.getElderData(vm.userId)
 		.then(function(data){
+			vm.userReady = true;
 			//sharedData.setPeople(vm.userId)
 			vm.name = data.data.name;
 			vm.address = data.data.address;

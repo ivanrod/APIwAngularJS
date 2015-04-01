@@ -1,6 +1,6 @@
 <div cg-busy="dashboard.usersPromise" class="pricing-table">		
 				
-	<div ng-scrollable="{scrollX:'none',scrollY:'right'}" data-alert class="alert-box secondary radius"  ng-repeat="group in dashboard.response | filter:dashboard.people">
+	<div ng-scrollable="{scrollX:'none',scrollY:'right'}" data-alert class="alert-box secondary radius animate-repeat"  ng-repeat="group in dashboard.response | filter:dashboard.people">
 	<div class="left">
 			<div ng-click="showDetails = ! showDetails" class="left" ><i class="fi-minus" ng-show="showDetails"></i><i class="fi-plus" ng-hide="showDetails" >
 		</i></div> <a href="/#/users/{{group.name}}">{{group.dbName || group.name}}</a>

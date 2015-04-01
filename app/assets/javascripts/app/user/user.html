@@ -1,9 +1,9 @@
-<div class="large-12 columns" ng-cloak>
-	<article class="person large-4 columns">
+<div class="large-12 columns" ng-cloak cg-busy="user.elderDataPromise">
+	<article class="person large-4 columns" ng-show="user.userReady">
 		<div ng-include="'assets/app/user/partials/_user.html'">
 	</article>
 
-	<article class="alerts large-8 columns" ng-cloak>
+	<article class="alerts large-8 columns" ng-cloak ng-show="user.alertsReady">
 		<div ng-include="'assets/app/user/partials/_alerts.html'"></div>
 	</article>
 </div>
@@ -14,7 +14,7 @@
 	</article>
 </div>
 
-<div class="large-12 columns" ng-cloak>
+<div class="large-12 columns animate-if" ng-cloak ng-if="user.mapReady">
 	<article class="map">
 		<div ng-include="'assets/app/user/partials/_map.html'"></div>
 	</article>

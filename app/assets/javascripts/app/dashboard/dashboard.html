@@ -14,7 +14,7 @@
 
 		<article id="map-box" class="map large-8 columns" ng-show="dashboard.mapReady">
 		<h4>Mapa</h4>
-		<div  class="large-12" ng-include="'assets/app/dashboard/partials/_map.html'" ng-if="dashboard.mapReady">
+		<div  class="large-12 animate-if" ng-include="'assets/app/dashboard/partials/_map.html'" ng-if="dashboard.mapReady">
 		</div>
 		</article>
 
@@ -23,7 +23,7 @@
 	<div class="large-12 columns" ng-cloak>
 	<article id="statistics-box" class="chart large-8 columns" ng-show="dashboard.alertsReady">
 			<h4>Nº de alertas por usuario</h4>
-			<div ng-if="dashboard.alertsReady" ng-include="'assets/app/dashboard/partials/_statistics.html'">
+			<div class="animate-if" ng-if="dashboard.alertsReady" ng-include="'assets/app/dashboard/partials/_statistics.html'">
 				
 			</div> 
 	</article>

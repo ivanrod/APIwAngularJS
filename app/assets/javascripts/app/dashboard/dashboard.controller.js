@@ -111,7 +111,10 @@ function dashboardCtrl($scope, $animate, matchmedia, sharedData, ajaxFactory, da
       })
     }
     else{ 
+      vm.mapReady = true;
+      vm.usersRead = true;
       if (sharedData.getAlerts() != null){
+        vm.alertsReady = true;
         startAlertsData();
       }
       ajaxFactory.getGroups().then(function(groups){

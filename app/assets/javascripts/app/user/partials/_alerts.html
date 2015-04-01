@@ -1,4 +1,4 @@
-<div cg-busy="user.allUserAlertsPromise">
+<div>
 
 <ul class="button-group radius">
   <li><a href="#" ng-click="user.showWeekAlerts()" ng-class="{'success': !user.viewAllAlerts}" class="button">Ultima semana</a></li>
@@ -6,7 +6,7 @@
 </ul>
 <div class="alerts pricing-table" ng-scrollable="{scrollX:'none',scrollY:'right'}">
 
-	<div class="alert-box info radius last-alerts-box" ng-repeat="alert in user.alertTexts">
+	<div class="alert-box info radius last-alerts-box animate-repeat" ng-repeat="alert in user.alertTexts">
 	<div class="left"><span class="strong-words">{{alert.name || alert.userId}}</span> {{alert.text}}</div>
 	<div class="right strong-words">{{alert.time.fromNow()}}</div>		
 	</div>
